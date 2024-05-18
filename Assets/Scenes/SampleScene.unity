@@ -359,6 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
+  _spriteRenderer: {fileID: 814704466}
   speed: 3.82
   _movementSmoothing: 0.05
 --- !u!212 &814704466
