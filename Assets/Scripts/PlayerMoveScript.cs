@@ -23,6 +23,7 @@ public class PlayerMovementScript : MonoBehaviour
     /// How much to smooth out the movement
     /// </summary>
 	[Range(0, .3f)] [SerializeField] private float _movementSmoothing = .05f;	
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,34 +33,16 @@ public class PlayerMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_moveVector == Vector2.zero)
-        {
-            _animator.SetBool("IsWalking", false);
-            _animator.Play("PlayerIdle");
-        }
-        else
-        {
-            _animator.SetBool("IsWalking", true);
-        }
-
-        if (_moveVector.x < 0)
-        {
-            _spriteRenderer.flipX = true;
-        }
-        if (_moveVector.x > 0)
-        {
-            _spriteRenderer.flipX = false;
-        }
-
         _rigidbody.velocity = Vector3.SmoothDamp(_rigidbody.velocity, _moveVector,
             ref _smoothDampVector, _movementSmoothing);
+
+        _animator.SetFloat("Speed", _rigidbody.velocity.magnitude);
         //Debug.Log(_rigidbody.velocity.magnitude);
     }
 
 	public void OnMove(InputAction.CallbackContext context)
 	{
         _moveVector = context.ReadValue<Vector2>() * speed;
-        Debug.Log(_moveVector);
 	}
 
     
