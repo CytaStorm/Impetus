@@ -65,6 +65,41 @@ public class PlayerAttackScript : MonoBehaviour
     }
 
 	#region Attack Methods
+
+	/**  
+	 *	SPELLS EXPLANATION
+	 *	
+	 *		In order to cast a spell, a specific combination of attacks must happen.
+	 *	 This combination is able to happen without waiting for the cooldown on weapons,
+	 *   so it's not locked by the _attackReady boolean.
+	 *   
+	 *   In order to implement this, I will be creating a resettable STRING which will 
+	 *   consist of characters based on the inputs:
+	 *   
+	 *   L - Left click (Slash)
+	 *   R - Right click (Thrust)
+	 *   S - Spacebar (Slam)
+	 *   
+	 *   In the update method, I will be constantly checking if the string has a preset
+	 *   spell input, and if it does, the spell will be cast and the string reset. 
+	 */
+
+	/**  
+	 *	SPELL FIELDS
+	 *	
+	 *		The spell fields will consist of preset strings and the changeable 
+	 *		string for the current "cast". 
+	 */
+
+	// Basic spells - L: Fire attribute, R: Lightning attribute, S: Ice attribute.
+
+	public string fireballSpell = "LLL";  
+	public string lightningStreamSpell = "RRR"; 
+	public string iceRainSpell = "SSS";  
+
+	//By mixing these attributes, you can create other forms of magic.
+
+	public string 
 	public void OnSlash(InputAction.CallbackContext context)
 	{
 		if (!context.performed)
