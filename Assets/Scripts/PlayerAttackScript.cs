@@ -30,43 +30,75 @@ public class PlayerAttackScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region Sword initialization
         _swordControlPoint = this.gameObject.transform.GetChild(0).gameObject;
         _swingOffset = 0;
+        #endregion
+
+        #region Spell initialization
+        currentSpellCast = "";
+		spellList.Add(fireballSpell);
+		spellList.Add(lightningStreamSpell);
+        spellList.Add(iceHailRainSpell);
+        spellList.Add(waterSwordSpell);
+        spellList.Add(waterPiercingRainSpell);
+        spellList.Add(waterBlastSpell);
+        spellList.Add(snowStormSpell);
+        spellList.Add(fireArrowSpell);
+        spellList.Add(lightningBoltSpell);
+        #endregion
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Point sword in direction of mouse
-        _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+	// Update is called once per frame
+	void Update()
+	{
+		#region Sword update
+		//Point sword in direction of mouse
+		_mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 direction = new Vector2(
-            _mousePosition.x - _swordControlPoint.transform.position.x,
-            _mousePosition.y - _swordControlPoint.transform.position.y);
+		Vector2 direction = new Vector2(
+			_mousePosition.x - _swordControlPoint.transform.position.x,
+			_mousePosition.y - _swordControlPoint.transform.position.y);
 
-        _swordControlPoint.transform.up = direction;
-        
-        if (_swingOffset == 0)
-        {
-            _swordControlPoint.transform.Rotate(
-                new Vector3(0, 0, 100));
-        }
-        else
-        {
-            _swordControlPoint.transform.Rotate(
-                new Vector3(0, 0, -100));
-        }
+		_swordControlPoint.transform.up = direction;
 
-        if (!_attackReady)
-        {
-            _attackCooldownTimer = 
-                Mathf.Clamp(_attackCooldownTimer - Time.deltaTime, 0f, AttackCooldownTime);
-        }
-    }
+		if (_swingOffset == 0)
+		{
+			_swordControlPoint.transform.Rotate(
+				new Vector3(0, 0, 100));
+		}
+		else
+		{
+			_swordControlPoint.transform.Rotate(
+				new Vector3(0, 0, -100));
+		}
 
-	#region Attack Methods
+		if (!_attackReady)
+		{
+			_attackCooldownTimer =
+				Mathf.Clamp(_attackCooldownTimer - Time.deltaTime, 0f, AttackCooldownTime);
+		}
+		#endregion
 
-	/**  
+		if (currentSpellCast.Length == 3)
+		{
+
+			foreach (string spell in spellList)
+			{
+				if (spell == currentSpellCast)
+				{
+					//cast spell
+				}
+			}
+			currentSpellCast = "";
+		}
+	}
+
+
+    #region Attack Methods
+
+    /**  
 	 *	SPELLS EXPLANATION
 	 *	
 	 *		In order to cast a spell, a specific combination of attacks must happen.
@@ -84,22 +116,38 @@ public class PlayerAttackScript : MonoBehaviour
 	 *   spell input, and if it does, the spell will be cast and the string reset. 
 	 */
 
-	/**  
+    /**  
 	 *	SPELL FIELDS
 	 *	
 	 *		The spell fields will consist of preset strings and the changeable 
 	 *		string for the current "cast". 
 	 */
 
-	// Basic spells - L: Fire attribute, R: Lightning attribute, S: Ice attribute.
+    // Basic spells - L: Fire attribute, R: Lightning attribute, S: Ice attribute.
 
-	public string fireballSpell = "LLL";  
+    public string fireballSpell = "LLL";  
 	public string lightningStreamSpell = "RRR"; 
-	public string iceRainSpell = "SSS";  
+	public string iceHailRainSpell = "SSS";
 
 	//By mixing these attributes, you can create other forms of magic.
 
-	public string 
+	public string waterSwordSpell = "LSL";
+	public string waterPiercingRainSpell = "SLS";
+	public string waterBlastSpell = "LLS";
+
+	public string snowStormSpell = "SSL";
+
+	public string fireArrowSpell = "LLR";
+	public string lightningBoltSpell = "RRL";
+
+	public List<string> spellList = new List<string>();
+
+
+	//I'll add more of these later on, for now I'm going to leave it at this and probably not even
+	//code most of them until i know we can actually like get more than just a few done.
+
+	public string currentSpellCast;
+
 	public void OnSlash(InputAction.CallbackContext context)
 	{
 		if (!context.performed)
@@ -111,6 +159,8 @@ public class PlayerAttackScript : MonoBehaviour
 			Debug.Log("attack on cooldown!");
 			return;
 		}
+
+		currentSpellCast = currentSpellCast + "L";
 
 		Debug.Log("slash");
 		_attackCooldownTimer = AttackCooldownTime;
@@ -132,7 +182,9 @@ public class PlayerAttackScript : MonoBehaviour
 			return;
 		}
 
-		Debug.Log("thrust");
+        currentSpellCast = currentSpellCast + "R";
+
+        Debug.Log("thrust");
 		_attackCooldownTimer = AttackCooldownTime;
 		ChangeSwingOffset();
 		return;
@@ -150,7 +202,9 @@ public class PlayerAttackScript : MonoBehaviour
 			return;
 		}
 
-		Debug.Log("slam");
+        currentSpellCast = currentSpellCast + "S";
+
+        Debug.Log("slam");
 		_attackCooldownTimer = AttackCooldownTime;
 		ChangeSwingOffset();
 		return;
