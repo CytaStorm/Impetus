@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -79,21 +81,48 @@ public class PlayerAttackScript : MonoBehaviour
 			_attackCooldownTimer =
 				Mathf.Clamp(_attackCooldownTimer - Time.deltaTime, 0f, AttackCooldownTime);
 		}
-		#endregion
+        #endregion
 
-		if (currentSpellCast.Length == 3)
+        #region Spell Update
+
+		/**
+		 * Checks if the length of the spell input 
+		 * string is 3 letters long and casts a spell
+		 */
+
+        if (currentSpellCast.Length == 3) 
 		{
-
+			print("Spell input desired length");
+			print(currentSpellCast);
+			Boolean isSpell = false;
 			foreach (string spell in spellList)
 			{
+				
 				if (spell == currentSpellCast)
 				{
-					//cast spell
+					if(spellDictionary.TryGetValue(currentSpellCast, out string spellName))
+					{
+						print(spellName + " Casted!");
+                        //cast spell
+                        isSpell = true;
+                    }
+					
+			
+					
+
+					
 				}
 			}
 			currentSpellCast = "";
+			if (!isSpell)
+			{
+				print("Invalid Spell Input!");
+			}
 		}
-	}
+
+        #endregion
+    }
+
 
 
     #region Attack Methods
@@ -141,26 +170,45 @@ public class PlayerAttackScript : MonoBehaviour
 	public string lightningBoltSpell = "RRL";
 
 	public List<string> spellList = new List<string>();
+    public Dictionary<string, string> spellDictionary = new Dictionary<string, string>
+    {
+        { "LLL", "fireballSpell" },
+        { "RRR", "lightningStreamSpell" },
+        { "SSS", "iceHailRainSpell" },
+        { "LSL", "waterSwordSpell" },
+        { "SLS", "waterPiercingRainSpell" },
+        { "LLS", "waterBlastSpell" },
+        { "SSL", "snowStormSpell" },
+        { "LLR", "fireArrowSpell" },
+        { "RRL", "lightningBoltSpell" }
+    };
 
 
-	//I'll add more of these later on, for now I'm going to leave it at this and probably not even
-	//code most of them until i know we can actually like get more than just a few done.
+    //I'll add more of these later on, for now I'm going to leave it at this and probably not even
+    //code most of them until i know we can actually like get more than just a few done.
 
-	public string currentSpellCast;
+    public string currentSpellCast;
 
-	public void OnSlash(InputAction.CallbackContext context)
+    public void OnSlash(InputAction.CallbackContext context)
 	{
+		Boolean wasSpellInput = false;
 		if (!context.performed)
 		{
 			return;
 		}
 		if (!_attackReady)
 		{
-			Debug.Log("attack on cooldown!");
+            currentSpellCast = currentSpellCast + "L";
+			wasSpellInput = true;
+            Debug.Log("attack on cooldown!");
 			return;
 		}
+		if (!wasSpellInput)
+		{
+            currentSpellCast = currentSpellCast + "L";
 
-		currentSpellCast = currentSpellCast + "L";
+        }
+		
 
 		Debug.Log("slash");
 		_attackCooldownTimer = AttackCooldownTime;
@@ -172,17 +220,24 @@ public class PlayerAttackScript : MonoBehaviour
 
 	public void OnThrust(InputAction.CallbackContext context)
 	{
+		Boolean wasSpellInput = false;
 		if (!context.performed)
 		{
 			return;
 		}
 		if (!_attackReady)
 		{
-			Debug.Log("attack on cooldown!");
+            currentSpellCast = currentSpellCast + "R";
+			wasSpellInput = true;
+            Debug.Log("attack on cooldown!");
 			return;
 		}
+		if (!wasSpellInput)
+		{
+			currentSpellCast = currentSpellCast + "R";
+		}
 
-        currentSpellCast = currentSpellCast + "R";
+        
 
         Debug.Log("thrust");
 		_attackCooldownTimer = AttackCooldownTime;
@@ -192,17 +247,23 @@ public class PlayerAttackScript : MonoBehaviour
 
 	public void OnSlam(InputAction.CallbackContext context)
 	{
+		Boolean wasSpellInput = false;
 		if (!context.performed)
 		{
 			return;
 		}
 		if (!_attackReady)
 		{
-			Debug.Log("attack on cooldown!");
+            currentSpellCast = currentSpellCast + "S";
+			wasSpellInput = true;
+            Debug.Log("attack on cooldown!");
 			return;
 		}
-
-        currentSpellCast = currentSpellCast + "S";
+		if (!wasSpellInput)
+		{
+            currentSpellCast = currentSpellCast + "S";
+        }
+        
 
         Debug.Log("slam");
 		_attackCooldownTimer = AttackCooldownTime;
