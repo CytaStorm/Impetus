@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class LevelGenScript : MonoBehaviour
 {
-    // holds all possible types of dungeon rooms
+    // holds all prefab dungeon rooms
     public List<Room> rooms = new List<Room>();
 
-    // graphs that determine 
+    // graphs that determine the order of rooms
     private List<Graph> layouts = new List<Graph>();
 
     // Start is called before the first frame update
     void Start()
     {
-        // initialize all possible layouts and room types
+        // TO DO: initialize all possible layouts and room types
     }
 
     // Update is called once per frame
@@ -29,7 +29,14 @@ public class LevelGenScript : MonoBehaviour
     {
         // choose a random layout
         Graph layout = layouts[Random.Range(0, layouts.Count)];
+
         // generate rooms in path order
+        foreach(Vertex vertex in layout.Vertices)
+        {
+            Room currentRoom = rooms[Random.Range(0, rooms.Count)];
+            // TO DO: set a position vector3 based on the previous room's exit
+            Instantiate(currentRoom.Map);
+        }
 
     }
 
@@ -50,6 +57,14 @@ public class Room
     Vector2 entrance;
     Vector2 exit;
     GameObject map;
+
+    /// <summary>
+    /// All the gameobjects contained within the room
+    /// </summary>
+    public GameObject Map
+    {
+        get { return map; }
+    }
 
     /// <summary>
     /// Create a new dungeon room
