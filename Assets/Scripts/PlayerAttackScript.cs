@@ -17,21 +17,16 @@ public class PlayerAttackScript : MonoBehaviour
 	#endregion
 
 	#region Sword Drawing
+	[Range(0f, 360f)] public int SlashArc;
 	private GameObject _swordControlPoint;
     private Vector3 _mousePosition;
 
-    /// <summary>
-    /// Used to determine which side of the player sword
-    /// should be drawn on.
-    /// </summary>
-    private byte _swingOffset;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         _swordControlPoint = this.gameObject.transform.GetChild(0).gameObject;
-        _swingOffset = 0;
     }
 
     // Update is called once per frame
@@ -44,33 +39,19 @@ public class PlayerAttackScript : MonoBehaviour
             _mousePosition.x - _swordControlPoint.transform.position.x,
             _mousePosition.y - _swordControlPoint.transform.position.y);
 
-        _swordControlPoint.transform.up = direction;
-        
-        if (_swingOffset == 0)
-        {
-            _swordControlPoint.transform.Rotate(
-                new Vector3(0, 0, 100));
-        }
-        else
-        {
-            _swordControlPoint.transform.Rotate(
-                new Vector3(0, 0, -100));
-        }
-
         if (!_attackReady)
         {
             _attackCooldownTimer = 
                 Mathf.Clamp(_attackCooldownTimer - Time.deltaTime, 0f, AttackCooldownTime);
+			_swordControlPoint.transform.up = direction;
+			return;
         }
     }
 
 	#region Attack Methods
-	public void OnSlash(InputAction.CallbackContext context)
+	public void OnSlashInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed)
-		{
-			return;
-		}
+		if (!context.performed)	return;
 		if (!_attackReady)
 		{
 			Debug.Log("attack on cooldown!");
@@ -79,18 +60,15 @@ public class PlayerAttackScript : MonoBehaviour
 
 		Debug.Log("slash");
 		_attackCooldownTimer = AttackCooldownTime;
-		ChangeSwingOffset();
+
+        _swordControlPoint.transform.Rotate(
+            new Vector3(0, 0, SlashArc / 2));
 		return;
 	}
 
-	
-
-	public void OnThrust(InputAction.CallbackContext context)
+	public void OnThrustInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed)
-		{
-			return;
-		}
+		if (!context.performed)	return;
 		if (!_attackReady)
 		{
 			Debug.Log("attack on cooldown!");
@@ -99,16 +77,12 @@ public class PlayerAttackScript : MonoBehaviour
 
 		Debug.Log("thrust");
 		_attackCooldownTimer = AttackCooldownTime;
-		ChangeSwingOffset();
 		return;
 	}
 
-	public void OnSlam(InputAction.CallbackContext context)
+	public void OnSlamInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed)
-		{
-			return;
-		}
+		if (!context.performed)	return;
 		if (!_attackReady)
 		{
 			Debug.Log("attack on cooldown!");
@@ -117,21 +91,12 @@ public class PlayerAttackScript : MonoBehaviour
 
 		Debug.Log("slam");
 		_attackCooldownTimer = AttackCooldownTime;
-		ChangeSwingOffset();
 		return;
 	}
-	#endregion
 
-	private void ChangeSwingOffset()
+	private void Slash()
 	{
-		if (_swingOffset == 0)
-		{
-			_swingOffset = 1;
-		}
-		else
-		{
-			_swingOffset = 0;
-		}
-	}
 
+	}
+	#endregion
 }

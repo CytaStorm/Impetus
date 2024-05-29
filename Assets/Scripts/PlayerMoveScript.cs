@@ -60,12 +60,12 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-	public void OnMove(InputAction.CallbackContext context)
+	public void OnMoveInput(InputAction.CallbackContext context)
 	{
         _moveVector = context.ReadValue<Vector2>() * Speed;
 	}
 
-    public void OnDash(InputAction.CallbackContext context)
+    public void OnDashInput(InputAction.CallbackContext context)
     {
         if (!context.performed)
         {

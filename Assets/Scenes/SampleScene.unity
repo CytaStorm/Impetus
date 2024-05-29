@@ -446,8 +446,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 814704465}
-        m_TargetAssemblyTypeName: PlayerScript, Assembly-CSharp
-        m_MethodName: OnMove
+        m_TargetAssemblyTypeName: PlayerMovementScript, Assembly-CSharp
+        m_MethodName: OnMoveInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -463,7 +463,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 814704468}
         m_TargetAssemblyTypeName: PlayerAttackScript, Assembly-CSharp
-        m_MethodName: OnSlash
+        m_MethodName: OnSlashInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -479,7 +479,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 814704468}
         m_TargetAssemblyTypeName: PlayerAttackScript, Assembly-CSharp
-        m_MethodName: OnThrust
+        m_MethodName: OnThrustInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -495,7 +495,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 814704468}
         m_TargetAssemblyTypeName: PlayerAttackScript, Assembly-CSharp
-        m_MethodName: OnSlam
+        m_MethodName: OnSlamInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -511,7 +511,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 814704465}
         m_TargetAssemblyTypeName: PlayerMovementScript, Assembly-CSharp
-        m_MethodName: OnDash
+        m_MethodName: OnDashInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -541,6 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackCooldownTime: 1
+  SlashArc: 266
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
