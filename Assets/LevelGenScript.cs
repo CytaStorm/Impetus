@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelGenScript : MonoBehaviour
 {
     // holds all possible types of dungeon rooms
-    public List<GameObject> rooms = new List<GameObject>();
+    public List<Room> rooms = new List<Room>();
 
     // graphs that determine 
     private List<Graph> layouts = new List<Graph>();
@@ -40,6 +40,32 @@ public class LevelGenScript : MonoBehaviour
     {
         // rooms will have a "room" tag, and this method will find all the objects
         // with that tag and destroy them
+    }
+}
+
+public class Room
+{
+    int width;
+    int height;
+    Vector2 entrance;
+    Vector2 exit;
+    GameObject map;
+
+    /// <summary>
+    /// Create a new dungeon room
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <param name="entrance"></param>
+    /// <param name="exit"></param>
+    /// <param name="map"></param>
+    public Room (int width, int height, Vector2 entrance, Vector2 exit, GameObject map)
+    {
+        this.width = width;
+        this.height = height;
+        this.entrance = entrance;
+        this.exit = exit;
+        this.map = map;
     }
 }
 
