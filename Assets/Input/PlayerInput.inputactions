@@ -51,13 +51,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Fireball (Temporary)",
+                    "name": "BeginSpell",
                     "type": "Button",
-                    "id": "dfb16ba3-3ad2-405a-a784-4943ec50a33d",
+                    "id": "01ce355f-1da3-40fa-a9a1-6435f1972520",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -162,12 +162,12 @@
                 },
                 {
                     "name": "",
-                    "id": "26c6e957-f2e8-4586-9b23-f927e065fb2f",
-                    "path": "",
+                    "id": "310e06fb-aa2c-482e-aa66-fa6f53e22f9e",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fireball (Temporary)",
+                    "action": "BeginSpell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
