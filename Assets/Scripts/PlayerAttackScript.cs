@@ -57,7 +57,6 @@ public class PlayerAttackScript : MonoBehaviour
 		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
 			AttackDuration);
 
-
 		if (_currentAttackTime == AttackDuration)
 		{
 			_attacking = false;
