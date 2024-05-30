@@ -36,15 +36,15 @@ public class PlayerAttackScript : MonoBehaviour
     void Start()
     {
         _swordControlPoint = this.gameObject.transform.GetChild(0).gameObject;
+		_swordControlPoint.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
 	{
-		//Not attacking
+		//Tick attack cooldown if possible and not attacking.
 		if (!_attacking)
 		{
-			//Attack isn't ready
 			if (!_attackReady)
 			{
 				_currentAttackCooldownTime =
@@ -57,9 +57,11 @@ public class PlayerAttackScript : MonoBehaviour
 		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
 			AttackDuration);
 
+
 		if (_currentAttackTime == AttackDuration)
 		{
 			_attacking = false;
+			_swordControlPoint.SetActive(false);
 		}
 	}
 
@@ -70,7 +72,6 @@ public class PlayerAttackScript : MonoBehaviour
 	{
 		if (!context.performed) return;
 		HandleBasicAttack();
-		Debug.Log("slash");
 		return;
 	}
 
@@ -78,7 +79,6 @@ public class PlayerAttackScript : MonoBehaviour
 	{
 		if (!context.performed)	return;
 		HandleBasicAttack();
-		Debug.Log("thrust");
 		return;
 	}
 
@@ -86,7 +86,6 @@ public class PlayerAttackScript : MonoBehaviour
 	{
 		if (!context.performed)	return;
 		HandleBasicAttack();
-		Debug.Log("slam");
 		return;
 	}
 	#endregion
@@ -103,17 +102,18 @@ public class PlayerAttackScript : MonoBehaviour
 			Debug.Log("attack on cooldown!");
 			return;
 		}
-		else
-		{
-			//Reset attack cooldown and attack duration
-			_currentAttackCooldownTime = AttackCooldownDuration;
-			_attacking = true;
-			_currentAttackTime = 0f;
+		_swordControlPoint.SetActive(true);		
+		//Reset attack cooldown and attack duration
+		_currentAttackCooldownTime = AttackCooldownDuration;
+		_attacking = true;
+		_currentAttackTime = 0f;
 
-			//Lock attack direction to cardinal/diagonal
-			_mostRecentAttackDirection = GetAttackDirection();
-			print(_mostRecentAttackDirection);
-		}
+		//Lock attack direction to cardinal/diagonal
+		_mostRecentAttackDirection = GetAttackDirection();
+		_swordControlPoint.transform.up = _mostRecentAttackDirection;
+		_swordControlPoint.transform.Rotate(
+			new Vector3(0, 0, SlashArc / 2));
+		print(_mostRecentAttackDirection);
 	}
 
 	private Vector2 GetAttackDirection()
