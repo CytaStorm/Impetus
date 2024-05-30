@@ -1,26 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerAttackScript : MonoBehaviour
 {
-	#region Attack Cooldown Fields
-	public float AttackCooldownTime;
+	#region Attack Fields
+    [Header("Attack Properties")]
+	//Attack duration
+	public float AttackDuration = 0.5f;
+	private float _currentAttackTime;
+	private bool _attacking;
+	private float _attackCompletion
+	{
+		get { return _currentAttackTime / AttackDuration; }
+	}
+	private Vector2 _mostRecentAttackDirection;
 
-    private float _attackCooldownTimer;
-
+	//Attack Cooldown
+	public float AttackCooldownDuration = 2f;
+    private float _currentAttackCooldownTime;
     private bool _attackReady 
     {
-        get { return _attackCooldownTimer == 0f; }
+        get { return _currentAttackCooldownTime == 0f; }
     }
 	#endregion
 
 	#region Sword Drawing
 	[Range(0f, 360f)] public int SlashArc;
 	private GameObject _swordControlPoint;
-    private Vector3 _mousePosition;
-
     #endregion
 
     // Start is called before the first frame update
@@ -31,72 +40,131 @@ public class PlayerAttackScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        //Point sword in direction of mouse
-        _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector2 direction = new Vector2(
-            _mousePosition.x - _swordControlPoint.transform.position.x,
-            _mousePosition.y - _swordControlPoint.transform.position.y);
-
-        if (!_attackReady)
-        {
-            _attackCooldownTimer = 
-                Mathf.Clamp(_attackCooldownTimer - Time.deltaTime, 0f, AttackCooldownTime);
-			_swordControlPoint.transform.up = direction;
+	{
+		//Not attacking
+		if (!_attacking)
+		{
+			//Attack isn't ready
+			if (!_attackReady)
+			{
+				_currentAttackCooldownTime =
+					Mathf.Clamp(_currentAttackCooldownTime - Time.deltaTime, 0f, AttackCooldownDuration);
+			}
 			return;
-        }
-    }
+		}
+
+		//Is attacking, tick up attack time and check if still attacking
+		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
+			AttackDuration);
+
+		if (_currentAttackTime == AttackDuration)
+		{
+			_attacking = false;
+		}
+	}
+
+	
 
 	#region Attack Methods
 	public void OnSlashInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed)	return;
-		if (!_attackReady)
-		{
-			Debug.Log("attack on cooldown!");
-			return;
-		}
-
+		if (!context.performed) return;
+		HandleBasicAttack();
 		Debug.Log("slash");
-		_attackCooldownTimer = AttackCooldownTime;
-
-        _swordControlPoint.transform.Rotate(
-            new Vector3(0, 0, SlashArc / 2));
 		return;
 	}
 
 	public void OnThrustInput(InputAction.CallbackContext context)
 	{
 		if (!context.performed)	return;
-		if (!_attackReady)
-		{
-			Debug.Log("attack on cooldown!");
-			return;
-		}
-
+		HandleBasicAttack();
 		Debug.Log("thrust");
-		_attackCooldownTimer = AttackCooldownTime;
 		return;
 	}
 
 	public void OnSlamInput(InputAction.CallbackContext context)
 	{
 		if (!context.performed)	return;
+		HandleBasicAttack();
+		Debug.Log("slam");
+		return;
+	}
+	#endregion
+
+	#region Helper Methods
+	/// <summary>
+	/// Sets up common elements between different basic attacks
+	/// like setting attack cooldowns and attack duration.
+	/// </summary>
+	private void HandleBasicAttack()
+	{
 		if (!_attackReady)
 		{
 			Debug.Log("attack on cooldown!");
 			return;
 		}
+		else
+		{
+			//Reset attack cooldown and attack duration
+			_currentAttackCooldownTime = AttackCooldownDuration;
+			_attacking = true;
+			_currentAttackTime = 0f;
 
-		Debug.Log("slam");
-		_attackCooldownTimer = AttackCooldownTime;
-		return;
+			//Lock attack direction to cardinal/diagonal
+			_mostRecentAttackDirection = GetAttackDirection();
+			print(_mostRecentAttackDirection);
+		}
 	}
 
-	private void Slash()
+	private Vector2 GetAttackDirection()
 	{
-
+		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Vector2 rawAttackDirection = new Vector2(
+			mousePosition.x - _swordControlPoint.transform.position.x,
+			mousePosition.y - _swordControlPoint.transform.position.y);
+		float rawAngle = Vector2.SignedAngle(Vector2.right, rawAttackDirection);
+		Vector2 realAttackDirection;
+		//EAST
+		if (Mathf.Abs(rawAngle) < 22.5)
+		{
+			realAttackDirection = Vector2.right;
+		}
+		//NORTHEAST
+		else if (rawAngle >= 22.5 && rawAngle < 67.5)
+		{
+			realAttackDirection = Vector2.right + Vector2.up;
+		}
+		//NORTH
+		else if (rawAngle >= 67.5 && rawAngle < 112.5)
+		{
+			realAttackDirection = Vector2.up;
+		}
+		//NORTHWEST
+		else if (rawAngle >= 112.5 && rawAngle < 157.5)
+		{
+			realAttackDirection = Vector2.up + Vector2.left;
+		}
+		//WEST
+		else if (Mathf.Abs(rawAngle) > 157.5)
+		{
+			realAttackDirection = Vector2.left;
+		}
+		//SOUTHWEST
+		else if (rawAngle >= -157.5 && rawAngle < -112.5)
+		{
+			realAttackDirection = Vector2.down + Vector2.left;
+		}
+		//SOUTH
+		else if (rawAngle >= -112.5 && rawAngle < -67.5)
+		{
+			realAttackDirection = Vector2.down;
+		}
+		//SOUTHEAST
+		else
+		{
+			realAttackDirection = Vector2.down + Vector2.right;
+		}
+		return realAttackDirection;
 	}
 	#endregion
 }
