@@ -128,33 +128,58 @@ public class PlayerAttackScript : MonoBehaviour
 		//    print("Invalid Spell Input!");
 		//}
 		Boolean isSpell = false;
-		if (spellBeingInputted)
+
+		if (isSpellActive)
 		{
-			if (spellFinished)
+			spellInputTimer -= Time.deltaTime;
+			if(spellInputTimer <= 0f)
 			{
 				spellBeingInputted = false;
-				print(currentSpellCast);
-				if(spellDictionary.TryGetValue(currentSpellCast, out string spellName))
-				{
-					print("Casting " + spellName + " with input " + currentSpellCast);
-					//cast spell
-					isSpell = true;
-					currentSpellCast = "";
-				}
-				spellFinished = false;
-				if (!isSpell)
-				{
-					print("No spell for this input" + currentSpellCast);
-					currentSpellCast = "";
-				}
+				currentSpellCast = "";
+				print("Input not finished in time, spell cancelled.");
 			}
 		}
-		else
-		{
-			currentSpellCast = "";
-		}
 
 
+
+
+
+        if (spellBeingInputted)
+        {
+            if (spellFinished)
+            {
+                spellBeingInputted = false;
+                print(currentSpellCast);
+                if (spellDictionary.TryGetValue(currentSpellCast, out string spellName))
+                {
+                    print("Casting " + spellName + " with input " + currentSpellCast);
+                    //cast spell
+                    isSpell = true;
+                    
+					
+                }
+                spellFinished = false;
+                
+				
+				if (!isSpell)
+                {
+                    print("No spell for this input" + currentSpellCast);
+                    currentSpellCast = "";
+				}
+				else //if it is a valid spell
+				{
+                    currentSpellCast = "";
+					spellInputTimer = 0f;
+					return;
+                }
+
+			
+            }
+        }
+        else
+        {
+            currentSpellCast = "";
+        }
         #endregion
     }
 
@@ -168,7 +193,6 @@ public class PlayerAttackScript : MonoBehaviour
 		if (this.currentSpellCast.Length == 0)
 		{
 			return true;
-			
 		}
 		else
 		{
@@ -182,12 +206,15 @@ public class PlayerAttackScript : MonoBehaviour
         {
             return;
         }
+		print("key press recognized");
         
 		if(isFirstInput())
 		{
 			print("Beginning spell");
             currentSpellCast = "";
             spellBeingInputted = true;
+
+			spellInputTimer = SpellInputDuration;
         }
 		else
 		{
@@ -196,11 +223,6 @@ public class PlayerAttackScript : MonoBehaviour
 				spellFinished = true;
 			}
 		}
-		
-
-
-
-
 	}
 
         public void OnSlash(InputAction.CallbackContext context)
@@ -384,11 +406,14 @@ public class PlayerAttackScript : MonoBehaviour
 	private Boolean spellBeingInputted;
 	private Boolean spellFinished;
 
-
-    //I'll add more of these later on, for now I'm going to leave it at this and probably not even
-    //code most of them until i know we can actually like get more than just a few done.
-
     public string currentSpellCast;
+
+
+	//Cooldown on spells 
+	public float SpellInputDuration = 4f;
+	public float spellInputTimer;
+	public Boolean isSpellActive => spellInputTimer > 0f;
+
     #endregion
 
 }

@@ -512,9 +512,21 @@ MonoBehaviour:
     m_ActionId: 022261fa-d375-4278-86b6-8246b311fa8d
     m_ActionName: gameplay/New action[/Mouse/delta/up,/Mouse/delta/down,/Mouse/delta/left,/Mouse/delta/right]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dfb16ba3-3ad2-405a-a784-4943ec50a33d
-    m_ActionName: gameplay/Fireball (Temporary)
+      m_Calls:
+      - m_Target: {fileID: 814704468}
+        m_TargetAssemblyTypeName: PlayerAttackScript, Assembly-CSharp
+        m_MethodName: OnBeginSpell
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 01ce355f-1da3-40fa-a9a1-6435f1972520
+    m_ActionName: gameplay/BeginSpell[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: gameplay
@@ -543,7 +555,10 @@ MonoBehaviour:
   fireArrowSpell: LLR
   lightningBoltSpell: RRL
   spellList: []
+  castable: 0
   currentSpellCast: 
+  SpellInputDuration: 4
+  spellInputTimer: 0
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
