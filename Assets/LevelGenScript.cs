@@ -144,9 +144,19 @@ public class Graph
 public class Vertex
 {
     private RoomType type;
+
+    // private RoomStyle style;
 }
 
 /// <summary>
 /// Stores what each dungeon room does
 /// </summary>
 public enum RoomType { Start, End, Normal, Special }
+
+/*
+/// <summary>
+/// Stores what style the room is (Where the doors are)
+/// L = left, T = top, R = right, B = bottom
+/// </summary>
+public enum RoomStyle { L, T, R, B, LT, LR, LB, TR, TB, RB, LTR, LTB, LRB, TRB, LTRB }
+*/
