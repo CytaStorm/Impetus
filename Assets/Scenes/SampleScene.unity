@@ -557,18 +557,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 0
-  playerMaxHealth: 0
-  playerDamage: 0
-  playerMana: 0
-  playerMaxMana: 0
-  playerDied:
+  PlayerHealthChanged:
     m_PersistentCalls:
       m_Calls: []
-  playerRevived:
+  PlayerMaxHealthChanged:
     m_PersistentCalls:
       m_Calls: []
-  playerFullHealed:
+  PlayerManaChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  PlayerMaxManaChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  PlayerDamageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  PlayerDied:
+    m_PersistentCalls:
+      m_Calls: []
+  PlayerRevived:
+    m_PersistentCalls:
+      m_Calls: []
+  PlayerFullHealed:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1355835681

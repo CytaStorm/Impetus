@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 /**  PLAYER STATS
@@ -9,6 +7,7 @@ using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
+    #region Fields
     private float _playerHealth; 
     private float _playerMaxHealth;
 
@@ -17,6 +16,10 @@ public class PlayerStats : MonoBehaviour
     private float _playerMana;
     private float _playerMaxMana;
 
+    private float _flow;
+    #endregion
+
+    #region Properties
     public float PlayerHealth
     {
         get => _playerHealth;
@@ -30,6 +33,10 @@ public class PlayerStats : MonoBehaviour
             PlayerMaxHealthChanged.Invoke(value);
             _playerMaxHealth = value; 
         }
+    }
+    public bool PlayerAlive
+    {
+        get => PlayerHealth > 0;
     }
     public float PlayerDamage
     {
@@ -58,12 +65,25 @@ public class PlayerStats : MonoBehaviour
             _playerMaxMana = value; 
         }
     }
-    public bool PlayerAlive
+    public float Flow
     {
-        get => PlayerHealth > 0;
+        get => _flow;
+        set => _flow = value;
     }
+    public int FlowState
+    {
+        get
+        {
+            if (Flow == 0) return 0;
+            if (Flow > 0 && Flow < 25) return 1;
+            if (Flow >= 25 && Flow < 50) return 2;
+            if (Flow >= 50 && Flow < 75) return 3;
+            return 4;
+        }
+    }
+    #endregion
 
-
+    #region Events
     public UnityEvent<float> PlayerHealthChanged;
     public UnityEvent<float> PlayerMaxHealthChanged;
 
@@ -75,10 +95,11 @@ public class PlayerStats : MonoBehaviour
     public UnityEvent PlayerDied;
     public UnityEvent PlayerRevived;
     public UnityEvent PlayerFullHealed;
+    #endregion
 
     #region Functions to change stats
 
-    public void playerHurt(float amount,float multiplier)
+    public void playerHurt(float amount, float multiplier)
     {
         PlayerHealth -= (amount * multiplier);
         if (PlayerHealth <= 0)
@@ -129,41 +150,6 @@ public class PlayerStats : MonoBehaviour
         PlayerMaxMana += amountRegained;
         PlayerManaChanged.Invoke(amountRegained);
     }
-
-    public void playerIncreaseDamage(float amount)
-    {
-        PlayerDamage += amount;
-        PlayerDamageChanged.Invoke(amount);
-    }
-    public void playerDecreaseDamage(float amount)
-    {
-        PlayerDamage -= amount;
-        PlayerDamageChanged.Invoke(amount);
-    }
-   
-    public void playerIncreaseMaxHealth(float amount)
-    {
-        PlayerMaxHealth += amount;
-        PlayerMaxHealthChanged.Invoke(amount);
-    }
-    public void playerDecreaseMaxHealth(float amount)
-    {
-        PlayerMaxHealth -= amount;
-        PlayerMaxHealthChanged.Invoke(amount);
-    }
-    
-    public void playerIncreaseMaxMana(float amount)
-    {
-        PlayerMaxMana += amount;
-        PlayerMaxManaChanged.Invoke(amount);
-    }
-
-    public void playerDecreaseMaxMana(float amount)
-    {
-        PlayerMaxMana -= amount;
-        PlayerMaxManaChanged.Invoke(amount);
-    }
-
     #endregion
 
 
