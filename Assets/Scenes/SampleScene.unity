@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 814704467}
   - component: {fileID: 814704465}
   - component: {fileID: 814704468}
+  - component: {fileID: 814704469}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -362,8 +363,10 @@ MonoBehaviour:
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
   _spriteRenderer: {fileID: 814704466}
-  speed: 3.82
+  Speed: 5
   _movementSmoothing: 0.05
+  DashDistance: 1000
+  DashCooldownTime: 1
 --- !u!212 &814704466
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -509,6 +512,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 022261fa-d375-4278-86b6-8246b311fa8d
     m_ActionName: gameplay/New action[/Mouse/delta/up,/Mouse/delta/down,/Mouse/delta/left,/Mouse/delta/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfb16ba3-3ad2-405a-a784-4943ec50a33d
+    m_ActionName: gameplay/Fireball (Temporary)
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: gameplay
@@ -527,6 +534,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackCooldownTime: 1
+  fireballSpell: LLL
+  lightningStreamSpell: RRR
+  iceHailRainSpell: SSS
+  waterSwordSpell: LSL
+  waterPiercingRainSpell: SLS
+  waterBlastSpell: LLS
+  snowStormSpell: SSL
+  fireArrowSpell: LLR
+  lightningBoltSpell: RRL
+  spellList: []
+  currentSpellCast: 
+--- !u!114 &814704469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814704460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 0
+  playerMaxHealth: 0
+  playerDamage: 0
+  playerMana: 0
+  playerMaxMana: 0
+  playerDied:
+    m_PersistentCalls:
+      m_Calls: []
+  playerRevived:
+    m_PersistentCalls:
+      m_Calls: []
+  playerFullHealed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0

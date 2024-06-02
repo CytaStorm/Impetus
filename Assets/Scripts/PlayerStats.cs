@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,179 +9,159 @@ using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
-    public float playerHealth; 
-    public float playerMaxHealth;
+    private float _playerHealth; 
+    private float _playerMaxHealth;
 
-    public float playerDamage;
+    private float _playerDamage;
 
-    public float playerMana;
-    public float playerMaxMana;
+    private float _playerMana;
+    private float _playerMaxMana;
 
-    public event Action<float> playerHealthChanged;
-    public event Action<float> playerMaxHealthChanged;
-
-    public event Action<float> playerManaChanged;
-    public event Action<float> playerMaxManaChanged;
-
-    public event Action<float> playerDamageChanged;
-
-    public UnityEvent playerDied;
-    public UnityEvent playerRevived;
-    public UnityEvent playerFullHealed;
-
-
-    #region Getters
-    public float getPlayerHealth()
+    public float PlayerHealth
     {
-        return this.playerHealth;
+        get => _playerHealth;
+        set => _playerHealth = value;
     }
-    public float getPlayerMaxHealth()
+    public float PlayerMaxHealth
     {
-        return this.playerMaxHealth;
-    }
-    public float getPlayerMana()
-    {
-        return this.playerMana;
-    }
-    public float getPlayerMaxMana()
-    {
-        return this.playerMaxMana;
-    }
-    public float getPlayerDamage()
-    {
-        return this.playerDamage;
-    }
-    public Boolean isPlayerAlive()
-    {
-        if (playerHealth <= 0)
+        get => _playerMaxHealth;
+        set 
         {
-            return false;
-        }
-        else
-        {
-            return true;
+            PlayerMaxHealthChanged.Invoke(value);
+            _playerMaxHealth = value; 
         }
     }
-    #endregion
+    public float PlayerDamage
+    {
+        get => _playerDamage;
+        set 
+        { 
+            PlayerDamageChanged.Invoke(value);
+            _playerMana = value; 
+        }
+    }
+    public float PlayerMana
+    {
+        get => _playerMana;
+        set 
+        {
+            PlayerManaChanged.Invoke(value);
+            _playerMana = value; 
+        }
+    }
+    public float PlayerMaxMana
+    {
+        get => _playerMaxMana;
+        set 
+        {
+            PlayerMaxManaChanged.Invoke(value);
+            _playerMaxMana = value; 
+        }
+    }
+    public bool PlayerAlive
+    {
+        get => PlayerHealth > 0;
+    }
 
-    #region Setters
 
-    public void setPlayerHealth(float value)
-    {
-        this.playerHealth = value;
-        playerHealthChanged.Invoke(playerHealth);
-    }
-    public void setPlayerMaxHealth(float value)
-    {
-        this.playerMaxHealth = value;
-        playerMaxHealthChanged.Invoke(playerMaxHealth);
-    }
-    public void setPlayerDamage(float value)
-    {
-        this.playerDamage = value; 
-        playerDamageChanged.Invoke(playerDamage);
-    }
-    public void setPlayerMana(float value)
-    {
-        this.playerMana = value;
-        playerManaChanged.Invoke(playerMana);
-    }
-    public void setPlayerMaxMana(float value)
-    {
-        playerMaxMana = value;
-        playerMaxManaChanged.Invoke(playerMaxMana);
-    }
-    #endregion
+    public UnityEvent<float> PlayerHealthChanged;
+    public UnityEvent<float> PlayerMaxHealthChanged;
+
+    public UnityEvent<float> PlayerManaChanged;
+    public UnityEvent<float> PlayerMaxManaChanged;
+
+    public UnityEvent<float> PlayerDamageChanged;
+
+    public UnityEvent PlayerDied;
+    public UnityEvent PlayerRevived;
+    public UnityEvent PlayerFullHealed;
 
     #region Functions to change stats
 
     public void playerHurt(float amount,float multiplier)
     {
-        playerHealth -= (amount * multiplier);
-        if(playerHealth < 0)
+        PlayerHealth -= (amount * multiplier);
+        if (PlayerHealth <= 0)
         {
             print("Player has died"); 
-            playerDied.Invoke();
+            PlayerDied.Invoke();
         }
     }
 
     public void playerInstantDeath()
     {
-        playerHealth = 0;
-        playerDied.Invoke();
+        PlayerHealth = 0;
+        PlayerDied.Invoke();
     }
     
     public void respawnPlayer()
     {
-        playerHealth = playerMaxHealth;
-        playerRevived.Invoke();
+        PlayerHealth = PlayerMaxHealth;
+        PlayerRevived.Invoke();
     }
 
-    public void playerHeal(float amount, float multiplier, Boolean canHealPastMax)
+    public void playerHeal(float amount, float multiplier, bool canHealPastMax)
     {
-        playerHealth += (amount * multiplier);
-        if (playerHealth > playerMaxHealth)
+        float amountRegained = amount * multiplier;
+        if (PlayerHealth + amountRegained > PlayerMaxHealth &&
+            !canHealPastMax) 
         {
-            if (!canHealPastMax)
-            {
-                playerHealth = playerMaxHealth;
-            }
+            amountRegained = PlayerMaxHealth - PlayerMaxHealth;
         }
-        playerHealthChanged.Invoke(this.playerHealth);
-        
+        PlayerMaxHealth += amountRegained;
+        PlayerManaChanged.Invoke(amountRegained);
     }
 
     public void playerFullHeal()
     {
-        playerHealth = playerMaxHealth;
-        playerFullHealed.Invoke();
+        PlayerHealth = PlayerMaxHealth;
+        PlayerFullHealed.Invoke();
     }
 
-    public void playerRegainMana(float amount, float multiplier, Boolean canRegenPastMax)
+    public void playerRegainMana(float amount, float multiplier, bool canRegenPastMax)
     {
-        playerMana += (amount * multiplier);
-        if( playerMana > playerMaxMana)
+        float amountRegained = amount * multiplier;
+        if (PlayerMana + amountRegained > PlayerMaxMana &&
+            !canRegenPastMax) 
         {
-            if (!canRegenPastMax)
-            {
-                playerMana = playerMaxMana;
-            }
+            amountRegained = PlayerMaxMana - PlayerMaxMana;
         }
-        playerManaChanged.Invoke(this.playerMana); 
+        PlayerMaxMana += amountRegained;
+        PlayerManaChanged.Invoke(amountRegained);
     }
 
     public void playerIncreaseDamage(float amount)
     {
-        playerDamage += amount;
-        playerDamageChanged.Invoke(this.playerDamage);
+        PlayerDamage += amount;
+        PlayerDamageChanged.Invoke(amount);
     }
     public void playerDecreaseDamage(float amount)
     {
-        playerDamage -= amount;
-        playerDamageChanged.Invoke(this.playerDamage);
+        PlayerDamage -= amount;
+        PlayerDamageChanged.Invoke(amount);
     }
    
     public void playerIncreaseMaxHealth(float amount)
     {
-        playerMaxHealth += amount;
-        playerMaxHealthChanged.Invoke(this.playerMaxHealth);
+        PlayerMaxHealth += amount;
+        PlayerMaxHealthChanged.Invoke(amount);
     }
     public void playerDecreaseMaxHealth(float amount)
     {
-        playerMaxHealth -= amount;
-        playerMaxHealthChanged.Invoke(this.playerMaxHealth);
+        PlayerMaxHealth -= amount;
+        PlayerMaxHealthChanged.Invoke(amount);
     }
     
     public void playerIncreaseMaxMana(float amount)
     {
-        playerMaxMana += amount;
-        playerMaxManaChanged.Invoke(this.playerMaxMana);
+        PlayerMaxMana += amount;
+        PlayerMaxManaChanged.Invoke(amount);
     }
 
     public void playerDecreaseMaxMana(float amount)
     {
-        playerMaxMana -= amount;
-        playerMaxManaChanged.Invoke(this.playerMaxMana);
+        PlayerMaxMana -= amount;
+        PlayerMaxManaChanged.Invoke(amount);
     }
 
     #endregion
@@ -192,11 +170,11 @@ public class PlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.playerDamage = 10; // starting damage
-        this.playerHealth = 100; // starting health
-        this.playerMaxHealth = 100; //starting max health
-        this.playerMana = 100; //starting mana
-        this.playerMaxMana = 100; //starting max mana
+        PlayerDamage = 10; // starting damage
+        PlayerHealth = 100; // starting health
+        PlayerMaxHealth = 100; //starting max health
+        PlayerMana = 100; //starting mana
+        PlayerMaxMana = 100; //starting max mana
         
     }
 
