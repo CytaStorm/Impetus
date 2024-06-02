@@ -29,6 +29,13 @@ public class PlayerAttackScript : MonoBehaviour
 
 	#region Sword Drawing
 	[Range(0f, 360f)] public int SlashArc;
+	private Vector3 _slashArcOffset
+	{
+		get { return new Vector3(0, 0, SlashArc / 2); }
+	}
+	private Vector3 _slashArcBegin;
+	private Vector3 _slashArcEnd;
+
 	private GameObject _swordControlPoint;
     #endregion
 
@@ -56,6 +63,9 @@ public class PlayerAttackScript : MonoBehaviour
 		//Is attacking, tick up attack time and check if still attacking
 		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
 			AttackDuration);
+		_swordControlPoint.transform.eulerAngles = Vector3.Lerp(
+			_slashArcBegin, _slashArcEnd, _attackCompletion);
+		//print(_swordControlPoint.transform.eulerAngles);
 
 		if (_currentAttackTime == AttackDuration)
 		{
@@ -109,10 +119,12 @@ public class PlayerAttackScript : MonoBehaviour
 
 		//Lock attack direction to cardinal/diagonal
 		_mostRecentAttackDirection = GetAttackDirection();
-		_swordControlPoint.transform.up = _mostRecentAttackDirection;
-		_swordControlPoint.transform.Rotate(
-			new Vector3(0, 0, SlashArc / 2));
-		print(_mostRecentAttackDirection);
+		_swordControlPoint.transform.right = GetAttackDirection();
+		_slashArcBegin = _swordControlPoint.transform.eulerAngles +
+			_slashArcOffset;
+		_slashArcEnd = _swordControlPoint.transform.eulerAngles -
+			_slashArcOffset;
+		print("Attack direction: " + _mostRecentAttackDirection);
 	}
 
 	private Vector2 GetAttackDirection()
