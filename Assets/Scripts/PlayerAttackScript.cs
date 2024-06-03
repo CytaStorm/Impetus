@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,35 +10,56 @@ public class PlayerAttackScript : MonoBehaviour
 	#region Attack Cooldown Fields
 	public float AttackCooldownTime;
 
-    private float _attackCooldownTimer;
+	private float _attackCooldownTimer;
 
-    private bool _attackReady 
-    {
-        get { return _attackCooldownTimer == 0f; }
-    }
+	private bool _attackReady
+	{
+		get { return _attackCooldownTimer == 0f; }
+	}
 	#endregion
+
+	
 
 	#region Sword Drawing
 	private GameObject _swordControlPoint;
-    private Vector3 _mousePosition;
+	private Vector3 _mousePosition;
 
-    /// <summary>
-    /// Used to determine which side of the player sword
-    /// should be drawn on.
-    /// </summary>
-    private byte _swingOffset;
-    #endregion
+	/// <summary>
+	/// Used to determine which side of the player sword
+	/// should be drawn on.
+	/// </summary>
+	private byte _swingOffset;
+	#endregion
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
+	{
+		#region Sword initialization
+		_swordControlPoint = this.gameObject.transform.GetChild(0).gameObject;
+		_swingOffset = 0;
+		#endregion
+
+		#region Spell initialization
+		currentSpellCast = "";
+		spellList.Add(fireballSpell);
+		spellList.Add(lightningStreamSpell);
+		spellList.Add(iceHailRainSpell);
+		spellList.Add(waterSwordSpell);
+		spellList.Add(waterPiercingRainSpell);
+		spellList.Add(waterBlastSpell);
+		spellList.Add(snowStormSpell);
+		spellList.Add(fireArrowSpell);
+		spellList.Add(lightningBoltSpell);
+		this.castable = false;
+		this.spellBeingInputted = false;
+		#endregion
+
+	}
+
+	// Update is called once per frame
+	void Update()
     {
-        _swordControlPoint = this.gameObject.transform.GetChild(0).gameObject;
-        _swingOffset = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        #region Sword update
         //Point sword in direction of mouse
         _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -45,7 +68,7 @@ public class PlayerAttackScript : MonoBehaviour
             _mousePosition.y - _swordControlPoint.transform.position.y);
 
         _swordControlPoint.transform.up = direction;
-        
+
         if (_swingOffset == 0)
         {
             _swordControlPoint.transform.Rotate(
@@ -59,23 +82,177 @@ public class PlayerAttackScript : MonoBehaviour
 
         if (!_attackReady)
         {
-            _attackCooldownTimer = 
+            _attackCooldownTimer =
                 Mathf.Clamp(_attackCooldownTimer - Time.deltaTime, 0f, AttackCooldownTime);
         }
+		#endregion
+
+		#region Spell Update
+
+		/**
+		 * Checks if the length of the spell input 
+		 * string is 3 letters long and casts a spell
+		 */
+
+		//if (currentSpellCast.Length != 3)
+		//{
+		//    return;
+		//}
+
+		//print("Spell input desired length");
+		//print(currentSpellCast);
+		//Boolean isSpell = false;
+		//foreach (string spell in spellList)
+		//{
+
+		//    if (spell != currentSpellCast)
+		//    {
+		//        continue;
+		//    }
+		//    if (!spellDictionary.TryGetValue(currentSpellCast, out string spellName))
+		//    {
+		//        continue;
+		//    }
+		//    if (!castable)
+		//    {
+		//        continue;
+		//    }
+
+		//    print(spellName + " Casted!");
+		//    //cast spell
+		//    isSpell = true;
+		//}
+		//currentSpellCast = "";
+		//if (!isSpell)
+		//{
+		//    print("Invalid Spell Input!");
+		//}
+		Boolean isSpell = false;
+
+		if (isSpellActive)
+		{
+			spellInputTimer -= Time.deltaTime;
+			if(spellInputTimer <= 0f)
+			{
+				spellBeingInputted = false;
+				currentSpellCast = "";
+				print("Input not finished in time, spell cancelled.");
+			}
+		}
+
+
+
+
+
+        if (spellBeingInputted)
+        {
+            if (spellFinished)
+            {
+                spellBeingInputted = false;
+                print(currentSpellCast);
+                if (spellDictionary.TryGetValue(currentSpellCast, out string spellName))
+                {
+                    print("Casting " + spellName + " with input " + currentSpellCast);
+                    //cast spell
+                    isSpell = true;
+                    
+					
+                }
+                spellFinished = false;
+                
+				
+				if (!isSpell)
+                {
+                    print("No spell for this input" + currentSpellCast);
+                    currentSpellCast = "";
+				}
+				else //if it is a valid spell
+				{
+                    currentSpellCast = "";
+					spellInputTimer = 0f;
+					return;
+                }
+
+			
+            }
+        }
+        else
+        {
+            currentSpellCast = "";
+        }
+        #endregion
     }
 
-	#region Attack Methods
-	public void OnSlash(InputAction.CallbackContext context)
+
+
+    #region Attack Methods
+
+
+    public Boolean isFirstInput()
 	{
+		if (this.currentSpellCast.Length == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public void OnBeginSpell(InputAction.CallbackContext context)
+	{
+        if (!context.performed)
+        {
+            return;
+        }
+		print("key press recognized");
+        
+		if(isFirstInput())
+		{
+			print("Beginning spell");
+            currentSpellCast = "";
+            spellBeingInputted = true;
+
+			spellInputTimer = SpellInputDuration;
+        }
+		else
+		{
+			if (spellBeingInputted)
+			{
+				spellFinished = true;
+			}
+		}
+	}
+
+        public void OnSlash(InputAction.CallbackContext context)
+	{
+		Boolean wasSpellInput = false;
 		if (!context.performed)
 		{
 			return;
 		}
 		if (!_attackReady)
 		{
+			currentSpellCast = currentSpellCast + "L";
+			wasSpellInput = true;
+			if (isFirstInput())
+			{
+				//start time frame
+			}
 			Debug.Log("attack on cooldown!");
 			return;
 		}
+		if (!wasSpellInput)
+		{
+			if (isFirstInput())
+			{
+				//start time frame
+			}
+			currentSpellCast = currentSpellCast + "L";
+
+		}
+
 
 		Debug.Log("slash");
 		_attackCooldownTimer = AttackCooldownTime;
@@ -83,19 +260,36 @@ public class PlayerAttackScript : MonoBehaviour
 		return;
 	}
 
-	
+
 
 	public void OnThrust(InputAction.CallbackContext context)
 	{
+		Boolean wasSpellInput = false;
 		if (!context.performed)
 		{
 			return;
 		}
 		if (!_attackReady)
 		{
+			currentSpellCast = currentSpellCast + "R";
+			wasSpellInput = true;
 			Debug.Log("attack on cooldown!");
+			if (isFirstInput())
+			{
+				//start time frame
+			}
 			return;
 		}
+		if (!wasSpellInput)
+		{
+			if (isFirstInput())
+			{
+				//start time frame
+			}
+			currentSpellCast = currentSpellCast + "R";
+		}
+
+
 
 		Debug.Log("thrust");
 		_attackCooldownTimer = AttackCooldownTime;
@@ -105,15 +299,31 @@ public class PlayerAttackScript : MonoBehaviour
 
 	public void OnSlam(InputAction.CallbackContext context)
 	{
+		Boolean wasSpellInput = false;
 		if (!context.performed)
 		{
 			return;
 		}
 		if (!_attackReady)
 		{
+			currentSpellCast = currentSpellCast + "S";
+			wasSpellInput = true;
 			Debug.Log("attack on cooldown!");
+			if (isFirstInput())
+			{
+				//start time frame
+			}
 			return;
 		}
+		if (!wasSpellInput)
+		{
+			if (isFirstInput())
+			{
+				//start time frame
+			}
+			currentSpellCast = currentSpellCast + "S";
+		}
+
 
 		Debug.Log("slam");
 		_attackCooldownTimer = AttackCooldownTime;
@@ -133,5 +343,77 @@ public class PlayerAttackScript : MonoBehaviour
 			_swingOffset = 0;
 		}
 	}
+
+    #region Spell Fields
+    /**  
+	 *	SPELLS EXPLANATION
+	 *	
+	 *		In order to cast a spell, a specific combination of attacks must happen.
+	 *	 This combination is able to happen without waiting for the cooldown on weapons,
+	 *   so it's not locked by the _attackReady boolean.
+	 *   
+	 *   In order to implement this, I will be creating a resettable STRING which will 
+	 *   consist of characters based on the inputs:
+	 *   
+	 *   L - Left click (Slash)
+	 *   R - Right click (Thrust)
+	 *   S - Spacebar (Slam)
+	 *   
+	 *   In the update method, I will be constantly checking if the string has a preset
+	 *   spell input, and if it does, the spell will be cast and the string reset. 
+	 */
+
+    /**  
+	 *	SPELL FIELDS
+	 *	
+	 *		The spell fields will consist of preset strings and the changeable 
+	 *		string for the current "cast". 
+	 */
+
+    // Basic spells - L: Fire attribute, R: Lightning attribute, S: Ice attribute.
+
+    public string fireballSpell = "LLL";
+    public string lightningStreamSpell = "RRR";
+    public string iceHailRainSpell = "SSS";
+
+    //By mixing these attributes, you can create other forms of magic.
+
+    public string waterSwordSpell = "LSL";
+    public string waterPiercingRainSpell = "SLS";
+    public string waterBlastSpell = "LLS";
+
+    public string snowStormSpell = "SSL";
+
+    public string fireArrowSpell = "LLR";
+    public string lightningBoltSpell = "RRL";
+
+    public List<string> spellList = new List<string>();
+    public Dictionary<string, string> spellDictionary = new Dictionary<string, string>
+    {
+        { "LLL", "fireballSpell" },
+        { "RRR", "lightningStreamSpell" },
+        { "SSS", "iceHailRainSpell" },
+        { "LSL", "waterSwordSpell" },
+        { "SLS", "waterPiercingRainSpell" },
+        { "LLS", "waterBlastSpell" },
+        { "SSL", "snowStormSpell" },
+        { "LLR", "fireArrowSpell" },
+        { "RRL", "lightningBoltSpell" }
+    };
+
+    public Boolean castable;
+
+	private Boolean spellBeingInputted;
+	private Boolean spellFinished;
+
+    public string currentSpellCast;
+
+
+	//Cooldown on spells 
+	public float SpellInputDuration = 4f;
+	public float spellInputTimer;
+	public Boolean isSpellActive => spellInputTimer > 0f;
+
+    #endregion
 
 }
