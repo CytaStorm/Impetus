@@ -27,6 +27,6 @@ public class UIManager : MonoBehaviour
         _healthBarSlider.value = _playerStats.PlayerHealth;
         _healthBarSlider.maxValue = _playerStats.PlayerMaxHealth;
         _aetherBarSlider.value = _playerStats.PlayerMana;
-        _aetherBarSlider.minValue = _playerStats.PlayerMaxMana;
+        _aetherBarSlider.maxValue = _playerStats.PlayerMaxMana;
     }
 }
