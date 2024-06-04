@@ -36,14 +36,13 @@ public class PlayerAttackScript : MonoBehaviour
 	private Vector3 _slashArcBegin;
 	private Vector3 _slashArcEnd;
 
-	private GameObject _swordControlPoint;
+	[SerializeField] private GameObject _swordControlPoint;
 	#endregion
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		#region Sword Initialization
-		_swordControlPoint = gameObject.transform.GetChild(0).gameObject;
 		_swordControlPoint.SetActive(false);
 		#endregion
 	}
