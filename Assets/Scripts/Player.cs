@@ -6,7 +6,7 @@ using UnityEngine.Events;
  *   other items and upgrades etc to interact with the stats of the player
  */
 
-public class PlayerStats : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
 	#region Health
 	[Header("Health")]
@@ -101,7 +101,7 @@ public class PlayerStats : MonoBehaviour
 
 	#region Functions to change stats
 
-	public void playerHurt(float amount, float multiplier)
+	public void TakeDamage(float amount, float multiplier)
 	{
 		Health -= (amount * multiplier);
 		if (Health <= 0)
@@ -110,12 +110,17 @@ public class PlayerStats : MonoBehaviour
 			PlayerDied.Invoke();
 		}
 	}
+	public void Die()
+	{
+
+	}
 
 	public void playerInstantDeath()
 	{
 		Health = 0;
 		PlayerDied.Invoke();
 	}
+	
 	
 	public void respawnPlayer()
 	{
@@ -153,7 +158,6 @@ public class PlayerStats : MonoBehaviour
 		AetherChanged.Invoke(amountRegained);
 	}
 	#endregion
-
 
 	// Start is called before the first frame update
 	void Start()
