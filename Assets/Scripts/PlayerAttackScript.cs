@@ -6,6 +6,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttackScript : MonoBehaviour
 {
+	#region GameObject Components
+	[Header("GameObject Components")]
+	[SerializeField] private GameObject _swordPivotPoint;
+	#endregion
+
 	#region Attack Fields
 	[Header("Attack Properties")]
 	//Attack duration
@@ -28,22 +33,21 @@ public class PlayerAttackScript : MonoBehaviour
 	#endregion
 
 	#region Sword Drawing
-	[Range(0f, 360f)] public int SlashArc;
+	[SerializeField] [Range(0f, 360f)] private int _slashArc;
 	private Vector3 _slashArcOffset
 	{
-		get { return new Vector3(0, 0, SlashArc / 2); }
+		get { return new Vector3(0, 0, _slashArc / 2); }
 	}
 	private Vector3 _slashArcBegin;
 	private Vector3 _slashArcEnd;
 
-	[SerializeField] private GameObject _swordControlPoint;
 	#endregion
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		#region Sword Initialization
-		_swordControlPoint.SetActive(false);
+		_swordPivotPoint.SetActive(false);
 		#endregion
 	}
 
@@ -63,14 +67,14 @@ public class PlayerAttackScript : MonoBehaviour
 		//Is attacking, tick up attack time and check if still attacking
 		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
 			AttackDuration);
-		_swordControlPoint.transform.eulerAngles = Vector3.Lerp(
+		_swordPivotPoint.transform.eulerAngles = Vector3.Lerp(
 			_slashArcBegin, _slashArcEnd, _attackCompletion);
-		//print(_swordControlPoint.transform.eulerAngles);
+		//print(_swordPivotPoint.transform.eulerAngles);
 
 		if (_currentAttackTime == AttackDuration)
 		{
 			_attacking = false;
-			_swordControlPoint.SetActive(false);
+			_swordPivotPoint.SetActive(false);
 		}
 		#endregion
 	}
@@ -108,7 +112,7 @@ public class PlayerAttackScript : MonoBehaviour
 			print("attack on cooldown!");
 			return;
 		}
-		_swordControlPoint.SetActive(true);
+		_swordPivotPoint.SetActive(true);
 		//Reset attack cooldown and attack duration
 		_currentAttackCooldownTime = AttackCooldownDuration;
 		_attacking = true;
@@ -116,10 +120,10 @@ public class PlayerAttackScript : MonoBehaviour
 
 		//Lock attack direction to cardinal/diagonal
 		_mostRecentAttackDirection = GetAttackDirection();
-		_swordControlPoint.transform.right = GetAttackDirection();
-		_slashArcBegin = _swordControlPoint.transform.eulerAngles +
+		_swordPivotPoint.transform.right = GetAttackDirection();
+		_slashArcBegin = _swordPivotPoint.transform.eulerAngles +
 			_slashArcOffset;
-		_slashArcEnd = _swordControlPoint.transform.eulerAngles -
+		_slashArcEnd = _swordPivotPoint.transform.eulerAngles -
 			_slashArcOffset;
 	}
 
@@ -127,8 +131,8 @@ public class PlayerAttackScript : MonoBehaviour
 	{
 		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		Vector2 rawAttackDirection = new Vector2(
-			mousePosition.x - _swordControlPoint.transform.position.x,
-			mousePosition.y - _swordControlPoint.transform.position.y);
+			mousePosition.x - _swordPivotPoint.transform.position.x,
+			mousePosition.y - _swordPivotPoint.transform.position.y);
 		float rawAngle = Vector2.SignedAngle(Vector2.right, rawAttackDirection);
 		Vector2 realAttackDirection;
 		//EAST

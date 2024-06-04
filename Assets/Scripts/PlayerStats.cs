@@ -8,13 +8,13 @@ using UnityEngine.Events;
 public class PlayerStats : MonoBehaviour
 {
     #region Fields
-    private float _playerHealth; 
-    private float _playerMaxHealth;
+    [SerializeField] private float _playerHealth; 
+    [SerializeField] private float _playerMaxHealth;
 
-    private float _playerDamage;
+    [SerializeField] private float _playerDamage;
 
-    private float _playerMana;
-    private float _playerMaxMana;
+    [SerializeField] private float _playerMana;
+    [SerializeField] private float _playerMaxMana;
 
     private float _flow;
     #endregion
