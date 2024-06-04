@@ -985,7 +985,7 @@ MonoBehaviour:
   _maxAether: 50
   _flow: 50
   _maxFlow: 100
-  _flowState: 1
+  _flowState: 5
   _flowStateMaxDropTimesSeconds:
   - 15
   - 10

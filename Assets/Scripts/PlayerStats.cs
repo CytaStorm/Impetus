@@ -60,7 +60,7 @@ public class PlayerStats : MonoBehaviour
 	[Header("Flow")]
 	[SerializeField] private float _flow;
 	[SerializeField] private float _maxFlow;
-	[SerializeField] [Range(0, 6)] private int _flowState;
+	[SerializeField] [Range(0, 5)] private int _flowState;
 	public float Flow
 	{
 		get => _flow;
