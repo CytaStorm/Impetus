@@ -576,6 +576,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 01ce355f-1da3-40fa-a9a1-6435f1972520
     m_ActionName: gameplay/BeginSpell[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfb16ba3-3ad2-405a-a784-4943ec50a33d
+    m_ActionName: gameplay/Fireball (Temporary)
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: gameplay
