@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerAttackScript : MonoBehaviour
 {
 	#region Attack Fields
-    [Header("Attack Properties")]
+	[Header("Attack Properties")]
 	//Attack duration
 	public float AttackDuration = 0.5f;
 	private float _currentAttackTime;
@@ -20,11 +20,11 @@ public class PlayerAttackScript : MonoBehaviour
 
 	//Attack Cooldown
 	public float AttackCooldownDuration = 2f;
-    private float _currentAttackCooldownTime;
-    private bool _attackReady 
-    {
-        get { return _currentAttackCooldownTime == 0f; }
-    }
+	private float _currentAttackCooldownTime;
+	private bool _attackReady
+	{
+		get { return _currentAttackCooldownTime == 0f; }
+	}
 	#endregion
 
 	#region Sword Drawing
@@ -37,18 +37,21 @@ public class PlayerAttackScript : MonoBehaviour
 	private Vector3 _slashArcEnd;
 
 	private GameObject _swordControlPoint;
-    #endregion
+	#endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _swordControlPoint = this.gameObject.transform.GetChild(0).gameObject;
-		_swordControlPoint.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
+	// Start is called before the first frame update
+	void Start()
 	{
+		#region Sword Initialization
+		_swordControlPoint = gameObject.transform.GetChild(0).gameObject;
+		_swordControlPoint.SetActive(false);
+		#endregion
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		#region Sword update
 		//Tick attack cooldown if possible and not attacking.
 		if (!_attacking)
 		{
@@ -57,9 +60,7 @@ public class PlayerAttackScript : MonoBehaviour
 				_currentAttackCooldownTime =
 					Mathf.Clamp(_currentAttackCooldownTime - Time.deltaTime, 0f, AttackCooldownDuration);
 			}
-			return;
 		}
-
 		//Is attacking, tick up attack time and check if still attacking
 		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
 			AttackDuration);
@@ -72,29 +73,25 @@ public class PlayerAttackScript : MonoBehaviour
 			_attacking = false;
 			_swordControlPoint.SetActive(false);
 		}
+		#endregion
 	}
-
-	
 
 	#region Attack Methods
 	public void OnSlashInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed) return;
-		HandleBasicAttack();
+		HandleBasicAttack(context);
 		return;
 	}
 
 	public void OnThrustInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed)	return;
-		HandleBasicAttack();
+		HandleBasicAttack(context);
 		return;
 	}
 
 	public void OnSlamInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed)	return;
-		HandleBasicAttack();
+		HandleBasicAttack(context);
 		return;
 	}
 	#endregion
@@ -104,14 +101,15 @@ public class PlayerAttackScript : MonoBehaviour
 	/// Sets up common elements between different basic attacks
 	/// like setting attack cooldowns and attack duration.
 	/// </summary>
-	private void HandleBasicAttack()
+	private void HandleBasicAttack(InputAction.CallbackContext context)
 	{
+		if (!context.performed) return;
 		if (!_attackReady)
 		{
-			Debug.Log("attack on cooldown!");
+			print("attack on cooldown!");
 			return;
 		}
-		_swordControlPoint.SetActive(true);		
+		_swordControlPoint.SetActive(true);
 		//Reset attack cooldown and attack duration
 		_currentAttackCooldownTime = AttackCooldownDuration;
 		_attacking = true;
@@ -124,7 +122,6 @@ public class PlayerAttackScript : MonoBehaviour
 			_slashArcOffset;
 		_slashArcEnd = _swordControlPoint.transform.eulerAngles -
 			_slashArcOffset;
-		print("Attack direction: " + _mostRecentAttackDirection);
 	}
 
 	private Vector2 GetAttackDirection()

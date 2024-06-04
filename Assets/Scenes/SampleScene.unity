@@ -231,10 +231,11 @@ GameObject:
   - component: {fileID: 814704467}
   - component: {fileID: 814704465}
   - component: {fileID: 814704468}
+  - component: {fileID: 814704469}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -473,6 +474,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 814704469}
+        m_TargetAssemblyTypeName: PlayerSpellScript, Assembly-CSharp
+        m_MethodName: ReadSpellInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f3eeb799-b24c-43a6-a58d-ca576d6d7513
     m_ActionName: gameplay/Slash[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -489,6 +502,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 814704469}
+        m_TargetAssemblyTypeName: PlayerSpellScript, Assembly-CSharp
+        m_MethodName: ReadSpellInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b0a830b0-582b-4407-a0d4-048ea3f77921
     m_ActionName: gameplay/Thrust[/Mouse/rightButton]
   - m_PersistentCalls:
@@ -496,6 +521,18 @@ MonoBehaviour:
       - m_Target: {fileID: 814704468}
         m_TargetAssemblyTypeName: PlayerAttackScript, Assembly-CSharp
         m_MethodName: OnSlamInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 814704469}
+        m_TargetAssemblyTypeName: PlayerSpellScript, Assembly-CSharp
+        m_MethodName: ReadSpellInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -523,6 +560,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 022261fa-d375-4278-86b6-8246b311fa8d
     m_ActionName: gameplay/New action[/Mouse/delta/up,/Mouse/delta/down,/Mouse/delta/left,/Mouse/delta/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 814704469}
+        m_TargetAssemblyTypeName: PlayerSpellScript, Assembly-CSharp
+        m_MethodName: OnBeginSpell
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 01ce355f-1da3-40fa-a9a1-6435f1972520
+    m_ActionName: gameplay/BeginSpell[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: gameplay
@@ -543,6 +596,20 @@ MonoBehaviour:
   AttackDuration: 0.5
   AttackCooldownDuration: 0
   SlashArc: 139
+--- !u!114 &814704469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814704460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 300778f28da3abe4eb5788e4d1e3ae9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spellInputDuration: 4
+  _spellInputTimer: 0
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
