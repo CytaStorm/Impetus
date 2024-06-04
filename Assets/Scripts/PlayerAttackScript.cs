@@ -14,22 +14,25 @@ public class PlayerAttackScript : MonoBehaviour
 	#region Attack Fields
 	[Header("Attack Properties")]
 	//Attack duration
-	public float AttackDuration = 0.5f;
+	[SerializeField] private float _attackDuration = 0.5f;
 	private float _currentAttackTime;
 	private bool _attacking;
 	private float _attackCompletion
 	{
-		get { return _currentAttackTime / AttackDuration; }
+		get { return _currentAttackTime / _attackDuration; }
 	}
 	private Vector2 _mostRecentAttackDirection;
 
 	//Attack Cooldown
-	public float AttackCooldownDuration = 2f;
+	[SerializeField] private float _attackCooldownDuration = 2f;
 	private float _currentAttackCooldownTime;
 	private bool _attackReady
 	{
 		get { return _currentAttackCooldownTime == 0f; }
 	}
+
+	//Attack Damage
+	[SerializeField] private int _attackDamage;
 	#endregion
 
 	#region Sword Drawing
@@ -61,17 +64,17 @@ public class PlayerAttackScript : MonoBehaviour
 			if (!_attackReady)
 			{
 				_currentAttackCooldownTime =
-					Mathf.Clamp(_currentAttackCooldownTime - Time.deltaTime, 0f, AttackCooldownDuration);
+					Mathf.Clamp(_currentAttackCooldownTime - Time.deltaTime, 0f, _attackCooldownDuration);
 			}
 		}
 		//Is attacking, tick up attack time and check if still attacking
 		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
-			AttackDuration);
+			_attackDuration);
 		_swordPivotPoint.transform.eulerAngles = Vector3.Lerp(
 			_slashArcBegin, _slashArcEnd, _attackCompletion);
 		//print(_swordPivotPoint.transform.eulerAngles);
 
-		if (_currentAttackTime == AttackDuration)
+		if (_currentAttackTime == _attackDuration)
 		{
 			_attacking = false;
 			_swordPivotPoint.SetActive(false);
@@ -114,7 +117,7 @@ public class PlayerAttackScript : MonoBehaviour
 		}
 		_swordPivotPoint.SetActive(true);
 		//Reset attack cooldown and attack duration
-		_currentAttackCooldownTime = AttackCooldownDuration;
+		_currentAttackCooldownTime = _attackCooldownDuration;
 		_attacking = true;
 		_currentAttackTime = 0f;
 
