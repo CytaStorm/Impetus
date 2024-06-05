@@ -9,12 +9,13 @@ public class EnemyScript : MonoBehaviour
     public GameObject player;
     public GameObject weapon;
 
-    private PlayerStats _playerStats;
+    private PlayerAttackScript _playerAttack;
     
     // Start is called before the first frame update
     void Start()
     {
-        this._playerStats = player.GetComponent<PlayerStats>();
+        this._playerAttack = player.GetComponent<PlayerAttackScript>();
+
     }
 
     // Update is called once per frame
@@ -25,12 +26,15 @@ public class EnemyScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print("Collision Detected");
-        
-        if (collision.gameObject == player)
+        print("Hitting with " + collision.collider.tag);
+
+
+        // Check if the colliding object has the tag "Weapon"
+        if (collision.collider.CompareTag("Weapon"))
         {
-            print("Enemy detected attack");
-            float playerDamage = _playerStats.Damage;
+            print("Player hit enemy!");
+            float playerDamage = _playerAttack.Damage;
+            print("Damage: " + playerDamage);
 
             _enemyHealth -= playerDamage;
             if (_enemyHealth > 0)
@@ -41,12 +45,7 @@ public class EnemyScript : MonoBehaviour
             {
                 print("Enemy has died");
             }
-
-
         }
-        else
-        {
-            print(collision.gameObject.name);
-        }
+        
     }
 }

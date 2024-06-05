@@ -12,6 +12,7 @@ public class PlayerAttackScript : MonoBehaviour
     #endregion
 
     #region Attack Fields
+
     #region Attack Properties
     [Header("Attack Properties")]
 	//Attack duration
@@ -47,6 +48,7 @@ public class PlayerAttackScript : MonoBehaviour
         }
     }
     #endregion
+
     #endregion
 
     #region Sword Drawing
@@ -126,7 +128,7 @@ public class PlayerAttackScript : MonoBehaviour
 		if (!context.performed) return;
 		if (!_attackReady)
 		{
-			print("attack on cooldown!");
+			
 			return;
 		}
 		_swordPivotPoint.SetActive(true);
