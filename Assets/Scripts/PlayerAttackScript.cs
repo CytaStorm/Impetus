@@ -9,10 +9,11 @@ public class PlayerAttackScript : MonoBehaviour
 	#region GameObject Components
 	[Header("GameObject Components")]
 	[SerializeField] private GameObject _swordPivotPoint;
-	#endregion
+    #endregion
 
-	#region Attack Fields
-	[Header("Attack Properties")]
+    #region Attack Fields
+    #region Attack Properties
+    [Header("Attack Properties")]
 	//Attack duration
 	[SerializeField] private float _attackDuration = 0.5f;
 	private float _currentAttackTime;
@@ -30,13 +31,26 @@ public class PlayerAttackScript : MonoBehaviour
 	{
 		get { return _currentAttackCooldownTime == 0f; }
 	}
+    #endregion
 
-	//Attack Damage
-	[SerializeField] private int _attackDamage;
-	#endregion
+    
+    #region Damage field
 
-	#region Sword Drawing
-	[SerializeField] [Range(0f, 360f)] private int _slashArc;
+    [Header("Damage")]
+    [SerializeField] private float _damage;
+    public float Damage
+    {
+        get => _damage;
+        set
+        {           
+            _damage = value;
+        }
+    }
+    #endregion
+    #endregion
+
+    #region Sword Drawing
+    [SerializeField] [Range(0f, 360f)] private int _slashArc;
 	private Vector3 _slashArcOffset
 	{
 		get { return new Vector3(0, 0, _slashArc / 2); }
