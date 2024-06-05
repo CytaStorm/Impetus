@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
 
-    private float _enemyHealth;
+    [SerializeField] private float _enemyHealth;
     public GameObject player;
     public GameObject weapon;
 
@@ -15,6 +15,8 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         this._playerAttack = player.GetComponent<PlayerAttackScript>();
+        this._enemyHealth = 100;
+        
 
     }
 
@@ -24,13 +26,13 @@ public class EnemyScript : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-        print("Hitting with " + collision.collider.tag);
+        print("Hitting with " + collision.tag);
 
 
         // Check if the colliding object has the tag "Weapon"
-        if (collision.collider.CompareTag("Weapon"))
+        if (collision.CompareTag("Weapon"))
         {
             print("Player hit enemy!");
             float playerDamage = _playerAttack.Damage;
