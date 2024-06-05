@@ -104,17 +104,15 @@ public class PlayerSpellScript : MonoBehaviour
 			if (_spellList.IndexOf(_currentSpellCast) == -1)
 			{
 				print("No spell for this input " + _currentSpellCast);
-				_currentSpellCast = "";
-				_spellInputTimer = 0f;
-				_spellFinished = false;
-				return;
 			}
-
-			//Spell cast detected.
+			else
+			{
+				//Spell cast detected.
+				print("Casting " + _spellDictionary[_currentSpellCast] +
+					" with input " + _currentSpellCast);
+				//cast spell
+			}
 			_spellFinished = false;
-			print("Casting " + _spellDictionary[_currentSpellCast] +
-				" with input " + _currentSpellCast);
-			//cast spell
 			_currentSpellCast = "";
 			_spellInputTimer = 0f;
 			return;
