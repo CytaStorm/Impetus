@@ -105,6 +105,8 @@ public class PlayerSpellScript : MonoBehaviour
 			{
 				print("No spell for this input " + _currentSpellCast);
 				_currentSpellCast = "";
+				_spellInputTimer = 0f;
+				_spellFinished = false;
 				return;
 			}
 
@@ -128,8 +130,7 @@ public class PlayerSpellScript : MonoBehaviour
 	public void OnBeginSpell(InputAction.CallbackContext context)
 	{
 		if (!context.performed) return;
-		print("key press recognized");
-		if (isFirstInput())
+		if (isFirstInput() && !_spellBeingInputted)
 		{
 			print("Beginning spell");
 			_currentSpellCast = "";
