@@ -1,419 +1,198 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerAttackScript : MonoBehaviour
 {
-	#region Attack Cooldown Fields
-	public float AttackCooldownTime;
+	#region GameObject Components
+	[Header("GameObject Components")]
+	[SerializeField] private GameObject _swordPivotPoint;
+    #endregion
 
-	private float _attackCooldownTimer;
+    #region Attack Fields
+    #region Attack Properties
+    [Header("Attack Properties")]
+	//Attack duration
+	[SerializeField] private float _attackDuration = 0.5f;
+	private float _currentAttackTime;
+	private bool _attacking;
+	private float _attackCompletion
+	{
+		get { return _currentAttackTime / _attackDuration; }
+	}
+	private Vector2 _mostRecentAttackDirection;
 
+	//Attack Cooldown
+	[SerializeField] private float _attackCooldownDuration = 2f;
+	private float _currentAttackCooldownTime;
 	private bool _attackReady
 	{
-		get { return _attackCooldownTimer == 0f; }
+		get { return _currentAttackCooldownTime == 0f; }
 	}
-	#endregion
+    #endregion
 
-	
+    
+    #region Damage field
 
-	#region Sword Drawing
-	private GameObject _swordControlPoint;
-	private Vector3 _mousePosition;
+    [Header("Damage")]
+    [SerializeField] private float _damage;
+    public float Damage
+    {
+        get => _damage;
+        set
+        {           
+            _damage = value;
+        }
+    }
+    #endregion
+    #endregion
 
-	/// <summary>
-	/// Used to determine which side of the player sword
-	/// should be drawn on.
-	/// </summary>
-	private byte _swingOffset;
+    #region Sword Drawing
+    [SerializeField] [Range(0f, 360f)] private int _slashArc;
+	private Vector3 _slashArcOffset
+	{
+		get { return new Vector3(0, 0, _slashArc / 2); }
+	}
+	private Vector3 _slashArcBegin;
+	private Vector3 _slashArcEnd;
+
 	#endregion
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		#region Sword initialization
-		_swordControlPoint = this.gameObject.transform.GetChild(0).gameObject;
-		_swingOffset = 0;
+		#region Sword Initialization
+		_swordPivotPoint.SetActive(false);
 		#endregion
-
-		#region Spell initialization
-		currentSpellCast = "";
-		spellList.Add(fireballSpell);
-		spellList.Add(lightningStreamSpell);
-		spellList.Add(iceHailRainSpell);
-		spellList.Add(waterSwordSpell);
-		spellList.Add(waterPiercingRainSpell);
-		spellList.Add(waterBlastSpell);
-		spellList.Add(snowStormSpell);
-		spellList.Add(fireArrowSpell);
-		spellList.Add(lightningBoltSpell);
-		this.castable = false;
-		this.spellBeingInputted = false;
-		#endregion
-
 	}
 
 	// Update is called once per frame
 	void Update()
-    {
-        #region Sword update
-        //Point sword in direction of mouse
-        _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+	{
+		#region Sword update
+		//Tick attack cooldown if possible and not attacking.
+		if (!_attacking)
+		{
+			if (!_attackReady)
+			{
+				_currentAttackCooldownTime =
+					Mathf.Clamp(_currentAttackCooldownTime - Time.deltaTime, 0f, _attackCooldownDuration);
+			}
+		}
+		//Is attacking, tick up attack time and check if still attacking
+		_currentAttackTime = Mathf.Clamp(_currentAttackTime + Time.deltaTime, 0f,
+			_attackDuration);
+		_swordPivotPoint.transform.eulerAngles = Vector3.Lerp(
+			_slashArcBegin, _slashArcEnd, _attackCompletion);
+		//print(_swordPivotPoint.transform.eulerAngles);
 
-        Vector2 direction = new Vector2(
-            _mousePosition.x - _swordControlPoint.transform.position.x,
-            _mousePosition.y - _swordControlPoint.transform.position.y);
-
-        _swordControlPoint.transform.up = direction;
-
-        if (_swingOffset == 0)
-        {
-            _swordControlPoint.transform.Rotate(
-                new Vector3(0, 0, 100));
-        }
-        else
-        {
-            _swordControlPoint.transform.Rotate(
-                new Vector3(0, 0, -100));
-        }
-
-        if (!_attackReady)
-        {
-            _attackCooldownTimer =
-                Mathf.Clamp(_attackCooldownTimer - Time.deltaTime, 0f, AttackCooldownTime);
-        }
+		if (_currentAttackTime == _attackDuration)
+		{
+			_attacking = false;
+			_swordPivotPoint.SetActive(false);
+		}
 		#endregion
-
-		#region Spell Update
-
-		/**
-		 * Checks if the length of the spell input 
-		 * string is 3 letters long and casts a spell
-		 */
-
-		//if (currentSpellCast.Length != 3)
-		//{
-		//    return;
-		//}
-
-		//print("Spell input desired length");
-		//print(currentSpellCast);
-		//Boolean isSpell = false;
-		//foreach (string spell in spellList)
-		//{
-
-		//    if (spell != currentSpellCast)
-		//    {
-		//        continue;
-		//    }
-		//    if (!spellDictionary.TryGetValue(currentSpellCast, out string spellName))
-		//    {
-		//        continue;
-		//    }
-		//    if (!castable)
-		//    {
-		//        continue;
-		//    }
-
-		//    print(spellName + " Casted!");
-		//    //cast spell
-		//    isSpell = true;
-		//}
-		//currentSpellCast = "";
-		//if (!isSpell)
-		//{
-		//    print("Invalid Spell Input!");
-		//}
-		Boolean isSpell = false;
-
-		if (isSpellActive)
-		{
-			spellInputTimer -= Time.deltaTime;
-			if(spellInputTimer <= 0f)
-			{
-				spellBeingInputted = false;
-				currentSpellCast = "";
-				print("Input not finished in time, spell cancelled.");
-			}
-		}
-
-
-
-
-
-        if (spellBeingInputted)
-        {
-            if (spellFinished)
-            {
-                spellBeingInputted = false;
-                print(currentSpellCast);
-                if (spellDictionary.TryGetValue(currentSpellCast, out string spellName))
-                {
-                    print("Casting " + spellName + " with input " + currentSpellCast);
-                    //cast spell
-                    isSpell = true;
-                    
-					
-                }
-                spellFinished = false;
-                
-				
-				if (!isSpell)
-                {
-                    print("No spell for this input" + currentSpellCast);
-                    currentSpellCast = "";
-				}
-				else //if it is a valid spell
-				{
-                    currentSpellCast = "";
-					spellInputTimer = 0f;
-					return;
-                }
-
-			
-            }
-        }
-        else
-        {
-            currentSpellCast = "";
-        }
-        #endregion
-    }
-
-
-
-    #region Attack Methods
-
-
-    public Boolean isFirstInput()
-	{
-		if (this.currentSpellCast.Length == 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
 
-	public void OnBeginSpell(InputAction.CallbackContext context)
+	#region Attack Methods
+	public void OnSlashInput(InputAction.CallbackContext context)
 	{
-        if (!context.performed)
-        {
-            return;
-        }
-		print("key press recognized");
-        
-		if(isFirstInput())
-		{
-			print("Beginning spell");
-            currentSpellCast = "";
-            spellBeingInputted = true;
-
-			spellInputTimer = SpellInputDuration;
-        }
-		else
-		{
-			if (spellBeingInputted)
-			{
-				spellFinished = true;
-			}
-		}
-	}
-
-        public void OnSlash(InputAction.CallbackContext context)
-	{
-		Boolean wasSpellInput = false;
-		if (!context.performed)
-		{
-			return;
-		}
-		if (!_attackReady)
-		{
-			currentSpellCast = currentSpellCast + "L";
-			wasSpellInput = true;
-			if (isFirstInput())
-			{
-				//start time frame
-			}
-			Debug.Log("attack on cooldown!");
-			return;
-		}
-		if (!wasSpellInput)
-		{
-			if (isFirstInput())
-			{
-				//start time frame
-			}
-			currentSpellCast = currentSpellCast + "L";
-
-		}
-
-
-		Debug.Log("slash");
-		_attackCooldownTimer = AttackCooldownTime;
-		ChangeSwingOffset();
+		HandleBasicAttack(context);
 		return;
 	}
 
-
-
-	public void OnThrust(InputAction.CallbackContext context)
+	public void OnThrustInput(InputAction.CallbackContext context)
 	{
-		Boolean wasSpellInput = false;
-		if (!context.performed)
-		{
-			return;
-		}
-		if (!_attackReady)
-		{
-			currentSpellCast = currentSpellCast + "R";
-			wasSpellInput = true;
-			Debug.Log("attack on cooldown!");
-			if (isFirstInput())
-			{
-				//start time frame
-			}
-			return;
-		}
-		if (!wasSpellInput)
-		{
-			if (isFirstInput())
-			{
-				//start time frame
-			}
-			currentSpellCast = currentSpellCast + "R";
-		}
-
-
-
-		Debug.Log("thrust");
-		_attackCooldownTimer = AttackCooldownTime;
-		ChangeSwingOffset();
+		HandleBasicAttack(context);
 		return;
 	}
 
-	public void OnSlam(InputAction.CallbackContext context)
+	public void OnSlamInput(InputAction.CallbackContext context)
 	{
-		Boolean wasSpellInput = false;
-		if (!context.performed)
-		{
-			return;
-		}
-		if (!_attackReady)
-		{
-			currentSpellCast = currentSpellCast + "S";
-			wasSpellInput = true;
-			Debug.Log("attack on cooldown!");
-			if (isFirstInput())
-			{
-				//start time frame
-			}
-			return;
-		}
-		if (!wasSpellInput)
-		{
-			if (isFirstInput())
-			{
-				//start time frame
-			}
-			currentSpellCast = currentSpellCast + "S";
-		}
-
-
-		Debug.Log("slam");
-		_attackCooldownTimer = AttackCooldownTime;
-		ChangeSwingOffset();
+		HandleBasicAttack(context);
 		return;
 	}
 	#endregion
 
-	private void ChangeSwingOffset()
+	#region Helper Methods
+	/// <summary>
+	/// Sets up common elements between different basic attacks
+	/// like setting attack cooldowns and attack duration.
+	/// </summary>
+	private void HandleBasicAttack(InputAction.CallbackContext context)
 	{
-		if (_swingOffset == 0)
+		if (!context.performed) return;
+		if (!_attackReady)
 		{
-			_swingOffset = 1;
+			print("attack on cooldown!");
+			return;
 		}
-		else
-		{
-			_swingOffset = 0;
-		}
+		_swordPivotPoint.SetActive(true);
+		//Reset attack cooldown and attack duration
+		_currentAttackCooldownTime = _attackCooldownDuration;
+		_attacking = true;
+		_currentAttackTime = 0f;
+
+		//Lock attack direction to cardinal/diagonal
+		_mostRecentAttackDirection = GetAttackDirection();
+		_swordPivotPoint.transform.right = GetAttackDirection();
+		_slashArcBegin = _swordPivotPoint.transform.eulerAngles +
+			_slashArcOffset;
+		_slashArcEnd = _swordPivotPoint.transform.eulerAngles -
+			_slashArcOffset;
 	}
 
-    #region Spell Fields
-    /**  
-	 *	SPELLS EXPLANATION
-	 *	
-	 *		In order to cast a spell, a specific combination of attacks must happen.
-	 *	 This combination is able to happen without waiting for the cooldown on weapons,
-	 *   so it's not locked by the _attackReady boolean.
-	 *   
-	 *   In order to implement this, I will be creating a resettable STRING which will 
-	 *   consist of characters based on the inputs:
-	 *   
-	 *   L - Left click (Slash)
-	 *   R - Right click (Thrust)
-	 *   S - Spacebar (Slam)
-	 *   
-	 *   In the update method, I will be constantly checking if the string has a preset
-	 *   spell input, and if it does, the spell will be cast and the string reset. 
-	 */
-
-    /**  
-	 *	SPELL FIELDS
-	 *	
-	 *		The spell fields will consist of preset strings and the changeable 
-	 *		string for the current "cast". 
-	 */
-
-    // Basic spells - L: Fire attribute, R: Lightning attribute, S: Ice attribute.
-
-    public string fireballSpell = "LLL";
-    public string lightningStreamSpell = "RRR";
-    public string iceHailRainSpell = "SSS";
-
-    //By mixing these attributes, you can create other forms of magic.
-
-    public string waterSwordSpell = "LSL";
-    public string waterPiercingRainSpell = "SLS";
-    public string waterBlastSpell = "LLS";
-
-    public string snowStormSpell = "SSL";
-
-    public string fireArrowSpell = "LLR";
-    public string lightningBoltSpell = "RRL";
-
-    public List<string> spellList = new List<string>();
-    public Dictionary<string, string> spellDictionary = new Dictionary<string, string>
-    {
-        { "LLL", "fireballSpell" },
-        { "RRR", "lightningStreamSpell" },
-        { "SSS", "iceHailRainSpell" },
-        { "LSL", "waterSwordSpell" },
-        { "SLS", "waterPiercingRainSpell" },
-        { "LLS", "waterBlastSpell" },
-        { "SSL", "snowStormSpell" },
-        { "LLR", "fireArrowSpell" },
-        { "RRL", "lightningBoltSpell" }
-    };
-
-    public Boolean castable;
-
-	private Boolean spellBeingInputted;
-	private Boolean spellFinished;
-
-    public string currentSpellCast;
-
-
-	//Cooldown on spells 
-	public float SpellInputDuration = 4f;
-	public float spellInputTimer;
-	public Boolean isSpellActive => spellInputTimer > 0f;
-
-    #endregion
-
+	private Vector2 GetAttackDirection()
+	{
+		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Vector2 rawAttackDirection = new Vector2(
+			mousePosition.x - _swordPivotPoint.transform.position.x,
+			mousePosition.y - _swordPivotPoint.transform.position.y);
+		float rawAngle = Vector2.SignedAngle(Vector2.right, rawAttackDirection);
+		Vector2 realAttackDirection;
+		//EAST
+		if (Mathf.Abs(rawAngle) < 22.5)
+		{
+			realAttackDirection = Vector2.right;
+		}
+		//NORTHEAST
+		else if (rawAngle >= 22.5 && rawAngle < 67.5)
+		{
+			realAttackDirection = Vector2.right + Vector2.up;
+		}
+		//NORTH
+		else if (rawAngle >= 67.5 && rawAngle < 112.5)
+		{
+			realAttackDirection = Vector2.up;
+		}
+		//NORTHWEST
+		else if (rawAngle >= 112.5 && rawAngle < 157.5)
+		{
+			realAttackDirection = Vector2.up + Vector2.left;
+		}
+		//WEST
+		else if (Mathf.Abs(rawAngle) > 157.5)
+		{
+			realAttackDirection = Vector2.left;
+		}
+		//SOUTHWEST
+		else if (rawAngle >= -157.5 && rawAngle < -112.5)
+		{
+			realAttackDirection = Vector2.down + Vector2.left;
+		}
+		//SOUTH
+		else if (rawAngle >= -112.5 && rawAngle < -67.5)
+		{
+			realAttackDirection = Vector2.down;
+		}
+		//SOUTHEAST
+		else
+		{
+			realAttackDirection = Vector2.down + Vector2.right;
+		}
+		return realAttackDirection;
+	}
+	#endregion
 }
