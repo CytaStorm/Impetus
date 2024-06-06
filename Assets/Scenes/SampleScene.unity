@@ -583,10 +583,10 @@ GameObject:
   - component: {fileID: 814704466}
   - component: {fileID: 814704461}
   - component: {fileID: 814704467}
+  - component: {fileID: 814704470}
   - component: {fileID: 814704465}
   - component: {fileID: 814704468}
   - component: {fileID: 814704469}
-  - component: {fileID: 814704470}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -718,7 +718,6 @@ MonoBehaviour:
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
   _spriteRenderer: {fileID: 814704466}
-  Speed: 5
   _movementSmoothing: 0.05
   DashDistance: 1000
   DashCooldownTime: 1
@@ -951,7 +950,7 @@ MonoBehaviour:
   _swordPivotPoint: {fileID: 1355835681}
   _attackDuration: 0.5
   _attackCooldownDuration: 2
-  _attackDamage: 0
+  _damage: 0
   _slashArc: 0
 --- !u!114 &814704469
 MonoBehaviour:
@@ -1348,7 +1347,7 @@ MonoBehaviour:
   _aetherBar: {fileID: 1432904783}
   _flowBar: {fileID: 1980636183}
   _flowStateLevel: {fileID: 225349640}
-  _player: {fileID: 814704460}
+  _playerObject: {fileID: 0}
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
