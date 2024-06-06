@@ -64,17 +64,17 @@ public class PlayerStats : MonoBehaviour
 	public float Flow
 	{
 		get => _flow;
-		private set => _flow = value;
+		set => _flow = value;
 	}
 	public float MaxFlow
 	{
 		get => _maxFlow;
-		private set => _maxFlow = value;
+		set => _maxFlow = value;
 	}
 	public int FlowState
 	{
 		get => _flowState;
-		private set => _flowState = value;
+		set => _flowState = value;
 	}
 	/// <summary>
 	/// The index is the level you are dropping from, the element at that index
@@ -165,8 +165,8 @@ public class PlayerStats : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//Decrease flow state
-		if (Flow != 0)
+        //Decrease flow state
+        if (Flow != 0)
 		{
 			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] * Time.deltaTime;
 		}
@@ -181,5 +181,7 @@ public class PlayerStats : MonoBehaviour
 			_flowState++;
 			Flow -= 100;
 		}
+
+		
 	}
 }
