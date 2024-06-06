@@ -948,7 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _swordPivotPoint: {fileID: 1355835681}
-  _attackDuration: 0.5
+  _attackDuration: 0.2
   _attackCooldownDuration: 2
   _damage: 20
   _slashArc: 202
