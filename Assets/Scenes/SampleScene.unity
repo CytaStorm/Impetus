@@ -1347,7 +1347,7 @@ MonoBehaviour:
   _aetherBar: {fileID: 1432904783}
   _flowBar: {fileID: 1980636183}
   _flowStateLevel: {fileID: 225349640}
-  _playerObject: {fileID: 0}
+  _playerObject: {fileID: 814704460}
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
