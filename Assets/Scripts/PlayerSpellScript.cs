@@ -104,15 +104,15 @@ public class PlayerSpellScript : MonoBehaviour
 			if (_spellList.IndexOf(_currentSpellCast) == -1)
 			{
 				print("No spell for this input " + _currentSpellCast);
-				_currentSpellCast = "";
-				return;
 			}
-
-			//Spell cast detected.
+			else
+			{
+				//Spell cast detected.
+				print("Casting " + _spellDictionary[_currentSpellCast] +
+					" with input " + _currentSpellCast);
+				//cast spell
+			}
 			_spellFinished = false;
-			print("Casting " + _spellDictionary[_currentSpellCast] +
-				" with input " + _currentSpellCast);
-			//cast spell
 			_currentSpellCast = "";
 			_spellInputTimer = 0f;
 			return;
@@ -128,8 +128,7 @@ public class PlayerSpellScript : MonoBehaviour
 	public void OnBeginSpell(InputAction.CallbackContext context)
 	{
 		if (!context.performed) return;
-		print("key press recognized");
-		if (isFirstInput())
+		if (isFirstInput() && !_spellBeingInputted)
 		{
 			print("Beginning spell");
 			_currentSpellCast = "";
