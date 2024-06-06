@@ -14,8 +14,8 @@ public class EnemyScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this._playerAttack = player.GetComponent<PlayerAttackScript>();
-        this._enemyHealth = 100;
+        _playerAttack = player.GetComponent<PlayerAttackScript>();
+        _enemyHealth = 100;
         
 
     }
@@ -26,7 +26,7 @@ public class EnemyScript : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         print("Hitting with " + collision.tag);
 

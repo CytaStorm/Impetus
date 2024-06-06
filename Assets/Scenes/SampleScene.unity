@@ -1217,8 +1217,8 @@ MonoBehaviour:
   _swordPivotPoint: {fileID: 1355835681}
   _attackDuration: 0.5
   _attackCooldownDuration: 0.25
-  _damage: 0
-  _slashArc: 0
+  _damage: 50
+  _slashArc: 200
 --- !u!114 &814704469
 MonoBehaviour:
   m_ObjectHideFlags: 0
