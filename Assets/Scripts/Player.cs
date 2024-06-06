@@ -112,23 +112,16 @@ public class Player : MonoBehaviour, IDamageable
 	}
 	public void Die()
 	{
-
-	}
-
-	public void playerInstantDeath()
-	{
 		Health = 0;
 		PlayerDied.Invoke();
 	}
-	
-	
-	public void respawnPlayer()
+	public void RespawnPlayer()
 	{
 		Health = MaxHealth;
 		PlayerRevived.Invoke();
 	}
 
-	public void playerHeal(float amount, float multiplier, bool canHealPastMax)
+	public void Heal(float amount, float multiplier, bool canHealPastMax)
 	{
 		float amountRegained = amount * multiplier;
 		if (Health + amountRegained > MaxHealth &&
@@ -140,13 +133,13 @@ public class Player : MonoBehaviour, IDamageable
 		AetherChanged.Invoke(amountRegained);
 	}
 
-	public void playerFullHeal()
+	public void PlayerFullHeal()
 	{
 		Health = MaxHealth;
 		PlayerFullHealed.Invoke();
 	}
 
-	public void playerRegainAether(float amount, float multiplier, bool canRegenPastMax)
+	public void PlayerRegainAether(float amount, float multiplier, bool canRegenPastMax)
 	{
 		float amountRegained = amount * multiplier;
 		if (Aether + amountRegained > MaxAether &&
