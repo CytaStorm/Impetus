@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class EnemyScript : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class EnemyScript : MonoBehaviour
 
     private PlayerAttackScript _playerAttack;
     private PlayerStats _playerStats;
+
+    private UnityEvent _enemyDied;
     
 
 
@@ -32,15 +36,36 @@ public class EnemyScript : MonoBehaviour
         this._enemyDamage = 10;
         this._flowWorth = 50;
 
+        if(_enemyDied == null)
+        {
+            _enemyDied = new UnityEvent();
+        }
+        _enemyDied.AddListener(killEnemy);
 
-        
+
+    }
+
+    /**
+     *      Listens to the event of an enemy dying 
+     *      - kills the enemy, increases flow
+     */
+    private void killEnemy()
+    {
+        //Kill the enemy
+        Destroy(this.gameObject);
+
+        //Gain flow on hit based on "flow worth" of the enemy
+        _playerStats.Flow += _flowWorth;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (this._enemyHealth<= 0)
+        {
+            _enemyDied.Invoke();
+        }
     }
 
     private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
@@ -73,15 +98,8 @@ public class EnemyScript : MonoBehaviour
             //Regain aether on the player
             _playerStats.Aether += _aetherIncrease;
 
-            //Increase flow
-            if ((_playerStats.Flow + _flowWorth > 100) && (_playerStats.FlowState == _playerStats.MaxFlow))
-            {
-                _playerStats.Flow = 99;
-            }
-            else
-            {
-                _playerStats.Flow += _flowWorth;
-            }
+            
+            
             
 
 

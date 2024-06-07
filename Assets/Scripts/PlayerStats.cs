@@ -165,9 +165,31 @@ public class PlayerStats : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+        //Increase flow state if needed.
+        if (Flow > 100)
+        {
+            if (FlowState >= MaxFlow)
+            {
+                Flow = 99;
+            }
+            else
+            {
+                _flowState++;
+                Flow -= 100;
+            }
+
+        }
+
+
         //Decrease flow state
         if (Flow != 0)
 		{
+			if (FlowState > 5)
+			{
+				print(MaxFlow);
+				FlowState--;
+				Flow = 99;
+			}
 			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] * Time.deltaTime;
 		}
 		if (Flow <= 0 && FlowState != 0)
@@ -175,12 +197,7 @@ public class PlayerStats : MonoBehaviour
 			_flowState--;
 			Flow = 100;
 		}
-		//Increase flow state if needed.
-		if (Flow > 100)
-		{
-			_flowState++;
-			Flow -= 100;
-		}
+		
 
 		
 	}
