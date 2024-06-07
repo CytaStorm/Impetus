@@ -97,12 +97,6 @@ public class EnemyScript : MonoBehaviour
 
             //Regain aether on the player
             _playerStats.Aether += _aetherIncrease;
-
-            
-            
-            
-
-
         }
 
         
