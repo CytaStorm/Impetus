@@ -28,6 +28,19 @@ public class LevelLinkedList : MonoBehaviour
     }
 
     /// <summary>
+    /// Create a linked list of nodes with no level data
+    /// </summary>
+    /// <param name="count">Number of nodes in the list</param>
+    public LevelLinkedList(int count)
+    {
+        this.count = count;
+        for (int i = 0; i < count; i++)
+        {
+            Add(null);
+        }
+    }
+
+    /// <summary>
     /// Remove all data from the list
     /// </summary>
     public void Clear()
@@ -141,6 +154,32 @@ public class LevelLinkedList : MonoBehaviour
     }
 
     /// <summary>
+    /// Set the entrance and exit directions for every node, starting at the head.
+    /// </summary>
+    public void SetDirections()
+    {
+        // return early if list is empty
+        if (count <= 0)
+        {
+            return;
+        }
+
+        int numUnset = count;
+
+        // set the exit direction of the head node if it exists
+        head.EndDir = (Direction)UnityEngine.Random.Range(1, 4);
+        LevelNode current = head.Next;
+        numUnset--;
+
+        // loop while there are nodes with unset directions in the list
+        while (numUnset > 0)
+        {
+            current.StartDir = GetOppositeDir(current.Previous.EndDir);
+            current.EndDir = (Direction)UnityEngine.Random.Range(1, 4);
+        }
+    }
+
+    /// <summary>
     /// Indexer for the linked list
     /// </summary>
     /// <param name="index">Index of data to access</param>
@@ -204,5 +243,30 @@ public class LevelLinkedList : MonoBehaviour
             }
         }
         return current;
+    }
+
+    /// <summary>
+    /// Returns the direction opposite to the one entered
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    private Direction GetOppositeDir(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Down:
+                return Direction.Up;
+
+            case Direction.Up:
+                return Direction.Down;
+
+            case Direction.Left:
+                return Direction.Right;
+
+            case Direction.Right:
+                return Direction.Left;
+        }
+
+        return direction;
     }
 }

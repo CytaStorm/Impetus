@@ -27,6 +27,7 @@ public class LevelNode : MonoBehaviour
     public Direction StartDir
     {
         get { return startDir; }
+        set { startDir = value; }
     }
     /// <summary>
     /// The direction of the exit door relative to the center of the room.
@@ -34,6 +35,7 @@ public class LevelNode : MonoBehaviour
     public Direction EndDir
     {
         get { return endDir; }
+        set { endDir = value; }
     }
     /// <summary>
     /// Returns the node before this one in the linked list.
@@ -64,4 +66,10 @@ public class LevelNode : MonoBehaviour
     }
 }
 
-public enum Direction { Up, Down, Left, Right };
+public enum Direction 
+{ 
+    Down = 0, 
+    Up = 1, 
+    Left = 2, 
+    Right = 3
+};
