@@ -38,6 +38,7 @@ public class LevelLinkedList : MonoBehaviour
         {
             Add(null);
         }
+        SetDirections();
     }
 
     /// <summary>
@@ -156,7 +157,7 @@ public class LevelLinkedList : MonoBehaviour
     /// <summary>
     /// Set the entrance and exit directions for every node, starting at the head.
     /// </summary>
-    public void SetDirections()
+    private void SetDirections()
     {
         // return early if list is empty
         if (count <= 0)
@@ -220,7 +221,7 @@ public class LevelLinkedList : MonoBehaviour
     /// </summary>
     /// <param name="index">Index of the node to get</param>
     /// <returns>A reference to the node at the given index</returns>
-    private LevelNode GetNodeAt(int index)
+    public LevelNode GetNodeAt(int index)
     {
         // See what end of the list the index is closest to
         LevelNode current;
