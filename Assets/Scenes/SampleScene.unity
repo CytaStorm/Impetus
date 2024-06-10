@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACYn+u5FRVPXAIAABEFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HBjeB3lqHkB5ImNBOLr4IeY01yJJHH+Fr+O/VyjZ26PSEeO/t7tvVymfCpamBWaUXmudLlQP5PiJ4Jl9GPfkMB7pVcs1P0GneeW5LFNGgeaOWK4/HGGZUBVZz9kNuBYojDzrJC6Wreb6FVBlrPFxQYcBTWlmMlh46j8jB/9zNMOToT+MHPJ38aRaNLv7IQFrQvbQTdrJG5SQTtKohR8u9OJ626riRSd9Mq0DjTAnBTeuE2GMdOl3XJWjAVnNOfWOhOspL4NvSoslh7GtRGLCtI02Pj1z7+TRJyU/VDK2iZtfY+qDCYZn7JDhqci7/pSeBLrSqnruycYQlbMnZ7o0eGTV2MNQh/PjZt5N7KnZ0I+C9BPmiFlo5mXvSaoehzsD4sf977Swtge16vLHagV1dV///bu7i0eUSuj+kglcbpL4mDbAWKow73DxofzG/vOOwF6ZN4VG08cfAb7odLlBLPHFtrKfaNiX62yinUUrmYWjYjrOp0hIC3LZSg6TCHlc+jb29whtuUPaGeaL4VNriLde9gJuQAPf6KLqhVmp/vS1Tqv0STPnqrOASetNIvPg5pUrKZsOGM+nC1k4XlA3Cto7nn3eLjKeTZDxjUQEF20yT+O5++jBJNrNN/C2hcRIVJCwfl75PKlaN0XY8/tZkn1z6Reu+IKOFpnXY9lzT/YKfKjUYOZeFWjMNIF+bDFfjoH0R/yjzec79gNZgLZfhvsk5I0KxHeTZNVEWOp0frKZZnyUjNf9QFpGMpOGTkRGEr8u80vDBYY/Fu2QXcvkLUEsDBBQAAAgIAACYn+s7WkpEbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSkYWxiZFlskFaalpykoWJoa6ZhbmxSZJlkqGpSaKhiUGaUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACYn+u5FRVPXAIAABEFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACYn+s7WkpEbQAAAHgAAAAJACQAAAAAAAAAAAAAAKkCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAYQMAAAAA
+    dataString: UEsDBBQAAAgIAACYn+s0elNMXAIAABMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HBjeB3lpCSA8kTGgnF1+EvMYaZMmjj/A1/PdqZRs77vSEeO/t7tvVyhfCpamAWaWXmmcrlQH5PiJ4Jl9GHfkMR7pTcsPP0GreeWYLFNGgeaOWK4/HGGZUCVZz9kPuBIojDzrJc6XLRbaDuTLWeDinwoCntLIYLT10GZGj/7mbYcjJn8YPeDr70ywaXf2RgbSgO2krbGW1ykkmaFlBhpY7cTxt1HEtk76ZRoHGmRKCm8YJsacqdLqpCtCArWac+sZCdZQXwHeFRZP92Nc8N2AbR5qeHrn286mTkp+qHlpJzb629UGFwzL3SXBU51z9S08CnWtVPrdl4whL2IKz/Rs9MWpsb6h9+PGzbycPVOzpVsB7AfJFLbVyMvOk1Q5DnYHxY/f31tm8ALbv8NpqC7Z1XfX/u7mLR9dr6P44F7zcIvU1qYGNUGHc4eZB+4v55R2HvTBNCo+ijT8GftNdf4Ea4olrYz3VtCnR31Y5jVKyCEPDdpydKy0hwE0rFUgq7Gnt09jhFQ64XtkB80TxqTTFG659AYOQAHf6KBpQa3W43ZYp1GEFpnh1VnDZT4bMix/UXElZr5gZsBi3cTqnrB+3czz7vF1kPJ0k4xmLcsjZdprEd/fTh0mynW3jbwmNkygnYf249J1Ssa6tNgPy9ya7UUq/au03ZLTUtAr7nml6WPJzqXpD5zJXG6YB5Gud4eYctC/in2W2yLgf0Qas5TLcOLmkRCi2hyy9JUpDq4uj1TTtsqSk4h/KIpKSefhopATh2zqvNXxwOGDxNtmVXP8CUEsDBBQAAAgIAACYn+s7WkpEbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSkYWxiZFlskFaalpykoWJoa6ZhbmxSZJlkqGpSaKhiUGaUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACYn+s0elNMXAIAABMFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACYn+s7WkpEbQAAAHgAAAAJACQAAAAAAAAAAAAAAKkCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAYQMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -698,6 +698,10 @@ GameObject:
   m_Component:
   - component: {fileID: 661375711}
   - component: {fileID: 661375710}
+  - component: {fileID: 661375714}
+  - component: {fileID: 661375713}
+  - component: {fileID: 661375712}
+  - component: {fileID: 661375715}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -772,6 +776,108 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &661375712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661375709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75da0e8c2c54aa44c968e8166e89092d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &661375713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661375709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!50 &661375714
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661375709}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!58 &661375715
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661375709}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49019608
 --- !u!1 &814704460
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +898,7 @@ GameObject:
   - component: {fileID: 814704469}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1610,7 +1716,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1366009475}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: aa69569d5a58fe24fa334668caf40480, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
