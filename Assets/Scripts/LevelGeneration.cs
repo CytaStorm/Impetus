@@ -51,11 +51,71 @@ public class LevelGeneration : MonoBehaviour
             // check the node's enrance and exit directions to assign the correct
             // room prefab
             current = layout.GetNodeAt(i);
+            int rng;
             switch(current.StartDir, current.EndDir)
             {
-                case (Direction.Up, Direction.Down):
+                // rooms with an entrance and an exit (hallways)
+                case (Direction.Up, Direction.Right):
+                    rng = Random.Range(0, upRightRooms.Count);
+                    current.Room = upRightRooms[rng];
                     break;
-                // ADD MISSING CASES
+                case (Direction.Up, Direction.Left):
+                    rng = Random.Range(0, upLeftRooms.Count);
+                    current.Room = upLeftRooms[rng];
+                    break;
+                case (Direction.Down, Direction.Left):
+                    rng = Random.Range(0, downLeftRooms.Count);
+                    current.Room = downLeftRooms[rng];
+                    break;
+                case (Direction.Down, Direction.Right):
+                    rng = Random.Range(0, downRightRooms.Count);
+                    current.Room = downRightRooms[rng];
+                    break;
+                case (Direction.Up, Direction.Down):
+                    rng = Random.Range(0, upDownRooms.Count);
+                    current.Room = upDownRooms[rng];
+                    break;
+                case (Direction.Left, Direction.Right):
+                    rng = Random.Range(0, leftRightRooms.Count);
+                    current.Room = leftRightRooms[rng];
+                    break;
+
+                // rooms with one exit (starting rooms)
+                case (Direction.None, Direction.Up):
+                    rng = Random.Range(0, upRooms.Count);
+                    current.Room = upRooms[rng];
+                    break;
+                case (Direction.None, Direction.Down):
+                    rng = Random.Range(0, downRooms.Count);
+                    current.Room = downRooms[rng];
+                    break;
+                case (Direction.None, Direction.Left):
+                    rng = Random.Range(0, leftRooms.Count);
+                    current.Room = leftRooms[rng];
+                    break;
+                case (Direction.None, Direction.Right):
+                    rng = Random.Range(0, rightRooms.Count);
+                    current.Room = rightRooms[rng];
+                    break;
+
+                // rooms with one entrance (boss rooms)
+                case (Direction.Up, Direction.None):
+                    rng = Random.Range(0, upRooms.Count);
+                    current.Room = upRooms[rng];
+                    break;
+                case (Direction.Down, Direction.None):
+                    rng = Random.Range(0, downRooms.Count);
+                    current.Room = downRooms[rng];
+                    break;
+                case (Direction.Left, Direction.None):
+                    rng = Random.Range(0, leftRooms.Count);
+                    current.Room = leftRooms[rng];
+                    break;
+                case (Direction.Right, Direction.None):
+                    rng = Random.Range(0, rightRooms.Count);
+                    current.Room = rightRooms[rng];
+                    break;
+
             }
         }
     }

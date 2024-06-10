@@ -63,6 +63,8 @@ public class LevelNode : MonoBehaviour
     { 
         this.previous = previous;
         this.room = room;
+        startDir = Direction.None;
+        endDir = Direction.None;
     }
 }
 
@@ -71,5 +73,6 @@ public enum Direction
     Down = 0, 
     Up = 1, 
     Left = 2, 
-    Right = 3
+    Right = 3,
+    None = 4
 };
