@@ -198,6 +198,93 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62958534}
   m_CullTransparentMesh: 1
+--- !u!1 &136745534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 136745536}
+  - component: {fileID: 136745535}
+  m_Layer: 0
+  m_Name: A* Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &136745535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136745534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAACYn+veUH36WgIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzqVjEzeB3lpDSA9JmNBOLr4IeY01yJJHHwGS4b93JdvYcacnNO+93X37YT4Il6YGZpVea54/qhzI9wnxb/Jl0pMPcKJ7Jbf8HTrNK89t6UU0aF6o5Qrx2IcZVYHVnP2Qe+HFEYJO8kLpapXvIVXGGoQLKgwgpZX10RKhjwk54c904UPO+Jrd+dc7vhbR5IJPBtKC7qWdsJM1KieZoFUNubfci+N5q44bmcRmWoU3zpQQ3LROiD3XodOU1sZhHyjIOcXOQnmvL4HvS+tdDoOfi8KAbS1pel5yjQNqspKfqplaRc2h8fVGhfN1bpNgqcn5+A89jQNdaFU9dGXjyJewJWeHF3pm1NjBVIfw8rNvJ49UHOhOwGsJ8kmttXIyR9Jq50OdgdlykOraWloCO/S6xusIdPX/l+ObuITuT6ng1c5TX5MG2AoV5h1WDxo38wsdh8MwbQpEvYs/Bn7T/fCCWuKea2ORatuU3t5OOe2lZBWG5rtxNlVaQoBb0zVIKux5g2nseIUjblB2xNxT/620xVuu+wRGIQHu9VE0ojbqeN2WKdXxEUz57KzgEnrTnnjCOaVKyubChjPpwrZOF5QNwvaO559vi8zmN8lswaICCrabJ/H0dn53k+wWu/hbQuMkKkg4Pi6xTyo2jdF2PLg12SeXeGjdX8hkrWkdrj3X9Ljm75UajJzLQm2ZBpDPTYarcdBYBL/KfJVzHNAWrOUy7Jt8ZEQodoA8uybKQqerk9U067NkpOZvynokI2n4z8iIh6+3vNHwxuHoi3fJLuTyF1BLAwQUAAAICAAAmJ/rO1pKRG0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kpGFsYmRZbJBWmpacpKFiaGumYW5sUmSZZKhqUmioYlBmlIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAmJ/r3lB9+loCAAASBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAmJ/rO1pKRG0AAAB4AAAACQAkAAAAAAAAAAAAAACnAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAF8DAAAAAA==
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 1
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+--- !u!4 &136745536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136745534}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10264541, y: 0.7842288, z: 0.087025926}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &209504210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,3 +2098,4 @@ SceneRoots:
   - {fileID: 814704464}
   - {fileID: 1236217441}
   - {fileID: 209504213}
+  - {fileID: 136745536}
