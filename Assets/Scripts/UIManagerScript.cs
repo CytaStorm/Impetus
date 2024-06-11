@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManagerScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("GameObject Components")]
@@ -18,10 +18,10 @@ public class UIManager : MonoBehaviour
     private Slider _aetherBarSlider;
     private Slider _flowBarSlider;
     private TextMeshProUGUI _flowStateLevelText;
-    private Player _player;
+    private PlayerScript _player;
     void Start()
     {
-        _player = _playerObject.GetComponent<Player>();
+        _player = _playerObject.GetComponent<PlayerScript>();
         _healthBarSlider = _healthBar.GetComponent<Slider>();
         _aetherBarSlider = _aetherBar.GetComponent<Slider>();
         _flowBarSlider = _flowBar.GetComponent<Slider>();

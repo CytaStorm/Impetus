@@ -6,11 +6,12 @@ using UnityEngine.Events;
  *   other items and upgrades etc to interact with the stats of the player
  */
 
-public class Player : MonoBehaviour, IDamageable
+public class PlayerScript : MonoBehaviour, IDamageable
 {
 	#region Other Scripts
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
 	#endregion
+
 	#region Health
 	[Header("Health")]
 	[SerializeField] private float _health; 
@@ -133,8 +134,8 @@ public class Player : MonoBehaviour, IDamageable
 		{
 			amountRegained = MaxHealth - MaxHealth;
 		}
-		MaxHealth += amountRegained;
-		AetherChanged.Invoke(amountRegained);
+		Health += amountRegained;
+		HealthChanged.Invoke(amountRegained);
 	}
 
 	public void PlayerFullHeal()
