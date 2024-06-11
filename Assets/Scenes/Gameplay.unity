@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovementScript: {fileID: 0}
+  _playerMovementScript: {fileID: 814704465}
   _health: 100
   _maxHealth: 100
   _aether: 50
@@ -1375,6 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3458d8a961d27418163fa8ff189b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameOverScreenDelaySeconds: 5
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
