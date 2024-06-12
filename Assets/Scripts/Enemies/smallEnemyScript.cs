@@ -15,7 +15,7 @@ public class smallEnemyScript : MonoBehaviour
 
     //nextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
-    const float nextWaypointDistance = 1;
+    const float nextWayPointDistance = .5f;
     const float speed = 3;
 
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class smallEnemyScript : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
 
         //Setup CalculatePath() to run every half second
-        InvokeRepeating("CalculatePath", 0f, .5f);
+        InvokeRepeating("CalculatePath", 0f, .25f);
     }
 
     // Update is called once per frame
@@ -36,21 +36,18 @@ public class smallEnemyScript : MonoBehaviour
         //First make sure the path is created
         if (path == null)
         {
-            Debug.Log("yo shit null cuh");
             return;
         }
             
-
         //MOVE
         //find direction of the next waypoint (vector2)
-        Debug.Log(path.vectorPath[currentWaypoint].magnitude);
         Vector2 direction = (path.vectorPath[currentWaypoint] - this.transform.position);
 
         //Multiply direction by speed and move
         rb.velocity = direction.normalized * speed;
 
         //If the distance is small enough, switch to next waypoint
-        if (direction.magnitude < nextWaypointDistance)
+        if (direction.magnitude <= nextWayPointDistance)
         {
             currentWaypoint++;
         }
