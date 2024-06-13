@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovementScript: {fileID: 814704465}
+  _playerMovementScript: {fileID: 0}
   _health: 5
   _maxHealth: 10
   _aether: 50
@@ -994,6 +994,7 @@ MonoBehaviour:
   - 6
   - 4
   - 3
+  _gold: 0
   HealthChanged:
     m_PersistentCalls:
       m_Calls: []
