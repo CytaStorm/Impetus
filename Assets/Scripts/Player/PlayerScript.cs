@@ -90,6 +90,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 	#endregion
 
+	#region Currency
+	[Header("Currency")]
+	[SerializeField] private float _gold;
+	public float Gold
+	{
+		get => _gold;
+		set => _gold = value;
+	} 
+	#endregion
+
 	#region Events
 	public UnityEvent<float> HealthChanged;
 	public UnityEvent<float> MaxHealthChanged;
