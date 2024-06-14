@@ -12,16 +12,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _aetherBar;
     [SerializeField] private GameObject _flowBar;
     [SerializeField] private GameObject _flowStateLevel;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _playerObject;
 
     private Slider _healthBarSlider;
     private Slider _aetherBarSlider;
     private Slider _flowBarSlider;
     private TextMeshProUGUI _flowStateLevelText;
-    private PlayerStats _playerStats;
+    private Player _player;
     void Start()
     {
-        _playerStats = _player.GetComponent<PlayerStats>();
+        _player = _playerObject.GetComponent<Player>();
         _healthBarSlider = _healthBar.GetComponent<Slider>();
         _aetherBarSlider = _aetherBar.GetComponent<Slider>();
         _flowBarSlider = _flowBar.GetComponent<Slider>();
@@ -31,12 +31,12 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _healthBarSlider.value = _playerStats.Health;
-        _healthBarSlider.maxValue = _playerStats.MaxHealth;
-        _aetherBarSlider.value = _playerStats.Aether;
-        _aetherBarSlider.maxValue = _playerStats.MaxAether;
-        _flowBarSlider.value = _playerStats.Flow;
-        _flowBarSlider.maxValue = _playerStats.MaxFlow;
-        _flowStateLevelText.text = _playerStats.FlowState.ToString();
+        _healthBarSlider.value = _player.Health;
+        _healthBarSlider.maxValue = _player.MaxHealth;
+        _aetherBarSlider.value = _player.Aether;
+        _aetherBarSlider.maxValue = _player.MaxAether;
+        _flowBarSlider.value = _player.Flow;
+        _flowBarSlider.maxValue = _player.MaxFlow;
+        _flowStateLevelText.text = _player.FlowState.ToString();
     }
 }

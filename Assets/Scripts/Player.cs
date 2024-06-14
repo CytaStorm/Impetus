@@ -6,7 +6,7 @@ using UnityEngine.Events;
  *   other items and upgrades etc to interact with the stats of the player
  */
 
-public class PlayerStats : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
 	#region Health
 	[Header("Health")]
@@ -101,7 +101,7 @@ public class PlayerStats : MonoBehaviour
 
 	#region Functions to change stats
 
-	public void playerHurt(float amount, float multiplier)
+	public void TakeDamage(float amount, float multiplier)
 	{
 		Health -= (amount * multiplier);
 		if (Health <= 0)
@@ -110,20 +110,18 @@ public class PlayerStats : MonoBehaviour
 			PlayerDied.Invoke();
 		}
 	}
-
-	public void playerInstantDeath()
+	public void Die()
 	{
 		Health = 0;
 		PlayerDied.Invoke();
 	}
-	
-	public void respawnPlayer()
+	public void RespawnPlayer()
 	{
 		Health = MaxHealth;
 		PlayerRevived.Invoke();
 	}
 
-	public void playerHeal(float amount, float multiplier, bool canHealPastMax)
+	public void Heal(float amount, float multiplier, bool canHealPastMax)
 	{
 		float amountRegained = amount * multiplier;
 		if (Health + amountRegained > MaxHealth &&
@@ -135,13 +133,13 @@ public class PlayerStats : MonoBehaviour
 		AetherChanged.Invoke(amountRegained);
 	}
 
-	public void playerFullHeal()
+	public void PlayerFullHeal()
 	{
 		Health = MaxHealth;
 		PlayerFullHealed.Invoke();
 	}
 
-	public void playerRegainAether(float amount, float multiplier, bool canRegenPastMax)
+	public void PlayerRegainAether(float amount, float multiplier, bool canRegenPastMax)
 	{
 		float amountRegained = amount * multiplier;
 		if (Aether + amountRegained > MaxAether &&
@@ -153,7 +151,6 @@ public class PlayerStats : MonoBehaviour
 		AetherChanged.Invoke(amountRegained);
 	}
 	#endregion
-
 
 	// Start is called before the first frame update
 	void Start()
