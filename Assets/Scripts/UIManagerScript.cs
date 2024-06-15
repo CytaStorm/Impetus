@@ -12,12 +12,14 @@ public class UIManagerScript : MonoBehaviour
     [SerializeField] private GameObject _aetherBar;
     [SerializeField] private GameObject _flowBar;
     [SerializeField] private GameObject _flowStateLevel;
+    [SerializeField] private GameObject _goldCounter;
     [SerializeField] private GameObject _playerObject;
 
     private Slider _healthBarSlider;
     private Slider _aetherBarSlider;
     private Slider _flowBarSlider;
     private TextMeshProUGUI _flowStateLevelText;
+    private TextMeshProUGUI _goldCounterText;
     private PlayerScript _player;
     void Start()
     {
@@ -26,6 +28,7 @@ public class UIManagerScript : MonoBehaviour
         _aetherBarSlider = _aetherBar.GetComponent<Slider>();
         _flowBarSlider = _flowBar.GetComponent<Slider>();
         _flowStateLevelText = _flowStateLevel.GetComponent<TextMeshProUGUI>();
+        _goldCounterText = _goldCounter.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -38,5 +41,6 @@ public class UIManagerScript : MonoBehaviour
         _flowBarSlider.value = _player.Flow;
         _flowBarSlider.maxValue = _player.MaxFlow;
         _flowStateLevelText.text = _player.FlowState.ToString();
+        _goldCounterText.text = _player.Gold.ToString();
     }
 }
