@@ -20,6 +20,8 @@ public class LevelGeneration : MonoBehaviour
     private LevelLinkedList layout;
     // index of current room the player is in
     public int roomIndex;
+    // reference to room player is currently in
+    private GameObject currentRoom;
     
     void Start()
     {
@@ -123,7 +125,38 @@ public class LevelGeneration : MonoBehaviour
     /// <summary>
     /// Render the room the player is currently in based on the roomIndex
     /// </summary>
-    public void RenderCurrentRoom() { }
+    public void RenderCurrentRoom() 
+    {
+        currentRoom = GameObject.Instantiate(layout[roomIndex]);
+    }
+
+    /// <summary>
+    /// Destroy the room the player is currently in based on the roomIndex
+    /// </summary>
+    public void DestroyCurrentRoom()
+    {
+        GameObject.Destroy(currentRoom);
+    }
+
+    /// <summary>
+    /// Replaces current room with the next one in the linked list
+    /// </summary>
+    public void IncrementRoom()
+    {
+        DestroyCurrentRoom();
+        roomIndex++;
+        RenderCurrentRoom();
+    }
+
+    /// <summary>
+    /// Replaces the current room with the previous one in the linked list
+    /// </summary>
+    public void DecrementRoom()
+    {
+        DestroyCurrentRoom();
+        roomIndex++;
+        RenderCurrentRoom();
+    }
 
     public void ResetLayout()
     {
