@@ -480,6 +480,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871fac96c7808fd43a73f4b392868b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upRightRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  upLeftRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  downLeftRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  downRightRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  upDownRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  leftRightRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  upRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  downRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  leftRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  rightRooms:
+  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  roomIndex: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
