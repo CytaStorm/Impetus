@@ -22,7 +22,19 @@ public class LevelGeneration : MonoBehaviour
     public int roomIndex;
     // reference to room player is currently in
     private GameObject currentRoom;
-    
+
+    // Called whenever the attached object is created or enabled
+    private void OnEnable()
+    {
+        DoorEventManager.OnDoorEnter += IncrementRoom;
+    }
+
+    private void OnDisable()
+    {
+        // Remove methods from events to prevent future errors
+        DoorEventManager.OnDoorEnter -= IncrementRoom;
+    }
+
     void Start()
     {
 
