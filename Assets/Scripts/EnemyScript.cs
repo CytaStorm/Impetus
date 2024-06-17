@@ -11,10 +11,10 @@ public class EnemyScript : MonoBehaviour
     public GameObject player;
     public GameObject weapon;
 
-    [SerializeField] private float _enemyHealth = 100f;
-    [SerializeField] private float _aetherIncrease = 10f;
-    [SerializeField] private float _enemyDamage = 10f;
-    [SerializeField] private float _flowWorth = 50f;
+    [SerializeField] private float _enemyHealth;
+    [SerializeField] private float _aetherIncrease;
+    [SerializeField] private float _enemyDamage;
+    [SerializeField] private float _flowWorth;
 
     private PlayerAttackScript _playerAttack;
     private PlayerStats _playerStats;
@@ -26,6 +26,25 @@ public class EnemyScript : MonoBehaviour
     private float screenRight;
     private float screenTop;
     private float screenBottom;
+
+    //PROPERTIES - for values that will be different across dif enemy types (health, damage, etc)
+    public float EnemyHealth
+    {
+        set { _enemyHealth = value; }
+    }
+    public float AetherIncrease
+    {
+        set { _aetherIncrease = value; }
+    }
+    public float EnemyDamage
+    {
+        set { _enemyDamage = value; }
+    }
+    public float FlowWorth
+    {
+        set { _flowWorth = value; }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,14 +58,17 @@ public class EnemyScript : MonoBehaviour
         //this._flowWorth = 50;
 
         // Initialize screen boundaries
-        mainCamera = Camera.main;
-        float verticalExtent = mainCamera.orthographicSize;
-        float horizontalExtent = verticalExtent * Screen.width / Screen.height;
+        //mainCamera = Camera.main;
+        //float verticalExtent = mainCamera.orthographicSize;
+        //float horizontalExtent = verticalExtent * Screen.width / Screen.height;
 
-        screenLeft = mainCamera.transform.position.x - horizontalExtent;
-        screenRight = mainCamera.transform.position.x + horizontalExtent;
-        screenBottom = mainCamera.transform.position.y - verticalExtent;
-        screenTop = mainCamera.transform.position.y + verticalExtent;
+        //screenLeft = mainCamera.transform.position.x - horizontalExtent;
+        //screenRight = mainCamera.transform.position.x + horizontalExtent;
+        //screenBottom = mainCamera.transform.position.y - verticalExtent;
+        //screenTop = mainCamera.transform.position.y + verticalExtent;
+
+        //Get the script for this individual enemy type
+        
 
         //Safety check to make sure 
         if (player != null)
@@ -97,10 +119,10 @@ public class EnemyScript : MonoBehaviour
         }
 
         // Keeps enemy on the screen
-        Vector3 enemyPos = transform.position;
-        enemyPos.x = Mathf.Clamp(enemyPos.x, screenLeft, screenRight);
-        enemyPos.y = Mathf.Clamp(enemyPos.y, screenBottom, screenTop);
-        transform.position = enemyPos;
+        //Vector3 enemyPos = transform.position;
+        //enemyPos.x = Mathf.Clamp(enemyPos.x, screenLeft, screenRight);
+        //enemyPos.y = Mathf.Clamp(enemyPos.y, screenBottom, screenTop);
+        //transform.position = enemyPos;
     }
 
 
