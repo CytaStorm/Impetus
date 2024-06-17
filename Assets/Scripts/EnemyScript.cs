@@ -146,18 +146,4 @@ public class EnemyScript : MonoBehaviour
             _playerStats.Health -= _enemyDamage;
         }
     }
-
-    /// <summary>
-    /// This method is called when a gameObject is destroyed
-    /// </summary>
-    private void OnDestroy()
-    {
-        // Check if the _enemyDied event is not null
-
-        if (_enemyDied != null)
-        {
-            // Remove the KillEnemy method from the _enemyDied event
-            _enemyDied.RemoveListener(killEnemy);
-        }
-    }
 }
