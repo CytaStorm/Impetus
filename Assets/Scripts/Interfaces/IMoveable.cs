@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IMoveable
 {
+	bool Moveable { get; set; }
 	float Speed { get; set; }
 	void Knockback(Vector2 force);
 }

@@ -8,10 +8,14 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IDamageable
 {
+	#region Other Scripts
+	[SerializeField] private PlayerMovementScript _playerMovementScript;
+	#endregion
 	#region Health
 	[Header("Health")]
 	[SerializeField] private float _health; 
 	[SerializeField] private float _maxHealth;
+
 	public float Health
 	{
 		get => _health;
@@ -162,6 +166,11 @@ public class Player : MonoBehaviour, IDamageable
 	// Update is called once per frame
 	void Update()
 	{
+		if (Health <= 0)
+		{
+			_playerMovementScript.Moveable = false;
+			PlayerDied.Invoke();
+		}
 		//Decrease flow state
 		if (Flow != 0)
 		{

@@ -13,7 +13,14 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 	[SerializeField] private SpriteRenderer _spriteRenderer;
 	#endregion
 
-
+	#region General
+	[SerializeField] private bool _moveable;
+	public bool Moveable
+	{
+		get => _moveable;
+		set => _moveable = value;
+	}
+	#endregion
 	#region Walking
 	[Header("Walking Speed Settings")]
 	[Range(0, 10f)] private float _speed = 5;
@@ -47,7 +54,7 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		Moveable = true;
 	}
 
 	// Update is called once per frame
@@ -67,6 +74,10 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 
 	public void OnMoveInput(InputAction.CallbackContext context)
 	{
+		if (!Moveable)
+		{
+			return;
+		}
 		_moveVector = context.ReadValue<Vector2>() * Speed;
 	}
 

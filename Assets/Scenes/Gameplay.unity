@@ -5388,6 +5388,7 @@ MonoBehaviour:
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
   _spriteRenderer: {fileID: 814704466}
+  _moveable: 0
   _movementSmoothing: 0.05
   DashDistance: 1000
   DashCooldownTime: 1
@@ -5648,6 +5649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerMovementScript: {fileID: 814704465}
   _health: 100
   _maxHealth: 100
   _aether: 50
@@ -5679,7 +5681,19 @@ MonoBehaviour:
       m_Calls: []
   PlayerDied:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1236217443}
+        m_TargetAssemblyTypeName: Menus, Assembly-CSharp
+        m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   PlayerRevived:
     m_PersistentCalls:
       m_Calls: []
@@ -5909,6 +5923,7 @@ GameObject:
   - component: {fileID: 1236217439}
   - component: {fileID: 1236217438}
   - component: {fileID: 1236217442}
+  - component: {fileID: 1236217443}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6018,6 +6033,19 @@ MonoBehaviour:
   _flowBar: {fileID: 1980636183}
   _flowStateLevel: {fileID: 225349640}
   _playerObject: {fileID: 814704460}
+--- !u!114 &1236217443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236217437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3458d8a961d27418163fa8ff189b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameOverScreenDelaySeconds: 5
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
@@ -6085,7 +6113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 321.46, y: -206}
+  m_AnchoredPosition: {x: 81, y: -88}
   m_SizeDelta: {x: 512, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1375408981
@@ -6174,7 +6202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 321.45996, y: -328.406}
+  m_AnchoredPosition: {x: 81, y: -216}
   m_SizeDelta: {x: 512, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1432904785
@@ -6469,7 +6497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 525.01, y: 234.30399}
+  m_AnchoredPosition: {x: 794, y: 324.54}
   m_SizeDelta: {x: 257.07, y: 257.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1980636185
