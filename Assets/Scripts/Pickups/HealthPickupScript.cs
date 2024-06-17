@@ -22,8 +22,13 @@ public class HealthPickupScript : MonoBehaviour
         {
             return;
         }
-        collision.gameObject.GetComponent<PlayerScript>().Heal(
-            1, 1, false);
+
+        PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
+        if (_player.Health == _player.MaxHealth)
+        {
+            return;
+        }
+        _player.Heal(1, 1, false);
         Destroy(this.gameObject);
 	}
 }

@@ -15,13 +15,13 @@ public class GoldPickupScript : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
 	{
-        if (collision.transform.tag != "Player")
+        if (collider.transform.tag != "Player")
         {
             return;
         }
-        collision.gameObject.GetComponent<PlayerScript>().Gold++;
+        collider.gameObject.GetComponent<PlayerScript>().Gold++;
         Destroy(this.gameObject);
 	}
 }

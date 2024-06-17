@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 /**  PLAYER STATS
  *      The purpose of this class is to create ways for enemies or
  *   other items and upgrades etc to interact with the stats of the player
@@ -90,14 +91,21 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 	#endregion
 
-	#region Currency
-	[Header("Currency")]
+	#region Currency & Shop
+	[Header("Currency & Shop")]
 	[SerializeField] private float _gold;
 	public float Gold
 	{
 		get => _gold;
 		set => _gold = value;
-	} 
+	}
+
+	private bool _onPedestal = false;
+	public bool OnPedestal
+	{
+		get => _onPedestal;
+		set => _onPedestal = value;
+	}
 	#endregion
 
 	#region Events
@@ -108,6 +116,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	public UnityEvent<float> MaxAetherChanged;
 
 	public UnityEvent<float> PlayerDamageChanged;
+	public UnityEvent<PlayerScript, float> BuyItem;
 
 	public UnityEvent PlayerDied;
 	public UnityEvent PlayerRevived;
@@ -199,4 +208,15 @@ public class PlayerScript : MonoBehaviour, IDamageable
 			Flow -= 100;
 		}
 	}
+
+	#region World Interactions
+	public void OnBuy(InputAction.CallbackContext context)
+	{
+		if (!OnPedestal || !context.performed)
+		{
+			return;
+		}
+		BuyItem.Invoke(this, Gold);
+	}
+	#endregion
 }
