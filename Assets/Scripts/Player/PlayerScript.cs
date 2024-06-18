@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -9,7 +11,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour, IDamageable
 {
-	#region Other Scripts
+	#region GameObject Components
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
 	#endregion
 
@@ -89,6 +91,22 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	[SerializeField] private List<float> _flowStateMaxDropTimesSeconds =
 		new List<float> {15, 10, 8, 6, 4, 3};
 
+	#endregion
+
+	#region Damage
+	[SerializeField] private float _attackDamage;
+	private int _attackBuffRoomsLeft;
+	public float AttackDamage
+	{
+		get => _attackDamage;
+		set => _attackDamage = value;
+	}
+	//Decrement each time new room is entered.
+	public int AttackBuffRoomsLeft
+	{
+		get => _attackBuffRoomsLeft;
+		set => _attackBuffRoomsLeft = value;
+	}
 	#endregion
 
 	#region Currency & Shop
@@ -188,7 +206,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	{
 		if (Health <= 0)
 		{
-			_playerMovementScript.Moveable = false;
 			PlayerDied.Invoke();
 		}
 		//Decrease flow state

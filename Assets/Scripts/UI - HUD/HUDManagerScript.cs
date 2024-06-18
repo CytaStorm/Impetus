@@ -4,23 +4,41 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManagerScript : MonoBehaviour
+public class HUDManagerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [Header("GameObject Components")]
-    [SerializeField] private GameObject _healthBar;
-    [SerializeField] private GameObject _aetherBar;
-    [SerializeField] private GameObject _flowBar;
-    [SerializeField] private GameObject _flowStateLevel;
-    [SerializeField] private GameObject _goldCounter;
+    [Header("Player")]
     [SerializeField] private GameObject _playerObject;
 
-    private Slider _healthBarSlider;
+    [Header("Health")]
+	[SerializeField] private GameObject _healthBar;
+
+    [Header("Aether")]
+    [SerializeField] private GameObject _aetherBar;
+
+    [Header("Flow")]
+    [SerializeField] private GameObject _flowBar;
+    [SerializeField] private GameObject _flowStateLevel;
+
+    [Header("Gold")]
+    [SerializeField] private GameObject _goldCounter;
+
+    [Header("Attack Buff")]
+    [SerializeField] private GameObject _AttackBuffCounter;
+
+    private PlayerScript _player;
+
+	private Slider _healthBarSlider;
+
     private Slider _aetherBarSlider;
+
     private Slider _flowBarSlider;
     private TextMeshProUGUI _flowStateLevelText;
+
     private TextMeshProUGUI _goldCounterText;
-    private PlayerScript _player;
+
+    private TextMeshProUGUI _AttackBuffCounterText;
+
+    // Start is called before the first frame update
     void Start()
     {
         _player = _playerObject.GetComponent<PlayerScript>();
@@ -29,6 +47,7 @@ public class UIManagerScript : MonoBehaviour
         _flowBarSlider = _flowBar.GetComponent<Slider>();
         _flowStateLevelText = _flowStateLevel.GetComponent<TextMeshProUGUI>();
         _goldCounterText = _goldCounter.GetComponent<TextMeshProUGUI>();
+        _AttackBuffCounterText = _AttackBuffCounter.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -42,5 +61,6 @@ public class UIManagerScript : MonoBehaviour
         _flowBarSlider.maxValue = _player.MaxFlow;
         _flowStateLevelText.text = _player.FlowState.ToString();
         _goldCounterText.text = _player.Gold.ToString();
+        _AttackBuffCounterText.text = _player.AttackBuffRoomsLeft.ToString();
     }
 }
