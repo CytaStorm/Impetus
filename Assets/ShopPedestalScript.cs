@@ -36,7 +36,7 @@ public class ShopPedestalScript : MonoBehaviour
         
     }
 
-	private void OnTriggerEnter2D(Collider2D collider)
+	private void OnCollisionEnter2D(Collision2D collider)
 	{
 		print("here");
         if (collider.transform.tag != "Player")
