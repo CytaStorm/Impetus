@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class DoorEventManager : MonoBehaviour
 {
-    Collider2D myCollider2D;
+    public bool isExit = false;
+    private Collider2D myCollider2D;
 
     public delegate void DoorAction();
     public static event DoorAction OnDoorEnter;
+    public static event DoorAction OnDoorExit;
 
     void Awake()
     {
@@ -29,9 +31,20 @@ public class DoorEventManager : MonoBehaviour
     // Called when something enters the attached object's trigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (OnDoorEnter != null)
+        if (!isExit) // trigger entrance door events
         {
-            OnDoorEnter();
+            if (OnDoorEnter != null)
+            {
+                OnDoorEnter();
+            }
         }
+        else // trigger exit door events
+        {
+            if (OnDoorExit != null)
+            {
+                OnDoorExit();
+            }
+        }
+        
     }
 }

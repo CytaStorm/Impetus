@@ -27,12 +27,14 @@ public class LevelGeneration : MonoBehaviour
     private void OnEnable()
     {
         DoorEventManager.OnDoorEnter += IncrementRoom;
+        DoorEventManager.OnDoorExit += DecrementRoom;
     }
 
     private void OnDisable()
     {
         // Remove methods from events to prevent future errors
         DoorEventManager.OnDoorEnter -= IncrementRoom;
+        DoorEventManager.OnDoorExit -= DecrementRoom;
     }
 
     void Start()
