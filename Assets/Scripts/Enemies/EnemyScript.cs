@@ -17,7 +17,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private float _flowWorth;
 
     private PlayerAttackScript _playerAttack;
-    private PlayerStats _playerStats;
+    private Player _player;
 
     private UnityEvent _enemyDied;
 
@@ -74,10 +74,10 @@ public class EnemyScript : MonoBehaviour
         if (player != null)
         {
             _playerAttack = player.GetComponent<PlayerAttackScript>();
-            _playerStats = player.GetComponent<PlayerStats>();
+            _player = player.GetComponent<Player>();
 
             //Checks if either player attack or player stats are missing
-            if (_playerAttack == null || _playerStats == null)
+            if (_playerAttack == null || _player == null)
             {
                 Debug.LogError("Player components are missing.");
                 return;
@@ -106,7 +106,7 @@ public class EnemyScript : MonoBehaviour
         Destroy(this.gameObject);
 
         //Gain flow on hit based on "flow worth" of the enemy
-        _playerStats.Flow += _flowWorth;
+        _player.Flow += _flowWorth;
 
     }
 
@@ -155,7 +155,7 @@ public class EnemyScript : MonoBehaviour
             }
 
             //Regain aether on the player
-            _playerStats.Aether += _aetherIncrease;
+            _player.Aether += _aetherIncrease;
         }     
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -165,7 +165,7 @@ public class EnemyScript : MonoBehaviour
         {
             print("Player taking damage from touching enemy!");
 
-            _playerStats.Health -= _enemyDamage;
+            _player.Health -= _enemyDamage;
         }
     }
 }

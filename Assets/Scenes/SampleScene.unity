@@ -795,10 +795,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 814704460}
   weapon: {fileID: 1708542453}
-  _enemyHealth: 0
-  _aetherIncrease: 0
-  _enemyDamage: 0
-  _flowWorth: 0
+  _enemyHealth: 100
+  _aetherIncrease: 5
+  _enemyDamage: 5
+  _flowWorth: 60
 --- !u!212 &364630262
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -860,7 +860,7 @@ Transform:
   m_GameObject: {fileID: 364630258}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.71, y: -1.71, z: 0}
+  m_LocalPosition: {x: 6.88, y: -1.18, z: 0}
   m_LocalScale: {x: 0.39, y: 0.39, z: 0.39}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -882,7 +882,7 @@ MonoBehaviour:
   _enemy: {fileID: 364630258}
   playerPosition: {x: 0, y: 0}
   enemyPosition: {x: 0, y: 0}
-  speed: 1
+  speed: 0.5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,10 +1139,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 814704460}
   weapon: {fileID: 1708542453}
-  _enemyHealth: 0
-  _aetherIncrease: 0
-  _enemyDamage: 0
-  _flowWorth: 0
+  _enemyHealth: 100
+  _aetherIncrease: 20
+  _enemyDamage: 20
+  _flowWorth: 50
 --- !u!212 &602688536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1204,7 +1204,7 @@ Transform:
   m_GameObject: {fileID: 602688534}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.02, y: -0.6, z: 0}
+  m_LocalPosition: {x: -5.05, y: 0.11, z: 0}
   m_LocalScale: {x: 0.39, y: 0.39, z: 0.39}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2152,7 +2152,7 @@ MonoBehaviour:
   _aetherBar: {fileID: 1432904783}
   _flowBar: {fileID: 1980636183}
   _flowStateLevel: {fileID: 225349640}
-  _playerObject: {fileID: 0}
+  _playerObject: {fileID: 814704460}
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
