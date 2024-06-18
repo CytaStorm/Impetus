@@ -5420,8 +5420,8 @@ GameObject:
   m_Component:
   - component: {fileID: 814704464}
   - component: {fileID: 814704463}
-  - component: {fileID: 814704462}
   - component: {fileID: 814704471}
+  - component: {fileID: 814704462}
   - component: {fileID: 814704466}
   - component: {fileID: 814704461}
   - component: {fileID: 814704467}
@@ -5429,7 +5429,6 @@ GameObject:
   - component: {fileID: 814704465}
   - component: {fileID: 814704468}
   - component: {fileID: 814704469}
-  - component: {fileID: 814704471}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5489,7 +5488,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -5511,7 +5510,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814704460}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -5808,7 +5807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _swordPivotPoint: {fileID: 1355835681}
-  _attackDuration: 0.2
+  _attackDuration: 0.5
   _attackCooldownDuration: 2
   _damage: 20
   _slashArc: 202
@@ -5930,9 +5929,23 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 814704462}
+    m_ColliderPaths:
+    - - X: 3532787
+        Y: 3532787
+      - X: -3532787
+        Y: 3532787
+      - X: -3532787
+        Y: -3532787
+      - X: 3532787
+        Y: -3532787
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 0.3532494, y: -0.3532787}
+      - {x: 0.3532494, y: 0.3532787}
+      - {x: -0.3532787, y: 0.3532494}
+      - {x: -0.3532494, y: -0.3532787}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -6294,6 +6307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1282826929}
+  - component: {fileID: 1282826931}
   - component: {fileID: 1282826930}
   m_Layer: 0
   m_Name: Buy Area
@@ -6332,6 +6346,51 @@ MonoBehaviour:
   _itemToSell: {fileID: 1262486486385621026, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
   _goldCostText: {fileID: 803720883}
   _goldCost: 50
+--- !u!61 &1282826931
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282826927}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0.19
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
@@ -8409,3 +8468,5 @@ SceneRoots:
   - {fileID: 1236217441}
   - {fileID: 209504213}
   - {fileID: 598716271}
+  - {fileID: 814704464}
+  - {fileID: 1979959438}

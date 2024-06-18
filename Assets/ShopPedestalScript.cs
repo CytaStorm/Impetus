@@ -22,7 +22,7 @@ public class ShopPedestalScript : MonoBehaviour
 	void Start()
     {
         _unBoughtItem = Instantiate(_itemToSell, 
-			transform.position + new Vector3(0, 0.5f, 0),
+			transform.position + new Vector3(0, 0.6f, 0),
 			transform.rotation,
 			this.transform);
 		_unBoughtItem.GetComponent<Collider2D>().enabled = false;
@@ -77,6 +77,7 @@ public class ShopPedestalScript : MonoBehaviour
 
 		//Give item
 		_unBoughtItem.GetComponent<Collider2D>().enabled = true;
+		//Destroy(_unBoughtItem);
 		Destroy(_goldCostText);
 	}
 
