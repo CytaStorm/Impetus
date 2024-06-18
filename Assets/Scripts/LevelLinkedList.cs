@@ -33,7 +33,7 @@ public class LevelLinkedList : MonoBehaviour
     /// <param name="count">Number of nodes in the list</param>
     public LevelLinkedList(int count)
     {
-        this.count = count;
+        this.count = 0;
         for (int i = 0; i < count; i++)
         {
             Add(null);
@@ -58,12 +58,15 @@ public class LevelLinkedList : MonoBehaviour
     {
         if (count == 0)
         {
+            Debug.Log("adding room to empty list");
             count++;
             head = new LevelNode(null, room);
             tail = head;
         }
         else
         {
+
+            Debug.Log("adding next room to ist");
             count++;
             tail.Next = new LevelNode(tail, room);
             tail = tail.Next;

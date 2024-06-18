@@ -37,6 +37,14 @@ public class LevelGeneration : MonoBehaviour
         DoorEventManager.OnDoorExit -= DecrementRoom;
     }
 
+    void Awake()
+    {
+        layout = new LevelLinkedList();
+        roomIndex = 0;
+        GenerateLayout(3);
+        RenderCurrentRoom();
+    }
+
     void Start()
     {
 
