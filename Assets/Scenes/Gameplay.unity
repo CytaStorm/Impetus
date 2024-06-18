@@ -5528,7 +5528,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!4 &814704464
 Transform:
@@ -6294,6 +6294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1282826929}
+  - component: {fileID: 1282826930}
   m_Layer: 0
   m_Name: Buy Area
   m_TagString: Untagged
@@ -6311,11 +6312,26 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1565488, y: 0.1345165, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1979959438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1282826930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282826927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78343a90832b2ac4cb264d3052cc2052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemToSell: {fileID: 1262486486385621026, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+  _goldCostText: {fileID: 803720883}
+  _goldCost: 50
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
@@ -6990,9 +7006,7 @@ GameObject:
   - component: {fileID: 1979959438}
   - component: {fileID: 1979959443}
   - component: {fileID: 1979959444}
-  - component: {fileID: 1979959441}
   - component: {fileID: 1979959442}
-  - component: {fileID: 1979959439}
   m_Layer: 0
   m_Name: Shop Pedestal
   m_TagString: Untagged
@@ -7017,48 +7031,6 @@ Transform:
   - {fileID: 803720882}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1979959439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979959437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78343a90832b2ac4cb264d3052cc2052, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemToSell: {fileID: 1262486486385621026, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
-  _goldCostText: {fileID: 803720883}
-  _goldCost: 50
---- !u!50 &1979959441
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979959437}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &1979959442
 BoxCollider2D:
   m_ObjectHideFlags: 0

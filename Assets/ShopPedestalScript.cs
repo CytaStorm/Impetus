@@ -36,7 +36,7 @@ public class ShopPedestalScript : MonoBehaviour
         
     }
 
-	private void OnCollisionEnter2D(Collision2D collider)
+	private void OnTriggerEnter2D(Collider2D collider)
 	{
 		print("here");
         if (collider.transform.tag != "Player")
@@ -49,13 +49,14 @@ public class ShopPedestalScript : MonoBehaviour
 	}
 	private void OnTriggerExit2D(Collider2D collider)
 	{
+		print("exit");
         if (collider.transform.tag != "Player")
         {
             return;
         }
 		_player = collider.gameObject.GetComponent<PlayerScript>();
 		_player.BuyItem.RemoveListener(SellItem);
-		_player.OnPedestal = true;
+		_player.OnPedestal = false;
 	}
 
 	private void SellItem(PlayerScript player, float gold)
