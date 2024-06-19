@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 697689859}
   - component: {fileID: 697689861}
   - component: {fileID: 697689860}
+  - component: {fileID: 697689862}
   m_Layer: 0
   m_Name: Tilemap (1)
   m_TagString: Untagged
@@ -5432,6 +5433,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!210 &697689862
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697689858}
+  m_Enabled: 1
+  m_SortingLayerID: 2077048945
+  m_SortingLayer: 1
+  m_SortingOrder: 2
+  m_SortAtRoot: 0
 --- !u!1 &803720881
 GameObject:
   m_ObjectHideFlags: 0
@@ -5622,6 +5635,7 @@ GameObject:
   - component: {fileID: 814704465}
   - component: {fileID: 814704468}
   - component: {fileID: 814704469}
+  - component: {fileID: 814704472}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6144,6 +6158,18 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 814704460}
+--- !u!210 &814704472
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814704460}
+  m_Enabled: 1
+  m_SortingLayerID: -554799531
+  m_SortingLayer: 3
+  m_SortingOrder: 100
+  m_SortAtRoot: 0
 --- !u!1 &833427116
 GameObject:
   m_ObjectHideFlags: 0
@@ -7525,7 +7551,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 2077048945
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_SortAtRoot: 0
 --- !u!1 &1980636183
 GameObject:
@@ -7629,6 +7655,7 @@ GameObject:
   - component: {fileID: 1992005534}
   - component: {fileID: 1992005535}
   - component: {fileID: 1992005533}
+  - component: {fileID: 1992005536}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -8638,6 +8665,18 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!210 &1992005536
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992005531}
+  m_Enabled: 1
+  m_SortingLayerID: 2077048945
+  m_SortingLayer: 1
+  m_SortingOrder: 3
+  m_SortAtRoot: 0
 --- !u!1001 &2000383708
 PrefabInstance:
   m_ObjectHideFlags: 0

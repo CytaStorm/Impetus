@@ -45,6 +45,9 @@ TagManager:
   - name: Environment
     uniqueID: 2077048945
     locked: 0
+  - name: Pickups
+    uniqueID: 3450989951
+    locked: 0
   - name: Player
     uniqueID: 3740167765
     locked: 0

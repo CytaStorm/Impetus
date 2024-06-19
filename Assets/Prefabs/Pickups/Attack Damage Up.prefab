@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 301397131203670069}
   - component: {fileID: 301803422780332819}
   - component: {fileID: 6644374976331086525}
+  - component: {fileID: -7364241973868856005}
   m_Layer: 0
   m_Name: Attack Damage Up
   m_TagString: Untagged
@@ -143,3 +144,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed200093d6fb3c14c9752581bb1b962d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &-7364241973868856005
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026882350076940063}
+  m_Enabled: 1
+  m_SortingLayerID: -843977345
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_SortAtRoot: 0

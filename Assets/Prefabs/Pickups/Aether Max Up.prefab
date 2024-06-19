@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5033477357327566035}
   - component: {fileID: 4535967950795625877}
   - component: {fileID: 5409364447696276199}
+  - component: {fileID: 787172353439591150}
   m_Layer: 0
   m_Name: Aether Max Up
   m_TagString: Untagged
@@ -143,3 +144,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28bb7cd036547f408adbeabdbea6ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &787172353439591150
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371133850630833667}
+  m_Enabled: 1
+  m_SortingLayerID: -843977345
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
