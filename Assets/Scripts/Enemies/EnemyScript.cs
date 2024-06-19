@@ -7,20 +7,27 @@ using UnityEngine.Events;
 
 public class EnemyScript : MonoBehaviour
 {
-
+    //GameObjects
     public GameObject player;
     public GameObject weapon;
+    private Player _player;
 
+    //SpriteRenderer
+    SpriteRenderer spriteRenderer;
+
+    //Visible stat variables
     [SerializeField] private float _enemyHealth;
     [SerializeField] private float _aetherIncrease;
     [SerializeField] private float _enemyDamage;
     [SerializeField] private float _flowWorth;
 
+    //Script
     private PlayerAttackScript _playerAttack;
-    private Player _player;
-
+    
+    //Event
     private UnityEvent _enemyDied;
 
+    //Camera stuff (not using rn)
     private Camera mainCamera;
     private float screenLeft;
     private float screenRight;
@@ -49,6 +56,10 @@ public class EnemyScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Get the player via tag instead of relying on dragging him into the public box in unity UI
+        player = GameObject.FindWithTag("Player");
+        spriteRenderer = this.GetComponent<SpriteRenderer>();
+
         // this._enemyHealth = 100;
 
         //Temporary for testing purposes
@@ -126,7 +137,11 @@ public class EnemyScript : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// When a collision with a trigger object occurs, test to see what collided with us.
+    /// If the collision is with a weapon, take damage.
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
         print("Hitting with " + collision.tag);
@@ -148,6 +163,7 @@ public class EnemyScript : MonoBehaviour
             if (_enemyHealth > 0)
             {
                 print("Enemy remaining health: " + _enemyHealth);
+                StartCoroutine("FlashRed");
             }
             else
             {
@@ -158,6 +174,12 @@ public class EnemyScript : MonoBehaviour
             _player.Aether += _aetherIncrease;
         }     
     }
+
+    /// <summary>
+    /// When colliding with another collider, if that collider belongs to the player, 
+    /// damage the player
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Check if it has the tag "player" to see if the player is physically touching the enemy
@@ -167,5 +189,19 @@ public class EnemyScript : MonoBehaviour
 
             _player.Health -= _enemyDamage;
         }
+    }
+
+    /// <summary>
+    /// Flash the enemy red for less than a second
+    /// </summary>
+    /// <returns>wait for less than a second before continuing</returns>
+    private IEnumerator FlashRed()
+    {
+        //Make the enemy texture red
+        spriteRenderer.color = Color.red;
+
+        //Wait .3 seconds and then return color to normal untinted white
+        yield return new WaitForSeconds(.3f);
+        spriteRenderer.color = Color.white;
     }
 }
