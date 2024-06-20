@@ -12,7 +12,10 @@ public class smallEnemyScript : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
     GameObject target;
-    
+
+    //Get the universal enemy script from our enemy
+    EnemyScript enemyScript;
+
     //nextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
     const float nextWayPointDistance = .5f;
@@ -25,6 +28,13 @@ public class smallEnemyScript : MonoBehaviour
         target = GameObject.FindWithTag("Player");
         seeker = this.GetComponent<Seeker>();
         rb = this.GetComponent<Rigidbody2D>();
+        enemyScript = this.GetComponent<EnemyScript>();
+
+        //SPECIFIC TO SMALL ENEMY
+        enemyScript.EnemyHealth = 100;
+        enemyScript.AetherIncrease = 10;
+        enemyScript.EnemyDamage = 10;
+        enemyScript.FlowWorth = 50;
 
         //Setup CalculatePath() to run every half second
         InvokeRepeating("CalculatePath", 0f, .25f);
