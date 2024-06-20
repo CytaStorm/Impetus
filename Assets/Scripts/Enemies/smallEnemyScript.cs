@@ -17,7 +17,7 @@ public class smallEnemyScript : MonoBehaviour
     // switching to the next waypoint. This helps curve the path and make it more natural.
     const float nextWayPointDistance = .5f;
     const float speed = 3;
-    
+
     // Start is called before the first frame update
     void Start()
     {
