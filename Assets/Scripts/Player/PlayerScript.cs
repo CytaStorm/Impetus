@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 {
 	#region GameObject Components
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
+	[SerializeField] private GameObject _soundManager;
 	#endregion
 
 	#region Health
@@ -172,6 +173,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 			amountRegained = MaxHealth - MaxHealth;
 		}
 		Health += amountRegained;
+		_soundManager.GetComponent<SoundPlayerScript>().PlayHealthPickupSound();
 		HealthChanged.Invoke(amountRegained);
 	}
 
