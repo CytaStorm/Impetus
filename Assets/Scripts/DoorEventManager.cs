@@ -11,21 +11,15 @@ public class DoorEventManager : MonoBehaviour
     public static event DoorAction OnDoorEnter;
     public static event DoorAction OnDoorExit;
 
-    void Awake()
-    {
-        myCollider2D = this.GetComponent<Collider2D>();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        myCollider2D = this.GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     // Called when something enters the attached object's trigger

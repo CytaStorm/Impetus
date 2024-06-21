@@ -8,7 +8,7 @@ using static UnityEditor.Progress;
 /// <summary>
 /// Linked list class for storing dungeon layouts
 /// </summary>
-public class LevelLinkedList : MonoBehaviour
+public class LevelLinkedList 
 {
     private LevelNode head;
     private LevelNode tail;

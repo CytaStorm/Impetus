@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Node for doubly-linked list
 /// </summary>
-public class LevelNode : MonoBehaviour
+public class LevelNode 
 {
     private GameObject room;
     private Direction startDir;

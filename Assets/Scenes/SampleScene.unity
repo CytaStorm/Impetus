@@ -456,6 +456,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f64a029051e6447a0e942737d50fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  room: {fileID: 0}
+  startDir: 0
+  endDir: 0
+  previous: {fileID: 0}
+  next: {fileID: 0}
 --- !u!114 &1343299902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbcfd21da545c1419f59adb90faed7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 0}
+  tail: {fileID: 0}
+  count: 0
 --- !u!114 &1343299903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,15 +491,15 @@ MonoBehaviour:
   upRightRooms:
   - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
   upLeftRooms:
-  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  - {fileID: 3941984235134857765, guid: 999190becea5e24439ede0ed6fdb4ebe, type: 3}
   downLeftRooms:
   - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
   downRightRooms:
   - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
   upDownRooms:
-  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  - {fileID: 3941984235134857765, guid: ad9d1ac641b81b44ea587c7dd111598a, type: 3}
   leftRightRooms:
-  - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
+  - {fileID: 3941984235134857765, guid: 2a620bde764e90443bc430d47cc20c6e, type: 3}
   upRooms:
   - {fileID: 3941984235134857765, guid: b56e9a0029c4043469f93d32e12db568, type: 3}
   downRooms:
