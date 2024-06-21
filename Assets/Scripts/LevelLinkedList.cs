@@ -30,11 +30,11 @@ public class LevelLinkedList : MonoBehaviour
     /// <summary>
     /// Create a linked list of nodes with no level data
     /// </summary>
-    /// <param name="count">Number of nodes in the list</param>
-    public LevelLinkedList(int count)
+    /// <param name="numNodes">Number of nodes in the list</param>
+    public LevelLinkedList(int numNodes)
     {
         this.count = 0;
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < numNodes; i++)
         {
             Add(null);
         }
