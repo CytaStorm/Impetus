@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Menus : MonoBehaviour
+public class MenuScript : MonoBehaviour
 {
 	[SerializeField] private float _gameOverScreenDelaySeconds;
 	public void MainMenu()

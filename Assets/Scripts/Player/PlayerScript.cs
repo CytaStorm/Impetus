@@ -1,16 +1,20 @@
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 /**  PLAYER STATS
  *      The purpose of this class is to create ways for enemies or
  *   other items and upgrades etc to interact with the stats of the player
  */
 
-public class Player : MonoBehaviour, IDamageable
+public class PlayerScript : MonoBehaviour, IDamageable
 {
-	#region Other Scripts
+	#region GameObject Components
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
 	#endregion
+
 	#region Health
 	[Header("Health")]
 	[SerializeField] private float _health; 
@@ -89,6 +93,39 @@ public class Player : MonoBehaviour, IDamageable
 
 	#endregion
 
+	#region Damage
+	[SerializeField] private float _attackDamage;
+	private int _attackBuffRoomsLeft;
+	public float AttackDamage
+	{
+		get => _attackDamage;
+		set => _attackDamage = value;
+	}
+	//Decrement each time new room is entered.
+	public int AttackBuffRoomsLeft
+	{
+		get => _attackBuffRoomsLeft;
+		set => _attackBuffRoomsLeft = value;
+	}
+	#endregion
+
+	#region Currency & Shop
+	[Header("Currency & Shop")]
+	[SerializeField] private float _gold;
+	public float Gold
+	{
+		get => _gold;
+		set => _gold = value;
+	}
+
+	private bool _onPedestal = false;
+	public bool OnPedestal
+	{
+		get => _onPedestal;
+		set => _onPedestal = value;
+	}
+	#endregion
+
 	#region Events
 	public UnityEvent<float> HealthChanged;
 	public UnityEvent<float> MaxHealthChanged;
@@ -97,6 +134,7 @@ public class Player : MonoBehaviour, IDamageable
 	public UnityEvent<float> MaxAetherChanged;
 
 	public UnityEvent<float> PlayerDamageChanged;
+	public UnityEvent<PlayerScript, float> BuyItem;
 
 	public UnityEvent PlayerDied;
 	public UnityEvent PlayerRevived;
@@ -133,8 +171,8 @@ public class Player : MonoBehaviour, IDamageable
 		{
 			amountRegained = MaxHealth - MaxHealth;
 		}
-		MaxHealth += amountRegained;
-		AetherChanged.Invoke(amountRegained);
+		Health += amountRegained;
+		HealthChanged.Invoke(amountRegained);
 	}
 
 	public void PlayerFullHeal()
@@ -168,7 +206,6 @@ public class Player : MonoBehaviour, IDamageable
 	{
 		if (Health <= 0)
 		{
-			_playerMovementScript.Moveable = false;
 			PlayerDied.Invoke();
 		}
 		//Decrease flow state
@@ -188,4 +225,15 @@ public class Player : MonoBehaviour, IDamageable
 			Flow -= 100;
 		}
 	}
+
+	#region World Interactions
+	public void OnBuy(InputAction.CallbackContext context)
+	{
+		if (!OnPedestal || !context.performed)
+		{
+			return;
+		}
+		BuyItem.Invoke(this, Gold);
+	}
+	#endregion
 }
