@@ -22,7 +22,7 @@ public class AetherMaxUpScript : MonoBehaviour
             return;
         }
         PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
-        _player.AttackDamage += 10;
+        _player.MaxAether += 10;
         Destroy(this.gameObject);
 	}
 }
