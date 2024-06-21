@@ -22,7 +22,6 @@ public class HealthPickupScript : MonoBehaviour
         {
             return;
         }
-
         PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
         if (_player.Health == _player.MaxHealth)
         {

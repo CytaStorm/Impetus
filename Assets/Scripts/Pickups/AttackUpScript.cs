@@ -22,7 +22,7 @@ public class AttackUpScript : MonoBehaviour
             return;
         }
         PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
-        _player.AttackDamage += 10;
+        _player.AttackChange(10);
         _player.AttackBuffRoomsLeft = 3;
         Destroy(this.gameObject);
 	}
