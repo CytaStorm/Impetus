@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class HealthPickupScript : MonoBehaviour
 {
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Rigidbody2D _rigidbody;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,16 @@ public class HealthPickupScript : MonoBehaviour
             return;
         }
         _player.Heal(1, 1, false);
-        Destroy(this.gameObject);
+        StartCoroutine(PlayHealthPickupSound());
 	}
+
+    private IEnumerator PlayHealthPickupSound()
+    {
+        _spriteRenderer.enabled = false;
+        _rigidbody.simulated = false;
+        _audioSource.Play();
+        yield return new WaitUntil(
+            () => _audioSource.time >= _audioSource.clip.length);
+        Destroy(this.gameObject);
+    }
 }

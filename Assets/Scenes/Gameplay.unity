@@ -351,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &110190197
 AudioSource:
   m_ObjectHideFlags: 0
@@ -460,10 +460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6490e62fbde3894083fe1f14ae12364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioPlayer: {fileID: 110190197}
-  _sounds:
-  - {fileID: 8300000, guid: 9b9ca6526857a9d479c943ae807852f2, type: 3}
-  - {fileID: 8300000, guid: 47bf004f6c737c9439c8519f42534737, type: 3}
 --- !u!4 &110190199
 Transform:
   m_ObjectHideFlags: 0
@@ -6527,6 +6523,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -16734090069615480, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162579936646787238, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+      propertyPath: _rigidbody
+      value: 
+      objectReference: {fileID: 1492050160}
+    - target: {fileID: 1162579936646787238, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 1492050163}
+    - target: {fileID: 1162579936646787238, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 1492050161}
     - target: {fileID: 1262486486385621026, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
       propertyPath: m_Name
       value: Health Potion
@@ -6899,6 +6911,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4866905490636107845, guid: 229f99379af73304aa997c749056cd36, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6026882350076940063, guid: 229f99379af73304aa997c749056cd36, type: 3}
       propertyPath: m_Name
       value: Attack Damage Up
@@ -7211,6 +7227,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!50 &1492050160 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6156527113666607237, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+  m_PrefabInstance: {fileID: 1135555057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1492050161 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6317656755539074205, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+  m_PrefabInstance: {fileID: 1135555057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1492050163 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: -16734090069615480, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+  m_PrefabInstance: {fileID: 1135555057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1526032507
 GameObject:
   m_ObjectHideFlags: 0
@@ -7739,7 +7770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1979959438
 Transform:
   m_ObjectHideFlags: 0

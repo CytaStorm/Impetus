@@ -156,10 +156,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
 			amountRegained = MaxHealth - MaxHealth;
 		}
 		Health += amountRegained;
-		_soundPlayer.PlayHealthPickupSound();
 		HealthChanged.Invoke(amountRegained);
 	}
-	public void PlayerFullHeal()
+	public void FullHeal()
 	{
 		Health = MaxHealth;
 		PlayerFullHealed.Invoke();
@@ -180,7 +179,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	}
 	public void RespawnPlayer()
 	{
-		Health = MaxHealth;
+		FullHeal();
 		PlayerRevived.Invoke();
 	}
 
@@ -196,25 +195,11 @@ public class PlayerScript : MonoBehaviour, IDamageable
 		MaxAether += amountRegained;
 		AetherChanged.Invoke(amountRegained);
 	}
-
-	//Change Attack Damage
-	public void AttackChange (float amount)
-	{
-		if (amount < 0)
-		{
-			AttackDamage -= amount;
-			return;
-		}
-		AttackDamage += amount;
-		_soundPlayer.PlayAttackBuffPickupSound();
-	}
-
 	#endregion
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		_soundPlayer = _soundManager.GetComponent<SoundPlayerScript>();
 		_flowState = 0;
 	}
 
