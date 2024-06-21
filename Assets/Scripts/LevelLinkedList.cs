@@ -180,6 +180,7 @@ public class LevelLinkedList : MonoBehaviour
         {
             current.StartDir = GetOppositeDir(current.Previous.EndDir);
             current.EndDir = (Direction)UnityEngine.Random.Range(1, 4);
+            numUnset--;
         }
     }
 
