@@ -37,6 +37,7 @@ public class EnemyScript : MonoBehaviour
     //PROPERTIES - for values that will be different across dif enemy types (health, damage, etc)
     public float EnemyHealth
     {
+        get { return _enemyHealth; }
         set { _enemyHealth = value; }
     }
     public float AetherIncrease

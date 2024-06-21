@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class bigEnemyScript : MonoBehaviour
 {
-
-    //Variable Declarations
+    // Variable Declarations
     Path path;
     int currentWaypoint;
     bool reachedEndOfPath;
@@ -13,41 +13,50 @@ public class bigEnemyScript : MonoBehaviour
     Rigidbody2D rb;
     GameObject target;
 
-    //Get the universal enemy script from our enemy
+    // Get the universal enemy script from our enemy
     EnemyScript enemyScript;
 
-    //nextWaypointDistance represents the distance you CAN be from the target waypoint before
+    // nextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
     const float nextWayPointDistance = .5f;
     const float speed = 1.5f;
 
-    //Area of Attack variables (AoE)
+    // Area of Attack variables (AoE)
     public float aoeRadius = 2f;
     public float aoeDamage = 20f;
     public float aoeCooldown = 5f;
     private float aoeTimer;
 
+    // Attack range variables
+    // Distance to start the attack
+    public float attackRange = 3f;
+    // Minimum distance to perform the attack
+    public float minAttackDistance = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Define objects
+        // Define objects
         target = GameObject.FindWithTag("Player");
         seeker = this.GetComponent<Seeker>();
         rb = this.GetComponent<Rigidbody2D>();
         enemyScript = this.GetComponent<EnemyScript>();
 
-        //SPECIFIC TO BIG ENEMY
+        // SPECIFIC TO BIG ENEMY
         enemyScript.EnemyHealth = 500;
         enemyScript.AetherIncrease = 50;
-        enemyScript.EnemyDamage = 50;
+        enemyScript.EnemyDamage = 10;
         enemyScript.FlowWorth = 200;
 
-        //Setup CalculatePath() to run every half second
+        // Setup CalculatePath() to run every half second
         InvokeRepeating("CalculatePath", 0f, .25f);
 
         // Initialize AoE attack timer
         aoeTimer = aoeCooldown;
     }
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -81,8 +90,12 @@ public class bigEnemyScript : MonoBehaviour
         aoeTimer -= Time.deltaTime;
         if (aoeTimer <= 0f)
         {
-            PerformAoEAttack();
-            aoeTimer = aoeCooldown;
+            float distanceToPlayer = Vector2.Distance(this.transform.position, target.transform.position);
+            if (distanceToPlayer <= attackRange && distanceToPlayer >= minAttackDistance)
+            {
+                PerformAoEAttack();
+                aoeTimer = aoeCooldown;
+            }
         }
     }
 
@@ -108,25 +121,26 @@ public class bigEnemyScript : MonoBehaviour
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(this.transform.position, aoeRadius);
         foreach (var hitCollider in hitColliders)
         {
-            // Check if the hit object is a player or enemy
-            if (hitCollider.CompareTag("Player") || hitCollider.CompareTag("Enemy"))
+            // Check if the hit object is a player
+            if (hitCollider.CompareTag("Player"))
             {
                 // Apply damage to the player
-                hitCollider.GetComponent<Health>().TakeDamage(aoeDamage);
+                Player player = hitCollider.GetComponent<Player>();
+                if (player != null)
+                {
+                    player.Health -= aoeDamage;
+                }
             }
         }
-    }
 
-    /// <summary>
-    /// Draw the AoE radius when selected
-    /// </summary>
-    /// <remarks>
-    void OnDrawGizmosSelected()
-    {
-        // Draw the AoE radius when selected
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(this.transform.position, aoeRadius);
+        /// <summary>
+        /// Draw the AoE radius when selected
+        /// </summary>
+        void OnDrawGizmosSelected()
+        {
+            // Draw the AoE radius when selected
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(this.transform.position, aoeRadius);
+        }
     }
 }
-
-
