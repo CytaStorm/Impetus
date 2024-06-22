@@ -5911,7 +5911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df41d0d7046f37741b1b8a68678fc148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerScript: {fileID: 0}
+  _playerScript: {fileID: 814704470}
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
   _spriteRenderer: {fileID: 814704466}
@@ -6192,7 +6192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovementScript: {fileID: 0}
+  _playerMovementScript: {fileID: 814704465}
   _soundManager: {fileID: 0}
   _health: 5
   _maxHealth: 10
