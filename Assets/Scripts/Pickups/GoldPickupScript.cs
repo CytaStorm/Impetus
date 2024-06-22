@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldPickupScript : MonoBehaviour
+public class GoldPickupScript : PickupScript
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,6 @@ public class GoldPickupScript : MonoBehaviour
             return;
         }
         collider.gameObject.GetComponent<PlayerScript>().Gold++;
-        Destroy(this.gameObject);
+        StartCoroutine(PlayPickupSound());
 	}
 }
