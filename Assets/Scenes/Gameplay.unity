@@ -5917,8 +5917,8 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 814704466}
   _speed: 5
   _movementSmoothing: 0.05
-  _dashDistance: 0
-  _dashCooldownSeconds: 0
+  _dashDistance: 1000
+  _dashCooldownSeconds: 2
 --- !u!212 &814704466
 SpriteRenderer:
   m_ObjectHideFlags: 0
