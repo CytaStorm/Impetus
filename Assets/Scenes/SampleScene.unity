@@ -1625,6 +1625,8 @@ MonoBehaviour:
   aoeRadius: 2
   aoeDamage: 20
   aoeCooldown: 5
+  attackRange: 3
+  minAttackDistance: 1
 --- !u!1 &650346650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2346838787717900255, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
@@ -3146,7 +3148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2346838787717900255, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9103111252117545898, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
