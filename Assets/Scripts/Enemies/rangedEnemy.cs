@@ -52,7 +52,7 @@ public class Enemy2Script : MonoBehaviour
     void Update()
     {
         // First make sure the path is created
-        if (path == null)
+        if (path == null || reachedEndOfPath)
         {
             return;
         }

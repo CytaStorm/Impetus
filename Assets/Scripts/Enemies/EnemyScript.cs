@@ -10,7 +10,7 @@ public class EnemyScript : MonoBehaviour
     //GameObjects
     public GameObject player;
     public GameObject weapon;
-    private Player _player;
+    private PlayerScript _player;
 
     //SpriteRenderer
     SpriteRenderer spriteRenderer;
@@ -86,7 +86,7 @@ public class EnemyScript : MonoBehaviour
         if (player != null)
         {
             _playerAttack = player.GetComponent<PlayerAttackScript>();
-            _player = player.GetComponent<Player>();
+            _player = player.GetComponent<PlayerScript>();
 
             //Checks if either player attack or player stats are missing
             if (_playerAttack == null || _player == null)

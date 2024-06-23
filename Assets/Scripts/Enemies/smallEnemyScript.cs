@@ -36,7 +36,7 @@ public class smallEnemyScript : MonoBehaviour
         enemyScript.EnemyDamage = 10;
         enemyScript.FlowWorth = 50;
 
-        //Setup CalculatePath() to run every half second
+        //Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
     }
 
@@ -44,7 +44,7 @@ public class smallEnemyScript : MonoBehaviour
     void Update()
     {
         //First make sure the path is created
-        if (path == null)
+        if (path == null || reachedEndOfPath)
         {
             return;
         }

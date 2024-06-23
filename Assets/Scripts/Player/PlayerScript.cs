@@ -6,7 +6,7 @@ using UnityEngine.Events;
  *   other items and upgrades etc to interact with the stats of the player
  */
 
-public class Player : MonoBehaviour, IDamageable
+public class PlayerScript : MonoBehaviour, IDamageable
 {
 	#region Health
 	[Header("Health")]

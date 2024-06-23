@@ -48,7 +48,7 @@ public class bigEnemyScript : MonoBehaviour
         enemyScript.EnemyDamage = 10;
         enemyScript.FlowWorth = 200;
 
-        // Setup CalculatePath() to run every half second
+        // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
 
         // Initialize AoE attack timer
@@ -62,7 +62,7 @@ public class bigEnemyScript : MonoBehaviour
     void Update()
     {
         // First make sure the path is created
-        if (path == null)
+        if (path == null || reachedEndOfPath)
         {
             return;
         }
@@ -125,7 +125,7 @@ public class bigEnemyScript : MonoBehaviour
             if (hitCollider.CompareTag("Player"))
             {
                 // Apply damage to the player
-                Player player = hitCollider.GetComponent<Player>();
+                PlayerScript player = hitCollider.GetComponent<PlayerScript>();
                 if (player != null)
                 {
                     player.Health -= aoeDamage;
