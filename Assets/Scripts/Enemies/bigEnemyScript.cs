@@ -62,7 +62,7 @@ public class bigEnemyScript : MonoBehaviour
     void Update()
     {
         // First make sure the path is created
-        if (path == null || reachedEndOfPath)
+        if (path == null)
         {
             return;
         }
