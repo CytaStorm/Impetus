@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
@@ -7,26 +8,36 @@ using UnityEngine.InputSystem;
 public class PlayerMovementScript : MonoBehaviour, IMoveable
 {
 	#region GameObject Components
-	[Header("Components")]
+	[Header("GameObject Components")]
+	[SerializeField] private PlayerScript _playerScript;
 	[SerializeField] private Animator _animator;
 	[SerializeField] private Rigidbody2D _rigidbody;
 	[SerializeField] private SpriteRenderer _spriteRenderer;
 	#endregion
 
+	#region General
+	[Header("General")]
+	private bool _moveable;
+	public bool Moveable
+	{
+		get => _moveable;
+		set => _moveable = value;
+	}
 
-	#region Walking
-	[Header("Walking Speed Settings")]
-	[Range(0, 10f)] private float _speed = 5;
+	[Range(0, 10f)] [SerializeField] private float _speed = 5;
 	public float Speed
 	{
 		get => _speed;
 		set { _speed = value; }
 	}
+
+	private Vector2 _moveVector;
+
 	/// <summary>
 	/// How much to smooth out the movement
 	/// </summary>
 	[Range(0, .3f)] [SerializeField] private float _movementSmoothing = .05f;
-	private Vector2 _moveVector;
+
 	/// <summary>
 	/// Used for SmoothDamp in Update(), requires a ref.
 	/// </summary>
@@ -35,8 +46,19 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 
 	#region Dashing
 	[Header("Dash Settings")]
-	public float DashDistance = 1000;
-	public float DashCooldownTime = 1;
+	[SerializeField] private float _dashDistance;
+	[SerializeField] private float _dashCooldownSeconds;
+	public float DashDistance
+	{
+		get => _dashDistance;
+		set => _dashDistance = value;
+	}
+	public float DashCooldownSeconds
+	{
+		get => _dashCooldownSeconds;
+		set => _dashCooldownSeconds = value;	
+	}
+
 	private float _dashCooldownTimer;
 	private bool _dashReady
 	{
@@ -47,7 +69,8 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		Moveable = true;
+		_playerScript.PlayerDied.AddListener(CannotMove);
 	}
 
 	// Update is called once per frame
@@ -61,12 +84,16 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 		if (!_dashReady)
 		{
 			_dashCooldownTimer = 
-				Mathf.Clamp(_dashCooldownTimer - Time.deltaTime, 0f, DashCooldownTime);
+				Mathf.Clamp(_dashCooldownTimer - Time.deltaTime, 0f, DashCooldownSeconds);
 		}
 	}
 
 	public void OnMoveInput(InputAction.CallbackContext context)
 	{
+		if (!Moveable)
+		{
+			return;
+		}
 		_moveVector = context.ReadValue<Vector2>() * Speed;
 	}
 
@@ -82,7 +109,7 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 			return;
 		}
 
-		_dashCooldownTimer = DashCooldownTime;
+		_dashCooldownTimer = DashCooldownSeconds;
 
 		//Dash towards cursor if player is still.
 		if (_moveVector.magnitude == 0)
@@ -103,6 +130,11 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 			_rigidbody.AddForce(_moveVector.normalized * DashDistance);
 			return;
 		}
+	}
+
+	private void CannotMove()
+	{
+		Moveable = false;
 	}
 
 	public void Knockback(Vector2 force)

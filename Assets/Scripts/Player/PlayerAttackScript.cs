@@ -11,7 +11,6 @@ public class PlayerAttackScript : MonoBehaviour
 	[SerializeField] private GameObject _swordPivotPoint;
     #endregion
 
-    #region Attack Fields
 
     #region Attack Properties
     [Header("Attack Properties")]
@@ -47,7 +46,6 @@ public class PlayerAttackScript : MonoBehaviour
             _damage = value;
         }
     }
-    #endregion
 
     #endregion
 

@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerSpellScript : MonoBehaviour
 {
+	#region Other Script Components
+	[Header("Other Script Components")]
+	[SerializeField] private PlayerScript _player;
+	#endregion
 	#region Spell Fields
 	/**  
 	 *	SPELLS EXPLANATION
@@ -43,7 +47,7 @@ public class PlayerSpellScript : MonoBehaviour
 		"LRR",
 		"RRL"
 	};
-	private Dictionary<string, string> _spellDictionary = 
+	private Dictionary<string, string> _spellDictionary =
 		new Dictionary<string, string>
 		{
 			{ "LLL", "Fireball"},
@@ -69,15 +73,15 @@ public class PlayerSpellScript : MonoBehaviour
 	private bool _isSpellActive => _spellInputTimer > 0f;
 	#endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	// Start is called before the first frame update
+	void Start()
+	{
 
-    // Update is called once per frame
-    void Update()
-    {
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
 		if (_isSpellActive)
 		{
 			_spellInputTimer -= Time.deltaTime;
@@ -117,17 +121,23 @@ public class PlayerSpellScript : MonoBehaviour
 			_spellInputTimer = 0f;
 			return;
 		}
-    }
+	}
 
 	#region Spell Methods
-	public bool isFirstInput()
+	private bool isFirstInput()
 	{
 		return _currentSpellCast.Length == 0;
 	}
 
 	public void OnBeginSpell(InputAction.CallbackContext context)
 	{
-		if (!context.performed) return;
+		if (!context.performed ||
+			!_spellBeingInputted ||
+			_player.OnPedestal) 
+		{
+			return;
+		}
+
 		if (isFirstInput() && !_spellBeingInputted)
 		{
 			print("Beginning spell");
@@ -145,8 +155,12 @@ public class PlayerSpellScript : MonoBehaviour
 
 	public void ReadSpellInput(InputAction.CallbackContext context)
 	{
-		if (!context.performed) return;
-		if (!_spellBeingInputted) return;
+		if (!context.performed ||
+			!_spellBeingInputted ||
+			_player.OnPedestal) 
+		{
+			return;
+		}
 
 		switch (context.action.name)
 		{

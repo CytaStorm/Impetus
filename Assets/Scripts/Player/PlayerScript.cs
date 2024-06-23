@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 /**  PLAYER STATS
  *      The purpose of this class is to create ways for enemies or
  *   other items and upgrades etc to interact with the stats of the player
@@ -8,10 +11,15 @@ using UnityEngine.Events;
 
 public class PlayerScript : MonoBehaviour, IDamageable
 {
+	#region GameObject Components
+	[SerializeField] private PlayerMovementScript _playerMovementScript;
+	#endregion
+
 	#region Health
 	[Header("Health")]
 	[SerializeField] private float _health; 
 	[SerializeField] private float _maxHealth;
+
 	public float Health
 	{
 		get => _health;
@@ -85,6 +93,39 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 	#endregion
 
+	#region Damage
+	[SerializeField] private float _attackDamage;
+	private int _attackBuffRoomsLeft;
+	public float AttackDamage
+	{
+		get => _attackDamage;
+		set => _attackDamage = value;
+	}
+	//Decrement each time new room is entered.
+	public int AttackBuffRoomsLeft
+	{
+		get => _attackBuffRoomsLeft;
+		set => _attackBuffRoomsLeft = value;
+	}
+	#endregion
+
+	#region Currency & Shop
+	[Header("Currency & Shop")]
+	[SerializeField] private float _gold;
+	public float Gold
+	{
+		get => _gold;
+		set => _gold = value;
+	}
+
+	private bool _onPedestal = false;
+	public bool OnPedestal
+	{
+		get => _onPedestal;
+		set => _onPedestal = value;
+	}
+	#endregion
+
 	#region Events
 	public UnityEvent<float> HealthChanged;
 	public UnityEvent<float> MaxHealthChanged;
@@ -93,6 +134,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	public UnityEvent<float> MaxAetherChanged;
 
 	public UnityEvent<float> PlayerDamageChanged;
+	public UnityEvent<PlayerScript, float> BuyItem;
 
 	public UnityEvent PlayerDied;
 	public UnityEvent PlayerRevived;
@@ -129,8 +171,8 @@ public class PlayerScript : MonoBehaviour, IDamageable
 		{
 			amountRegained = MaxHealth - MaxHealth;
 		}
-		MaxHealth += amountRegained;
-		AetherChanged.Invoke(amountRegained);
+		Health += amountRegained;
+		HealthChanged.Invoke(amountRegained);
 	}
 
 	public void PlayerFullHeal()
@@ -162,24 +204,12 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	// Update is called once per frame
 	void Update()
 	{
-        //Increase flow state if needed.
-        if (Flow > 100)
-        {
-            if (FlowState >= MaxFlow)
-            {
-                Flow = 99;
-            }
-            else
-            {
-                _flowState++;
-                Flow -= 100;
-            }
-
-        }
-
-
-        //Decrease flow state
-        if (Flow != 0)
+		if (Health <= 0)
+		{
+			PlayerDied.Invoke();
+		}
+		//Decrease flow state
+		if (Flow != 0)
 		{
 			if (FlowState > 5)
 			{
@@ -198,4 +228,15 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 		
 	}
+
+	#region World Interactions
+	public void OnBuy(InputAction.CallbackContext context)
+	{
+		if (!OnPedestal || !context.performed)
+		{
+			return;
+		}
+		BuyItem.Invoke(this, Gold);
+	}
+	#endregion
 }
