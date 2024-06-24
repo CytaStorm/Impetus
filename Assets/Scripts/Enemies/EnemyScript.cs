@@ -10,7 +10,6 @@ public class EnemyScript : MonoBehaviour
     //GameObjects
     public GameObject player;
     public GameObject weapon;
-    private PlayerScript _player;
 
     //SpriteRenderer
     SpriteRenderer spriteRenderer;
@@ -22,8 +21,8 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private float _flowWorth;
 
     //Script
-    private PlayerAttackScript _playerAttack;
-    
+    private PlayerScript _player;
+
     //Event
     private UnityEvent _enemyDied;
 
@@ -85,11 +84,10 @@ public class EnemyScript : MonoBehaviour
         //Safety check to make sure 
         if (player != null)
         {
-            _playerAttack = player.GetComponent<PlayerAttackScript>();
             _player = player.GetComponent<PlayerScript>();
 
-            //Checks if either player attack or player stats are missing
-            if (_playerAttack == null || _player == null)
+            //Checks if PlayerScript is missing
+            if (_player == null)
             {
                 Debug.LogError("Player components are missing.");
                 return;
@@ -154,7 +152,7 @@ public class EnemyScript : MonoBehaviour
         if (collision.CompareTag("Weapon"))
         {
             print("Player hit enemy!");
-            float playerDamage = _playerAttack.Damage;
+            float playerDamage = _player.AttackDamage;
             
             print("Damage: " + playerDamage);
 

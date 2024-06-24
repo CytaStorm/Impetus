@@ -33,21 +33,21 @@ public class PlayerAttackScript : MonoBehaviour
 	}
     #endregion
 
-    
-    #region Damage field
+    //CURRENTLY, We are using the damage field in PlayerScript instead of this one
+    //#region Damage field
 
-    [Header("Damage")]
-    [SerializeField] private float _damage;
-    public float Damage
-    {
-        get => _damage;
-        set
-        {           
-            _damage = value;
-        }
-    }
+    //[Header("Damage")]
+    //[SerializeField] private float _damage;
+    //public float Damage
+    //{
+    //    get => _damage;
+    //    set
+    //    {           
+    //        _damage = value;
+    //    }
+    //}
 
-    #endregion
+    //#endregion
 
     #region Sword Drawing
     [SerializeField] [Range(0f, 360f)] private int _slashArc;

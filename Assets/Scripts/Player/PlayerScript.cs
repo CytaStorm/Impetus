@@ -91,19 +91,18 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	[SerializeField] private List<float> _flowStateMaxDropTimesSeconds =
 		new List<float> {15, 10, 8, 6, 4, 3};
 
-    #endregion
+	#endregion
 
-    #region Damage
-	// THIS PROPERTY isn't being used currently. The damage property in PlayerAttackScript is.
-    //[SerializeField] private float _attackDamage;
-    //public float AttackDamage
-    //{
-    //	get => _attackDamage;
-    //	set => _attackDamage = value;
-    //}
+	#region Damage
+	[SerializeField] private float _attackDamage;
+	public float AttackDamage
+	{
+		get => _attackDamage;
+		set => _attackDamage = value;
+	}
 
-    //Decrement each time new room is entered.
-    private int _attackBuffRoomsLeft;
+	//Decrement each time new room is entered.
+	private int _attackBuffRoomsLeft;
     public int AttackBuffRoomsLeft
 	{
 		get => _attackBuffRoomsLeft;
