@@ -69,21 +69,29 @@ public class LevelGeneration : MonoBehaviour
 	/// </summary>
 	private void GenerateLayout(int roomsToMake) 
 	{
+		int roomNumber = 1;
 		//First room
 		_layout.AddFirst(
-			_normalRooms[
-				Random.Range(0, _normalRooms.Count)]);
+			Instantiate(
+				_normalRooms[Random.Range(0, _normalRooms.Count)],
+				new Vector3(10 * roomNumber - 10, 0, 0),
+				Quaternion.identity));
 		_layout.First.Value.GetComponent<RoomScript>().AssignDoors();
-		roomsToMake--;
+		roomNumber++;
 
 		//Middle rooms
-		for(int i = 0; i < roomsToMake - 1; i++)
+		while (roomNumber < roomsToMake)
 		{
-			GenerateMiddleRoom();
+			GenerateMiddleRoom(roomNumber);
+			roomNumber++;
 		}
 
 		//End room (boss)
-		_layout.AddLast(_bossRooms[Random.Range(0, _bossRooms.Count)]);
+		_layout.AddLast(
+			Instantiate(
+				_bossRooms[Random.Range(0, _bossRooms.Count)],
+				new Vector3(10 * roomNumber - 10, 0, 0),
+				Quaternion.identity));
 		_layout.Last.Value.GetComponent<RoomScript>().AssignDoors();
 
 		foreach (GameObject gameObject in _layout)
@@ -97,7 +105,7 @@ public class LevelGeneration : MonoBehaviour
 	/// </summary>
 	/// <exception cref="System.Exception">
 	/// DoorDirections Enum somehow has more than 4 values.</exception>
-	private void GenerateMiddleRoom()
+	private void GenerateMiddleRoom(int roomNumber)
 	{
 		DoorDirections newRoomEntranceDoor =
 			GetOppositeDoorDirection(
@@ -123,7 +131,10 @@ public class LevelGeneration : MonoBehaviour
 					"DoorDirections Enum somehow has more than 4 values??!!");
 		}
 		_layout.AddLast(
-			listToPickFrom[Random.Range(0, listToPickFrom.Count)]);
+			Instantiate(
+				listToPickFrom[Random.Range(0, listToPickFrom.Count)],
+				new Vector3(10 * roomNumber - 10, 0, 0),
+				Quaternion.identity));
 		_layout.Last.Value.GetComponent<RoomScript>().AssignDoors();
 	}
 
