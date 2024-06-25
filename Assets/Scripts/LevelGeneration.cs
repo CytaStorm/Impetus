@@ -93,10 +93,11 @@ public class LevelGeneration : MonoBehaviour
 				new Vector3(10 * roomNumber - 10, 0, 0),
 				Quaternion.identity));
 		_layout.Last.Value.GetComponent<RoomScript>().AssignDoors();
-
-		foreach (GameObject gameObject in _layout)
+		
+		foreach(GameObject gm in _layout)
 		{
-			print(gameObject);
+			print("Entrance: " + gm.GetComponent<RoomScript>().EntranceDoor +
+				", Exit: " + gm.GetComponent<RoomScript>().ExitDoor);
 		}
 	}
 
@@ -135,7 +136,8 @@ public class LevelGeneration : MonoBehaviour
 				listToPickFrom[Random.Range(0, listToPickFrom.Count)],
 				new Vector3(10 * roomNumber - 10, 0, 0),
 				Quaternion.identity));
-		_layout.Last.Value.GetComponent<RoomScript>().AssignDoors();
+		_layout.Last.Value.GetComponent<RoomScript>().AssignDoors(
+			newRoomEntranceDoor);
 	}
 
 
