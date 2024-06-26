@@ -471,7 +471,7 @@ MonoBehaviour:
   _bossRooms:
   - {fileID: 6756575036113988252, guid: aa967541f9b63b9478ccf9aaac9a7a7d, type: 3}
   - {fileID: 8322769571128563252, guid: cafd722b8f22f90489bc4b9509732a84, type: 3}
-  _roomsToMake: 6
+  _roomsToMake: 5
   roomIndex: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

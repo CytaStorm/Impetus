@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum DoorDirections
+public enum Directions
 {
 	Top = 0,
 	Bottom = 1,
 	Left = 2,
 	Right = 3,
+	None = 4
 }
 
 public class LevelGeneration : MonoBehaviour
@@ -34,112 +37,87 @@ public class LevelGeneration : MonoBehaviour
 	private GameObject _currentRoom;
 	#endregion
 
-	// Called whenever the attached object is created or enabled
-	private void OnEnable()
-	{
-		DoorEventManager.OnDoorEnter += IncrementRoom;
-		DoorEventManager.OnDoorExit += DecrementRoom;
-	}
-
-	private void OnDisable()
-	{
-		// Remove methods from events to prevent future errors
-		DoorEventManager.OnDoorEnter -= IncrementRoom;
-		DoorEventManager.OnDoorExit -= DecrementRoom;
-	}
-
 	void Start()
 	{
 		SortRooms();
 		GenerateLayout(_roomsToMake);
-		//RenderCurrentRoom();
 	}
 
 	void Update()
 	{
-		// FOR DEBUGGING ONLY
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			IncrementRoom();
-		}
 	}
 
 	/// <summary>
 	/// Create a new layout linked list with non-empty rooms
 	/// </summary>
+	/// <exception cref="NullReferenceException">Doordirections enum
+	/// is not a valid direction.</exception>
 	private void GenerateLayout(int roomsToMake) 
 	{
 		int roomNumber = 1;
+
 		//First room
 		_layout.AddFirst(
 			Instantiate(
-				_normalRooms[Random.Range(0, _normalRooms.Count)],
+				_normalRooms[UnityEngine.Random.Range(0, _normalRooms.Count)],
 				new Vector3(10 * roomNumber - 10, 0, 0),
 				Quaternion.identity));
-		_layout.First.Value.GetComponent<RoomScript>().AssignDoors();
+		_layout.First.Value.GetComponent<RoomScript>().AssignFirstRoomDoor();
 		roomNumber++;
 
 		//Middle rooms
 		while (roomNumber < roomsToMake)
 		{
-			GenerateMiddleRoom(roomNumber);
+			Directions newRoomEntranceDoor =
+			GetOppositeDoorDirection(
+				_layout.Last.Value.GetComponent<RoomScript>().ExitDoorDirection);
+
+			List<GameObject> listToPickFrom;
+			switch (newRoomEntranceDoor)
+			{
+				case Directions.Top:
+					listToPickFrom = _hasTopDoor;
+					break;
+				case Directions.Bottom:
+					listToPickFrom = _hasBottomDoor;
+					break;
+				case Directions.Left:
+					listToPickFrom = _hasLeftDoor;
+					break;
+				case Directions.Right:
+					listToPickFrom = _hasRightDoor;
+					break;
+				default:
+					throw new InvalidEnumArgumentException(
+						"DoorDirections Enum is not a valid direction.");
+			}
+			_layout.AddLast(Instantiate(
+				listToPickFrom[UnityEngine.Random.Range(0, listToPickFrom.Count)],
+				new Vector3(10 * roomNumber - 10, 0, 0),
+				Quaternion.identity));
+			_layout.Last.Value.GetComponent<RoomScript>().AssignDoors(
+				newRoomEntranceDoor);
+
 			roomNumber++;
 		}
 
 		//End room (boss)
 		_layout.AddLast(
 			Instantiate(
-				_bossRooms[Random.Range(0, _bossRooms.Count)],
+				_bossRooms[UnityEngine.Random.Range(0, _bossRooms.Count)],
 				new Vector3(10 * roomNumber - 10, 0, 0),
 				Quaternion.identity));
-		_layout.Last.Value.GetComponent<RoomScript>().AssignDoors();
-		
-		foreach(GameObject gm in _layout)
-		{
-			print("Entrance: " + gm.GetComponent<RoomScript>().EntranceDoor +
-				", Exit: " + gm.GetComponent<RoomScript>().ExitDoor);
-		}
-	}
-
-	/// <summary>
-	/// Generates rooms inbetween first and last rooms.
-	/// </summary>
-	/// <exception cref="System.Exception">
-	/// DoorDirections Enum somehow has more than 4 values.</exception>
-	private void GenerateMiddleRoom(int roomNumber)
-	{
-		DoorDirections newRoomEntranceDoor =
+		_layout.Last.Value.GetComponent<RoomScript>().AssignLastRoomDoor(
 			GetOppositeDoorDirection(
-				_layout.Last.Value.GetComponent<RoomScript>().ExitDoor);
-
-		List<GameObject> listToPickFrom;
-		switch (newRoomEntranceDoor)
-		{
-			case DoorDirections.Top:
-				listToPickFrom = _hasTopDoor;
-				break;
-			case DoorDirections.Bottom:
-				listToPickFrom = _hasBottomDoor;
-				break;
-			case DoorDirections.Left:
-				listToPickFrom = _hasLeftDoor;
-				break;
-			case DoorDirections.Right:
-				listToPickFrom = _hasRightDoor;
-				break;
-			default:
-				throw new System.Exception(
-					"DoorDirections Enum somehow has more than 4 values??!!");
-		}
-		_layout.AddLast(
-			Instantiate(
-				listToPickFrom[Random.Range(0, listToPickFrom.Count)],
-				new Vector3(10 * roomNumber - 10, 0, 0),
-				Quaternion.identity));
-		_layout.Last.Value.GetComponent<RoomScript>().AssignDoors(
-			newRoomEntranceDoor);
+				_layout.Last.Previous.Value.GetComponent<RoomScript>().
+				ExitDoorDirection));
+		
+		//foreach(GameObject gm in _layout)
+		//{
+		//	print("Entrance: " + gm.GetComponent<RoomScript>().EntranceDoorDirection +
+		//		", Exit: " + gm.GetComponent<RoomScript>().ExitDoorDirection);
+		//}
 	}
-
 
 	/// <summary>
 	/// Sorts Rooms into their respective lists.
@@ -169,63 +147,22 @@ public class LevelGeneration : MonoBehaviour
 		}
 	}
 
-	private DoorDirections GetOppositeDoorDirection(
-		DoorDirections doorDirection)
+	private Directions GetOppositeDoorDirection(
+		Directions doorDirection)
 	{
 		switch (doorDirection)
 		{
-			case DoorDirections.Top:
-				return DoorDirections.Bottom;
-			case DoorDirections.Bottom: 
-				return DoorDirections.Top;
-			case DoorDirections.Left:
-				return DoorDirections.Right;
-			case DoorDirections.Right:  
-				return DoorDirections.Left;
+			case Directions.Top:
+				return Directions.Bottom;
+			case Directions.Bottom: 
+				return Directions.Top;
+			case Directions.Left:
+				return Directions.Right;
+			case Directions.Right:  
+				return Directions.Left;
 			default:
-				throw new System.Exception("DoorDirections Enum somehow has"  +
-					"more than 4 values??!!");
+				throw new InvalidEnumArgumentException(
+					"DoorDirections Enum is not a valid direction.");
 		}
-	}
-	///// <summary>
-	///// Render the room the player is currently in based on the roomIndex
-	///// </summary>
-	//public void RenderCurrentRoom() 
-	//{
-	//    _currentRoom = GameObject.Instantiate(_layout[roomIndex]);
-	//}
-
-	/// <summary>
-	/// Destroy the room the player is currently in based on the roomIndex
-	/// </summary>
-	public void DestroyCurrentRoom()
-	{
-		GameObject.Destroy(_currentRoom);
-	}
-
-	/// <summary>
-	/// Replaces current room with the next one in the linked list
-	/// </summary>
-	public void IncrementRoom()
-	{
-		DestroyCurrentRoom();
-		roomIndex++;
-		//RenderCurrentRoom();
-	}
-
-	/// <summary>
-	/// Replaces the current room with the previous one in the linked list
-	/// </summary>
-	public void DecrementRoom()
-	{
-		DestroyCurrentRoom();
-		roomIndex++;
-		//RenderCurrentRoom();
-	}
-
-	public void ResetLayout()
-	{
-		_layout = null;
-		roomIndex = 0;
 	}
 }
