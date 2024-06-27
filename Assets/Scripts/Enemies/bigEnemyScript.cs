@@ -125,7 +125,7 @@ public class bigEnemyScript : MonoBehaviour
             if (hitCollider.CompareTag("Player"))
             {
                 // Apply damage to the player
-                PlayerScript player = hitCollider.GetComponent<PlayerScript>();
+                PlayerScript player = hitCollider.gameObject.GetComponent<PlayerScript>();
                 if (player != null)
                 {
                     player.Health -= aoeDamage;
