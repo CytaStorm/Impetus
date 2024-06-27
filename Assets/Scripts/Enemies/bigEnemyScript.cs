@@ -31,7 +31,7 @@ public class bigEnemyScript : MonoBehaviour
     // Distance to start the attack
     public float attackRange = 3f;
     // Minimum distance to perform the attack
-    public float minAttackDistance = 1f;
+    public float minAttackDistance = 0f;
 
     // Start is called before the first frame update
     void Start()
