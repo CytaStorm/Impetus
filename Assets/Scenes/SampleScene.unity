@@ -1735,7 +1735,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.009884238, y: 0.00000023841858}
@@ -1806,12 +1806,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df41d0d7046f37741b1b8a68678fc148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerScript: {fileID: 0}
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
   _spriteRenderer: {fileID: 814704466}
+  _speed: 5
   _movementSmoothing: 0.05
-  DashDistance: 1000
-  DashCooldownTime: 1
+  _dashDistance: 0
+  _dashCooldownSeconds: 0
 --- !u!212 &814704466
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2021,6 +2023,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 01ce355f-1da3-40fa-a9a1-6435f1972520
     m_ActionName: gameplay/BeginSpell[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 122812a2-72bb-422c-841c-3da915fb8450
+    m_ActionName: gameplay/Buy Item[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: gameplay
@@ -2041,7 +2047,6 @@ MonoBehaviour:
   _swordPivotPoint: {fileID: 1355835681}
   _attackDuration: 0.5
   _attackCooldownDuration: 0.25
-  _damage: 50
   _slashArc: 98
 --- !u!114 &814704469
 MonoBehaviour:
@@ -2055,6 +2060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300778f28da3abe4eb5788e4d1e3ae9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
   _spellInputDuration: 4
   _spellInputTimer: 0
 --- !u!114 &814704470
@@ -2069,6 +2075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerMovementScript: {fileID: 0}
   _health: 100
   _maxHealth: 100
   _aether: 50
@@ -2083,6 +2090,8 @@ MonoBehaviour:
   - 6
   - 4
   - 3
+  _attackDamage: 0
+  _gold: 0
   HealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2096,6 +2105,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   PlayerDamageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  BuyItem:
     m_PersistentCalls:
       m_Calls: []
   PlayerDied:
@@ -2431,14 +2443,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236217437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae622f7bc876a8645adc24e859824b08, type: 3}
+  m_Script: {fileID: 11500000, guid: 3847a0c6d45e078459ba4cf22a784018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerObject: {fileID: 814704460}
   _healthBar: {fileID: 1375408979}
   _aetherBar: {fileID: 1432904783}
   _flowBar: {fileID: 1980636183}
-  _flowStateLevel: {fileID: 225349640}
-  _playerObject: {fileID: 814704460}
+  _flowStateLevel: {fileID: 1231148113}
+  _goldCounter: {fileID: 0}
+  _AttackBuffCounter: {fileID: 0}
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,6 +2663,63 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &1449361061
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.745941
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.28231132
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302589546240314581, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346838787717900255, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+      propertyPath: m_Name
+      value: smallEnemy (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
 --- !u!1 &1708542453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,7 +3219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2346838787717900255, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9103111252117545898, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
@@ -3173,3 +3244,4 @@ SceneRoots:
   - {fileID: 9138477164410843333}
   - {fileID: 320386563}
   - {fileID: 621789075}
+  - {fileID: 1449361061}
