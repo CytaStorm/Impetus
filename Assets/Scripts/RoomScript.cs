@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RoomScript : MonoBehaviour
 {
-	public List<Directions> AllDoorDirections = new List<Directions>();
+	public List<Directions> AllDoorDirections;
 	public bool HasDoorTop { get => AllDoorDirections.Contains(Directions.Top); }
 	public bool HasDoorBottom { get => AllDoorDirections.Contains(Directions.Bottom); }
 	public bool HasDoorLeft { get => AllDoorDirections.Contains(Directions.Left); }
@@ -16,8 +16,14 @@ public class RoomScript : MonoBehaviour
 	private Directions _exitDoorDirection = Directions.None;
 	public Directions EntranceDoorDirection { get => _entranceDoorDirection; }
 	public Directions ExitDoorDirection { get => _exitDoorDirection; }
+
 	private GameObject _entranceDoor;
 	private GameObject _exitDoor;
+	private DoorScript _entranceDoorScript;
+	private DoorScript _exitDoorScript;
+	public DoorScript EntranceDoorScript { get => _entranceDoorScript; }
+	public DoorScript ExitDoorScript { get => _exitDoorScript; }
+
 
     /// <summary>
     /// Randomly assigns entrance and exit doors of room.
@@ -30,12 +36,14 @@ public class RoomScript : MonoBehaviour
 		//Delete extra doors and assign entrance/exit door(s).
 		foreach (Transform door in transform)
 		{
-			if (door.gameObject.GetComponent<DoorScript>().Direction !=
-				_exitDoorDirection)
+			DoorScript doorScript = door.gameObject.GetComponent<DoorScript>();
+			if (doorScript.Direction != _exitDoorDirection)
 			{
 				Destroy(door.gameObject);
 			}
-			_exitDoor = door.gameObject;
+
+			_exitDoor = doorScript.gameObject;
+			_exitDoorScript = doorScript;
 		}
 		return;
 	}
@@ -43,7 +51,7 @@ public class RoomScript : MonoBehaviour
 	/// <summary>
 	/// Sets entrance and exit doors based on entrance door.
 	/// </summary>
-	public void AssignDoors(Directions entrance)
+	public void AssignMiddleRoomDoors(Directions entrance, RoomScript prevRoomScript)
 	{
 		if (AllDoorDirections.IndexOf(entrance) == -1)
 		{
@@ -57,24 +65,31 @@ public class RoomScript : MonoBehaviour
 		//Delete extra doors and assign entrance/exit door(s).
 		foreach (Transform door in transform)
 		{
-			if (door.gameObject.GetComponent<DoorScript>().Direction ==
-				_entranceDoorDirection)
+			DoorScript doorScript = door.gameObject.GetComponent<DoorScript>();
+			if (doorScript.Direction == _entranceDoorDirection)
 			{
-				_entranceDoor = door.gameObject;
+				_entranceDoor = doorScript.gameObject;
+				_entranceDoorScript = doorScript;
 			}
-			else if (door.gameObject.GetComponent<DoorScript>().Direction ==
-				_exitDoorDirection)
+			else if (doorScript.Direction == _exitDoorDirection)
 			{
-				_exitDoor = door.gameObject;
+				_exitDoor = doorScript.gameObject;
+				_exitDoorScript = doorScript;
 			}
 			else
 			{
 				Destroy(door.gameObject);
 			}
 		}
+
+		//Link previous room's door to this one, and vice versa.
+		prevRoomScript.ExitDoorScript.LinkedDoor = _entranceDoor;
+		EntranceDoorScript.LinkedDoor = prevRoomScript.ExitDoorScript.gameObject;
+		
+		return;
 	}
 
-	public void AssignLastRoomDoor(Directions entrance)
+	public void AssignLastRoomDoor(Directions entrance, RoomScript prevRoomScript)
 	{
 		_entranceDoorDirection = entrance;
 		_exitDoorDirection = Directions.None;
@@ -82,15 +97,19 @@ public class RoomScript : MonoBehaviour
 		//Delete extra doors and assign entrance/exit door(s).
 		foreach (Transform door in transform)
 		{
-			if (door.gameObject.GetComponent<DoorScript>().Direction !=
-				_entranceDoorDirection)
+			DoorScript doorScript = door.gameObject.GetComponent<DoorScript>();
+			if (doorScript.Direction != _entranceDoorDirection)
 			{
 				Destroy(door.gameObject);
 			}
-			_entranceDoor = door.gameObject;
+
+			_entranceDoor = doorScript.gameObject;
+			_entranceDoorScript = doorScript;
 		}
+
+		//Link previous room's door to this one, and vice versa.
+		prevRoomScript.ExitDoorScript.LinkedDoor = _entranceDoor;
+		EntranceDoorScript.LinkedDoor = prevRoomScript.ExitDoorScript.gameObject;
 		return;
 	}
-
-	
 }

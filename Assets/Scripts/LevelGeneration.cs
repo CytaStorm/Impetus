@@ -30,7 +30,7 @@ public class LevelGeneration : MonoBehaviour
 	#region Actual Level
 	[SerializeField] private int _roomsToMake;
 	// current layout
-	private LinkedList<GameObject> _layout = new LinkedList<GameObject>();
+	private LinkedList<RoomScript> _layout = new LinkedList<RoomScript>();
 	// index of current room the player is in
 	public int roomIndex;
 	// reference to room player is currently in
@@ -60,9 +60,9 @@ public class LevelGeneration : MonoBehaviour
 		_layout.AddFirst(
 			Instantiate(
 				_normalRooms[UnityEngine.Random.Range(0, _normalRooms.Count)],
-				new Vector3(10 * roomNumber - 10, 0, 0),
-				Quaternion.identity));
-		_layout.First.Value.GetComponent<RoomScript>().AssignFirstRoomDoor();
+				GetRoomOffset(roomNumber),
+				Quaternion.identity).GetComponent<RoomScript>());
+		_layout.First.Value.AssignFirstRoomDoor();
 		roomNumber++;
 
 		//Middle rooms
@@ -70,7 +70,7 @@ public class LevelGeneration : MonoBehaviour
 		{
 			Directions newRoomEntranceDoor =
 			GetOppositeDoorDirection(
-				_layout.Last.Value.GetComponent<RoomScript>().ExitDoorDirection);
+				_layout.Last.Value.ExitDoorDirection);
 
 			List<GameObject> listToPickFrom;
 			switch (newRoomEntranceDoor)
@@ -93,11 +93,10 @@ public class LevelGeneration : MonoBehaviour
 			}
 			_layout.AddLast(Instantiate(
 				listToPickFrom[UnityEngine.Random.Range(0, listToPickFrom.Count)],
-				new Vector3(10 * roomNumber - 10, 0, 0),
-				Quaternion.identity));
-			_layout.Last.Value.GetComponent<RoomScript>().AssignDoors(
-				newRoomEntranceDoor);
-
+				GetRoomOffset(roomNumber),
+				Quaternion.identity).GetComponent<RoomScript>());
+			_layout.Last.Value.AssignMiddleRoomDoors(
+				newRoomEntranceDoor, _layout.Last.Previous.Value);
 			roomNumber++;
 		}
 
@@ -105,18 +104,12 @@ public class LevelGeneration : MonoBehaviour
 		_layout.AddLast(
 			Instantiate(
 				_bossRooms[UnityEngine.Random.Range(0, _bossRooms.Count)],
-				new Vector3(10 * roomNumber - 10, 0, 0),
-				Quaternion.identity));
-		_layout.Last.Value.GetComponent<RoomScript>().AssignLastRoomDoor(
-			GetOppositeDoorDirection(
-				_layout.Last.Previous.Value.GetComponent<RoomScript>().
-				ExitDoorDirection));
-		
-		//foreach(GameObject gm in _layout)
-		//{
-		//	print("Entrance: " + gm.GetComponent<RoomScript>().EntranceDoorDirection +
-		//		", Exit: " + gm.GetComponent<RoomScript>().ExitDoorDirection);
-		//}
+				GetRoomOffset(roomNumber),
+				Quaternion.identity).GetComponent<RoomScript>());
+		_layout.Last.Value.AssignLastRoomDoor(
+			GetOppositeDoorDirection(_layout.Last.Previous.Value.ExitDoorDirection),
+			_layout.Last.Previous.Value);
+		return;
 	}
 
 	/// <summary>
@@ -145,10 +138,10 @@ public class LevelGeneration : MonoBehaviour
 				_hasBottomDoor.Add(room);
 			}
 		}
+		return;
 	}
 
-	private Directions GetOppositeDoorDirection(
-		Directions doorDirection)
+	private Directions GetOppositeDoorDirection(Directions doorDirection)
 	{
 		switch (doorDirection)
 		{
@@ -164,5 +157,10 @@ public class LevelGeneration : MonoBehaviour
 				throw new InvalidEnumArgumentException(
 					"DoorDirections Enum is not a valid direction.");
 		}
+	}
+
+	private Vector3 GetRoomOffset (int roomNumber)
+	{
+		return new Vector3(20 * roomNumber - 20, 0, 0);
 	}
 }

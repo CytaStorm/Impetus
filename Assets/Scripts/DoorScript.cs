@@ -5,10 +5,11 @@ using UnityEngine.Events;
 
 public class DoorScript : MonoBehaviour
 {
-    private GameObject _doorToLinkTo;
+    [SerializeField] private Collider2D _collider;
+    [SerializeField] private GameObject _player;
+    public GameObject LinkedDoor;
     public Directions Direction;
 
-    [SerializeField] private Collider2D _collider;
 
     public static UnityEvent ExitRoom;
 
