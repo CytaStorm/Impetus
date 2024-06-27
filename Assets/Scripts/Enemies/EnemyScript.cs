@@ -184,9 +184,9 @@ public class EnemyScript : MonoBehaviour
         //Check if it has the tag "player" to see if the player is physically touching the enemy
         if (collision.gameObject.CompareTag("Player"))
         {
-            print("Player taking damage from touching enemy!");
+            print($"Player taking {_enemyDamage} damage from touching enemy!");
 
-            _player.Health -= _enemyDamage;
+            _player.TakeDamage(_enemyDamage, 1f);
         }
     }
 

@@ -147,6 +147,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	public void TakeDamage(float amount, float multiplier)
 	{
 		Health -= (amount * multiplier);
+		print(Health);
 		if (Health <= 0)
 		{
 			print("Player has died"); 
@@ -160,12 +161,14 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	}
 	public void RespawnPlayer()
 	{
+		print("respawn");
 		Health = MaxHealth;
 		PlayerRevived.Invoke();
 	}
 
 	public void Heal(float amount, float multiplier, bool canHealPastMax)
 	{
+		print("healed");
 		float amountRegained = amount * multiplier;
 		if (Health + amountRegained > MaxHealth &&
 			!canHealPastMax) 
@@ -178,12 +181,14 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 	public void PlayerFullHeal()
 	{
+		print("full healed");
 		Health = MaxHealth;
 		PlayerFullHealed.Invoke();
 	}
 
 	public void PlayerRegainAether(float amount, float multiplier, bool canRegenPastMax)
 	{
+		print("regained aether");
 		float amountRegained = amount * multiplier;
 		if (Aether + amountRegained > MaxAether &&
 			!canRegenPastMax) 
