@@ -1979,9 +1979,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236217437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae622f7bc876a8645adc24e859824b08, type: 3}
+  m_Script: {fileID: 11500000, guid: 3847a0c6d45e078459ba4cf22a784018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerObject: {fileID: 814704460}
+  _healthBar: {fileID: 1375408979}
+  _aetherBar: {fileID: 1432904783}
+  _flowBar: {fileID: 1980636183}
+  _flowStateLevel: {fileID: 1231148113}
+  _goldCounter: {fileID: 0}
+  _AttackBuffCounter: {fileID: 0}
 --- !u!1 &1355835681
 GameObject:
   m_ObjectHideFlags: 0
