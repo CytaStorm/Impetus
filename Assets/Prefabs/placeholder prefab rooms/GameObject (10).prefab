@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d682440ff0523c4e9a5861b81f3f014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllDoorDirections: 
+  AllDoorDirections: 0200000001000000
 --- !u!1001 &5483343950137257587
 PrefabInstance:
   m_ObjectHideFlags: 0

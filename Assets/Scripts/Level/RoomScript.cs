@@ -24,11 +24,7 @@ public class RoomScript : MonoBehaviour
 	public DoorScript EntranceDoorScript { get => _entranceDoorScript; }
 	public DoorScript ExitDoorScript { get => _exitDoorScript; }
 
-
-    /// <summary>
-    /// Randomly assigns entrance and exit doors of room.
-    /// </summary>
-    public void AssignFirstRoomDoor()
+    public void SetupFirstRoomDoor()
 	{
 		int entranceDoorIndex = Random.Range(0, 2);
 		_exitDoorDirection = AllDoorDirections[entranceDoorIndex];
@@ -41,17 +37,15 @@ public class RoomScript : MonoBehaviour
 			{
 				Destroy(door.gameObject);
 			}
-
-			_exitDoor = doorScript.gameObject;
-			_exitDoorScript = doorScript;
+			else
+			{
+				_exitDoorScript = doorScript;
+				_exitDoor = doorScript.gameObject;
+			}
 		}
-		return;
 	}
-
-	/// <summary>
-	/// Sets entrance and exit doors based on entrance door.
-	/// </summary>
-	public void AssignMiddleRoomDoors(Directions entrance, RoomScript prevRoomScript)
+	public void SetupMiddleRoomDoors(
+		Directions entrance, RoomScript prevRoomScript)
 	{
 		if (AllDoorDirections.IndexOf(entrance) == -1)
 		{
@@ -68,13 +62,13 @@ public class RoomScript : MonoBehaviour
 			DoorScript doorScript = door.gameObject.GetComponent<DoorScript>();
 			if (doorScript.Direction == _entranceDoorDirection)
 			{
-				_entranceDoor = doorScript.gameObject;
 				_entranceDoorScript = doorScript;
+				_entranceDoor = doorScript.gameObject;
 			}
 			else if (doorScript.Direction == _exitDoorDirection)
 			{
-				_exitDoor = doorScript.gameObject;
 				_exitDoorScript = doorScript;
+				_exitDoor = doorScript.gameObject;
 			}
 			else
 			{
@@ -83,13 +77,19 @@ public class RoomScript : MonoBehaviour
 		}
 
 		//Link previous room's door to this one, and vice versa.
+		//print(prevRoomScript.gameObject.name);
+		//print(prevRoomScript.ExitDoorScript.gameObject.name);
+		//print(_entranceDoor.name);
 		prevRoomScript.ExitDoorScript.LinkedDoor = _entranceDoor;
 		EntranceDoorScript.LinkedDoor = prevRoomScript.ExitDoorScript.gameObject;
+		//print($"Parent: {gameObject.name}\n" +
+		//	$"Entrance Door Name: {EntranceDoorScript.gameObject.name}\n" +
+		//	$"Exit Door Name: {ExitDoorScript.gameObject.name}");
 		
 		return;
 	}
-
-	public void AssignLastRoomDoor(Directions entrance, RoomScript prevRoomScript)
+	public void SetupBossRoomDoor(
+		Directions entrance, RoomScript prevRoomScript)
 	{
 		_entranceDoorDirection = entrance;
 		_exitDoorDirection = Directions.None;
@@ -102,9 +102,11 @@ public class RoomScript : MonoBehaviour
 			{
 				Destroy(door.gameObject);
 			}
-
-			_entranceDoor = doorScript.gameObject;
-			_entranceDoorScript = doorScript;
+			else
+			{
+				_entranceDoorScript = doorScript;
+				_entranceDoor = doorScript.gameObject;
+			}
 		}
 
 		//Link previous room's door to this one, and vice versa.

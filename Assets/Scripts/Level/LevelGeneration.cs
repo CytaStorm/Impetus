@@ -62,7 +62,7 @@ public class LevelGeneration : MonoBehaviour
 				_normalRooms[UnityEngine.Random.Range(0, _normalRooms.Count)],
 				GetRoomOffset(roomNumber),
 				Quaternion.identity).GetComponent<RoomScript>());
-		_layout.First.Value.AssignFirstRoomDoor();
+		_layout.First.Value.SetupFirstRoomDoor();
 		roomNumber++;
 
 		//Middle rooms
@@ -95,7 +95,7 @@ public class LevelGeneration : MonoBehaviour
 				listToPickFrom[UnityEngine.Random.Range(0, listToPickFrom.Count)],
 				GetRoomOffset(roomNumber),
 				Quaternion.identity).GetComponent<RoomScript>());
-			_layout.Last.Value.AssignMiddleRoomDoors(
+			_layout.Last.Value.SetupMiddleRoomDoors(
 				newRoomEntranceDoor, _layout.Last.Previous.Value);
 			roomNumber++;
 		}
@@ -106,7 +106,7 @@ public class LevelGeneration : MonoBehaviour
 				_bossRooms[UnityEngine.Random.Range(0, _bossRooms.Count)],
 				GetRoomOffset(roomNumber),
 				Quaternion.identity).GetComponent<RoomScript>());
-		_layout.Last.Value.AssignLastRoomDoor(
+		_layout.Last.Value.SetupBossRoomDoor(
 			GetOppositeDoorDirection(_layout.Last.Previous.Value.ExitDoorDirection),
 			_layout.Last.Previous.Value);
 		return;
