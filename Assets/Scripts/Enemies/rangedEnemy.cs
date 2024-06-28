@@ -25,6 +25,13 @@ public class Enemy2Script : MonoBehaviour
     public float evadeRange = 3f;
     public float approachRange = 5f;
 
+    // Attack variables
+    public GameObject ProjectilePrefab;
+    public Transform firePoint;
+    public float fireRate = 3f; // Time between shots
+    private float nextFireTime;
+
+
     // Weakness variable
     //Depending on if they use enums for weakness or not
     //If they dont use enums we need to change the weakness logic
@@ -71,8 +78,9 @@ public class Enemy2Script : MonoBehaviour
             }
             else if (distanceToPlayer <= approachRange)
             {
-                // Stop moving when in approach range
+                // Stop moving when in approach range and attack
                 rb.velocity = Vector2.zero;
+                Attack();
             }
             else
             {
@@ -102,6 +110,22 @@ public class Enemy2Script : MonoBehaviour
         if (currentWaypoint >= path.vectorPath.Count)
         {
             reachedEndOfPath = true;
+        }
+    }
+
+
+    void Attack()
+    {
+        if (Time.time >= nextFireTime)
+        {
+            // Instantiate projectile and set its direction
+            GameObject projectile = Instantiate(ProjectilePrefab, firePoint.position, firePoint.rotation);
+            Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
+            Vector2 direction = (target.transform.position - firePoint.position).normalized;
+            rbProjectile.velocity = direction * 10f;
+            Debug.Log("Projectile Direction: " + direction);
+            // Update next fire time
+            nextFireTime = Time.time + 1f / fireRate;
         }
     }
 
