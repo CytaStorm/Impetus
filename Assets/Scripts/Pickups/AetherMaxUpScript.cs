@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AetherMaxUpScript : MonoBehaviour
+public class AetherMaxUpScript : PickupScript
 {
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,6 @@ public class AetherMaxUpScript : MonoBehaviour
         }
         PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
         _player.MaxAether += 10;
-        Destroy(this.gameObject);
+        StartCoroutine(PlayPickupSound());
 	}
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,8 +12,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour, IDamageable
 {
-	#region GameObject Components
+	#region Misc.
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
+	//Sound
+	[SerializeField] private GameObject _soundManager;
+	private SoundPlayerScript _soundPlayer;
 	#endregion
 
 	#region Health
@@ -142,7 +146,23 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	#endregion
 
 	#region Functions to change stats
-
+	//Health
+	public void Heal(float amount, float multiplier, bool canHealPastMax)
+	{
+		float amountRegained = amount * multiplier;
+		if (Health + amountRegained > MaxHealth &&
+			!canHealPastMax) 
+		{
+			amountRegained = MaxHealth - MaxHealth;
+		}
+		Health += amountRegained;
+		HealthChanged.Invoke(amountRegained);
+	}
+	public void FullHeal()
+	{
+		Health = MaxHealth;
+		PlayerFullHealed.Invoke();
+	}
 	public void TakeDamage(float amount, float multiplier)
 	{
 		Health -= (amount * multiplier);
@@ -159,28 +179,11 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	}
 	public void RespawnPlayer()
 	{
-		Health = MaxHealth;
+		FullHeal();
 		PlayerRevived.Invoke();
 	}
 
-	public void Heal(float amount, float multiplier, bool canHealPastMax)
-	{
-		float amountRegained = amount * multiplier;
-		if (Health + amountRegained > MaxHealth &&
-			!canHealPastMax) 
-		{
-			amountRegained = MaxHealth - MaxHealth;
-		}
-		Health += amountRegained;
-		HealthChanged.Invoke(amountRegained);
-	}
-
-	public void PlayerFullHeal()
-	{
-		Health = MaxHealth;
-		PlayerFullHealed.Invoke();
-	}
-
+	//Aether
 	public void PlayerRegainAether(float amount, float multiplier, bool canRegenPastMax)
 	{
 		float amountRegained = amount * multiplier;
@@ -197,8 +200,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	// Start is called before the first frame update
 	void Start()
 	{
-		//Uncomment once finished testing flowstate.
-		//_flowState = 0;
+		_flowState = 0;
 	}
 
 	// Update is called once per frame
