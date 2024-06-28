@@ -224,13 +224,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
 				FlowState--;
 				Flow = 99;
 			}
-			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] * Time.deltaTime;
+			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] *
+				Time.deltaTime;
 		}
-		if (Flow <= 0 && FlowState != 0)
+		if (Flow == 0 && FlowState != 0)
 		{
 			_flowState--;
 			Flow = 100;
 		}
+
+		Flow = Mathf.Clamp(Flow, 0, _maxFlow);
 		
 
 		
