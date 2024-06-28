@@ -10,7 +10,14 @@ public class ProjectileScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * speed; // Assuming the projectile is facing right initially
+        if (rb != null)
+        {
+            rb.velocity = transform.right * speed; // Assuming the projectile is facing right initially
+        }
+        else
+        {
+            Debug.LogError("Rigidbody2D component missing from the projectile!");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo)
@@ -19,6 +26,11 @@ public class ProjectileScript : MonoBehaviour
         if (player != null)
         {
             player.TakeDamage(damage, 1f);
+            Debug.Log("Player hit! Damage applied: " + damage);
+        }
+        else
+        {
+            Debug.Log("Hit object is not a player: " + hitInfo.name);
         }
         Destroy(gameObject); // Destroy the projectile after it hits something
     }
