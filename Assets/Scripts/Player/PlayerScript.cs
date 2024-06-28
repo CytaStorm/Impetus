@@ -205,6 +205,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	{
 		//Uncomment once finished testing flowstate.
 		//_flowState = 0;
+		_attackDamage = 25;
 	}
 
 	// Update is called once per frame
