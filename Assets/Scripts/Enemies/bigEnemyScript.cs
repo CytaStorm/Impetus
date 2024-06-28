@@ -132,15 +132,16 @@ public class bigEnemyScript : MonoBehaviour
                 }
             }
         }
+        
+    }
 
-        /// <summary>
-        /// Draw the AoE radius when selected
-        /// </summary>
-        void OnDrawGizmosSelected()
-        {
-            // Draw the AoE radius when selected
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(this.transform.position, aoeRadius);
-        }
+    /// <summary>
+    /// Draw the AoE radius when selected
+    /// </summary>
+    void OnDrawGizmosSelected()
+    {
+        // Draw the AoE radius when selected
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, aoeRadius);
     }
 }
