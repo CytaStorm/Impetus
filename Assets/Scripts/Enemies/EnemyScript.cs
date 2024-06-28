@@ -186,16 +186,16 @@ public class EnemyScript : MonoBehaviour
     /// damage the player
     /// </summary>
     /// <param name="collision"></param>
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    //Check if it has the tag "player" to see if the player is physically touching the enemy
-    //    if (collision.gameObject.CompareTag("Player"))
-    //    {
-    //        print($"Player taking {_enemyDamage} damage from touching enemy!");
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Check if it has the tag "player" to see if the player is physically touching the enemy
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            print($"Player taking {_enemyDamage} damage from touching enemy!");
 
-    //        _player.TakeDamage(_enemyDamage, 1f);
-    //    }
-    //}
+            _player.TakeDamage(_enemyDamage, 1f);
+        }
+    }
 
     /// <summary>
     /// Flash the enemy red for less than a second

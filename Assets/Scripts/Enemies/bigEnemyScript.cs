@@ -43,7 +43,7 @@ public class bigEnemyScript : MonoBehaviour
         enemyScript = this.GetComponent<EnemyScript>();
 
         // SPECIFIC TO BIG ENEMY
-        enemyScript.EnemyHealth = 500;
+        enemyScript.EnemyHealth = 250;
         enemyScript.AetherIncrease = 50;
         enemyScript.EnemyDamage = 10;
         enemyScript.FlowWorth = 200;
