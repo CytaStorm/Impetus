@@ -3,83 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class Enemy2Script : MonoBehaviour
+public class RangedEnemyScript : MonoBehaviour
 {
+    #region Variables
     // Variable Declarations
-    Path path;
-    int currentWaypoint;
-    bool reachedEndOfPath;
-    Seeker seeker;
-    Rigidbody2D rb;
-    GameObject target;
-    public LayerMask obstructionMask;
+    private Path _path;                    // The calculated path for the enemy to follow
+    private int _currentWaypoint;          // Index of the current waypoint in the path
+    private bool _reachedEndOfPath;        // Indicates if the enemy has reached the end of the path
+    [SerializeField] private Seeker _seeker; // Component responsible for pathfinding
+    [SerializeField] private Rigidbody2D _rb; // Rigidbody component for handling physics
+    [SerializeField] private GameObject _target; // Target the enemy is moving towards
+    [SerializeField] private LayerMask _obstructionMask; // LayerMask for detecting obstructions
+    [SerializeField] private GameObject _projectilePrefab; // Prefab for the projectile
+    [SerializeField] private Transform _firePoint; // Point from where the projectile is fired
+    #endregion
 
+    #region Scripts
     // Get the universal enemy script from our enemy
-    EnemyScript enemyScript;
+    private EnemyScript _enemyScript;
+    #endregion
 
-    // nextWaypointDistance represents the distance you CAN be from the target waypoint before
+    #region Constant Variables
+    // NextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
-    const float nextWayPointDistance = .5f;
-    const float speed = 5f;
-    public float detectionRange = 10f;
-    public float evadeRange = 3f;
-    public float approachRange = 5f;
+    private const float NextWaypointDistance = .5f;
+    private const float Speed = 5f;
+    [SerializeField] private float _detectionRange = 10f;
+    [SerializeField] private float _evadeRange = 3f;
+    [SerializeField] private float _approachRange = 5f;
+    [SerializeField] private float _fireRate = 3f; // Time between shots
+    private float _nextFireTime;
+    #endregion
 
-    // Attack variables
-    public GameObject ProjectilePrefab;
-    public Transform firePoint;
-    public float fireRate = 3f; // Time between shots
-    private float nextFireTime;
-
-
-    // Weakness variable
-    //Depending on if they use enums for weakness or not
-    //If they dont use enums we need to change the weakness logic
-    //public AttackType Weakness = AttackType.Piercing;
-
+    #region Start Method
     // Start is called before the first frame update
     void Start()
     {
         // Define objects
-        target = GameObject.FindWithTag("Player");
-        seeker = this.GetComponent<Seeker>();
-        rb = this.GetComponent<Rigidbody2D>();
-        enemyScript = this.GetComponent<EnemyScript>();
+        _target = GameObject.FindWithTag("Player");
+        _seeker = this.GetComponent<Seeker>();
+        _rb = this.GetComponent<Rigidbody2D>();
+        _enemyScript = this.GetComponent<EnemyScript>();
 
         // SPECIFIC TO MEDIUM ENEMY
-        enemyScript.EnemyHealth = 300;
-        enemyScript.AetherIncrease = 20;
-        enemyScript.EnemyDamage = 15;
-        enemyScript.FlowWorth = 100;
+        _enemyScript.EnemyHealth = 300;
+        _enemyScript.AetherIncrease = 20;
+        _enemyScript.EnemyDamage = 15;
+        _enemyScript.FlowWorth = 100;
 
         // Setup CalculatePath() to run every half second
-        InvokeRepeating("CalculatePath", 0f, .25f);
+        InvokeRepeating(nameof(CalculatePath), 0f, .25f);
     }
+    #endregion
 
+    #region Update Method
     void Update()
     {
         // First make sure the path is created
-        if (path == null || reachedEndOfPath)
-        {
-            return;
-        }
+        if (_path == null || _reachedEndOfPath) return;
 
         // Calculate distance to player
-        float distanceToPlayer = Vector2.Distance(this.transform.position, target.transform.position);
+        float distanceToPlayer = Vector2.Distance(this.transform.position, _target.transform.position);
 
         // Check if player is within detection range and there are no obstructions
-        if (distanceToPlayer <= detectionRange && !Physics2D.Linecast(transform.position, target.transform.position, obstructionMask))
+        if (distanceToPlayer <= _detectionRange &&
+            !Physics2D.Linecast(transform.position, _target.transform.position, _obstructionMask))
         {
-            if (distanceToPlayer <= evadeRange)
+            if (distanceToPlayer <= _evadeRange)
             {
                 // Evade player
-                Vector2 direction = (this.transform.position - target.transform.position).normalized;
-                rb.velocity = direction * speed;
+                Vector2 direction = (this.transform.position - _target.transform.position).normalized;
+                _rb.velocity = direction * Speed;
             }
-            else if (distanceToPlayer <= approachRange)
+            else if (distanceToPlayer <= _approachRange)
             {
                 // Stop moving when in approach range and attack
-                rb.velocity = Vector2.zero;
+                _rb.velocity = Vector2.zero;
                 Attack();
             }
             else
@@ -90,74 +89,86 @@ public class Enemy2Script : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            _rb.velocity = Vector2.zero;
         }
     }
+    #endregion
 
+    #region Movement Functions
+    /// <summary>
+    /// Move towards the player.
+    /// </summary>
     void MoveTowardsPlayer()
     {
         // Move towards the next waypoint
-        Vector2 direction = (path.vectorPath[currentWaypoint] - this.transform.position);
-        rb.velocity = direction.normalized * speed;
+        Vector2 direction = (_path.vectorPath[_currentWaypoint] - this.transform.position);
+        _rb.velocity = direction.normalized * Speed;
 
         // If the distance is small enough, switch to the next waypoint
-        if (direction.magnitude <= nextWayPointDistance)
+        if (direction.magnitude <= NextWaypointDistance)
         {
-            currentWaypoint++;
+            _currentWaypoint++;
         }
 
         // Are we at the end of the path?
-        if (currentWaypoint >= path.vectorPath.Count)
+        if (_currentWaypoint >= _path.vectorPath.Count)
         {
-            reachedEndOfPath = true;
-        }
-    }
-
-
-    void Attack()
-    {
-        if (Time.time >= nextFireTime)
-        {
-            // Instantiate projectile and set its direction
-            GameObject projectile = Instantiate(ProjectilePrefab, firePoint.position, firePoint.rotation);
-            Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
-            Vector2 direction = (target.transform.position - firePoint.position).normalized;
-            rbProjectile.velocity = direction * 10f;
-            Debug.Log("Projectile Direction: " + direction);
-            // Update next fire time
-            nextFireTime = Time.time + 1f / fireRate;
+            _reachedEndOfPath = true;
         }
     }
 
     /// <summary>
-    /// Calculate a new path (this is done every half second or second or so)
+    /// Calculate a new path (this is done every half second or second or so).
     /// </summary>
     void CalculatePath()
     {
         // First make sure the seeker is done calculating the last path
-        if (seeker.IsDone())
+        if (_seeker.IsDone())
         {
-            path = seeker.StartPath(this.transform.position, target.transform.position);
-            reachedEndOfPath = false;
-            currentWaypoint = 0;
+            _path = _seeker.StartPath(this.transform.position, _target.transform.position);
+            _reachedEndOfPath = false;
+            _currentWaypoint = 0;
         }
     }
+    #endregion
 
+    #region Attack Functions
     /// <summary>
-    /// Draw the detection and evade radius when selected
+    /// Attack the player by firing a projectile.
+    /// </summary>
+    void Attack()
+    {
+        if (Time.time >= _nextFireTime)
+        {
+            // Instantiate projectile and set its direction
+            GameObject projectile = Instantiate(_projectilePrefab, _firePoint.position, _firePoint.rotation);
+            Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
+            Vector2 direction = (_target.transform.position - _firePoint.position).normalized;
+            rbProjectile.velocity = direction * 10f;
+            Debug.Log("Projectile Direction: " + direction);
+            // Update next fire time
+            _nextFireTime = Time.time + 1f / _fireRate;
+        }
+    }
+    #endregion
+
+    #region Gizmos
+    /// <summary>
+    /// Draw the detection and evade radius when selected.
     /// </summary>
     void OnDrawGizmosSelected()
     {
         // Draw the detection range
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(this.transform.position, detectionRange);
+        Gizmos.DrawWireSphere(this.transform.position, _detectionRange);
 
         // Draw the approach range
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(this.transform.position, approachRange);
+        Gizmos.DrawWireSphere(this.transform.position, _approachRange);
 
         // Draw the evade range
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(this.transform.position, evadeRange);
+        Gizmos.DrawWireSphere(this.transform.position, _evadeRange);
     }
+    #endregion
 }

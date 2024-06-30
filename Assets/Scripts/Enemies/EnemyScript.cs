@@ -7,33 +7,41 @@ using UnityEngine.Events;
 
 public class EnemyScript : MonoBehaviour
 {
-    //GameObjects
+    #region GameObjects
     public GameObject player;
     public GameObject weapon;
+    #endregion
 
     //SpriteRenderer
     SpriteRenderer spriteRenderer;
 
-    //Visible stat variables
+    #region Visible Stats
     [SerializeField] private float _enemyHealth;
     [SerializeField] private float _aetherIncrease;
     [SerializeField] private float _enemyDamage;
     [SerializeField] private float _flowWorth;
+    #endregion
 
+    #region Scripts
     //Script
     private PlayerScript _player;
 
     //Event
     private UnityEvent _enemyDied;
+    #endregion
 
+    #region Camera Variables
     //Camera stuff (not using rn)
     private Camera mainCamera;
     private float screenLeft;
     private float screenRight;
     private float screenTop;
     private float screenBottom;
+    #endregion
 
-    //PROPERTIES - for values that will be different across dif enemy types (health, damage, etc)
+    #region General Enemy Properties
+    //PROPERTIES - for values that will be different across dif enemy types
+    //(health, damage, etc)
     public float EnemyHealth
     {
         get { return _enemyHealth; }
@@ -51,10 +59,12 @@ public class EnemyScript : MonoBehaviour
     {
         set { _flowWorth = value; }
     }
+    #endregion
 
 
     // Start is called before the first frame update
     void Start()
+    
     {
         //Get the player via tag instead of relying on dragging him into the public box in unity UI
         player = GameObject.FindWithTag("Player");
@@ -105,11 +115,12 @@ public class EnemyScript : MonoBehaviour
         }
         _enemyDied.AddListener(killEnemy);
     }
+    
 
-    /**
-     *      Listens to the event of an enemy dying 
-     *      - kills the enemy, increases flow
-     */
+    #region Kill Enemy Function
+    /// <summary>
+    /// Listens to the event of an enemy dying and processes the enemy's death.
+    /// </summary>
     private void killEnemy()
     {
         //Kill the enemy
@@ -119,9 +130,11 @@ public class EnemyScript : MonoBehaviour
         _player.Flow += _flowWorth;
 
     }
+    #endregion
 
     // Update is called once per frame
     void Update()
+    
     {
         if (this._enemyHealth <= 0)
         {
@@ -134,8 +147,9 @@ public class EnemyScript : MonoBehaviour
         //enemyPos.y = Mathf.Clamp(enemyPos.y, screenBottom, screenTop);
         //transform.position = enemyPos;
     }
+    
 
-
+    #region Collision Function
     /// <summary>
     /// When a collision with a trigger object occurs, test to see what collided with us.
     /// If the collision is with a weapon, take damage.
@@ -180,6 +194,7 @@ public class EnemyScript : MonoBehaviour
             _player.Aether += _aetherIncrease;
         }     
     }
+    #endregion
 
     /// <summary>
     /// When colliding with another collider, if that collider belongs to the player, 
@@ -197,6 +212,7 @@ public class EnemyScript : MonoBehaviour
         }
     }*/
 
+    #region Flash Enemy Red
     /// <summary>
     /// Flash the enemy red for less than a second
     /// </summary>
@@ -210,4 +226,5 @@ public class EnemyScript : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         spriteRenderer.color = Color.white;
     }
+    #endregion
 }

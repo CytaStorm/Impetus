@@ -3,83 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class smallEnemyScript : MonoBehaviour
+public class SmallEnemyScript : MonoBehaviour
 {
-    //Variable Declarations
-    Path path;
-    int currentWaypoint;
-    bool reachedEndOfPath;
-    Seeker seeker;
-    Rigidbody2D rb;
-    GameObject target;
+    #region Variables
+    // Variable Declarations
+    private Path _path;                    // The calculated path for the enemy to follow
+    private int _currentWaypoint;          // Index of the current waypoint in the path
+    private bool _reachedEndOfPath;        // Indicates if the enemy has reached the end of the path
+    [SerializeField] private Seeker _seeker; // Component responsible for pathfinding
+    [SerializeField] private Rigidbody2D _rb; // Rigidbody component for handling physics
+    [SerializeField] private GameObject _target; // Target the enemy is moving towards
+    #endregion
 
-    //Get the universal enemy script from our enemy
-    EnemyScript enemyScript;
+    #region Scripts
+    // Get the universal enemy script from our enemy
+    private EnemyScript _enemyScript;
+    #endregion
 
-    //nextWaypointDistance represents the distance you CAN be from the target waypoint before
+    #region Constant Variables
+    // NextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
-    const float nextWayPointDistance = .5f;
-    const float speed = 3;
+    private const float NextWaypointDistance = .5f;
+    private const float Speed = 3f;
+    #endregion
 
+    #region Start Method
     // Start is called before the first frame update
     void Start()
     {
-        //Define objects
-        target = GameObject.FindWithTag("Player");
-        seeker = this.GetComponent<Seeker>();
-        rb = this.GetComponent<Rigidbody2D>();
-        enemyScript = this.GetComponent<EnemyScript>();
+        // Define objects
+        _target = GameObject.FindWithTag("Player");
+        _seeker = this.GetComponent<Seeker>();
+        _rb = this.GetComponent<Rigidbody2D>();
+        _enemyScript = this.GetComponent<EnemyScript>();
 
-        //SPECIFIC TO SMALL ENEMY
-        enemyScript.EnemyHealth = 100;
-        enemyScript.AetherIncrease = 10;
-        enemyScript.EnemyDamage = 10;
-        enemyScript.FlowWorth = 50;
+        // SPECIFIC TO SMALL ENEMY
+        _enemyScript.EnemyHealth = 100;
+        _enemyScript.AetherIncrease = 10;
+        _enemyScript.EnemyDamage = 10;
+        _enemyScript.FlowWorth = 50;
 
-        //Setup CalculatePath() to run every quarter second
+        // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
     }
+    #endregion
 
+    #region Update Method
     // Update is called once per frame
     void Update()
     {
-        //First make sure the path is created
-        if (path == null || reachedEndOfPath)
+        // First make sure the path is created
+        if (_path == null || _reachedEndOfPath)
         {
             return;
         }
-            
-        //MOVE
-        //find direction of the next waypoint (vector2)
-        Vector2 direction = (path.vectorPath[currentWaypoint] - this.transform.position);
 
-        //Multiply direction by speed and move
-        rb.velocity = direction.normalized * speed;
+        // MOVE
+        // Find direction of the next waypoint (vector2)
+        Vector2 direction = (_path.vectorPath[_currentWaypoint] - this.transform.position);
 
-        //If the distance is small enough, switch to next waypoint
-        if (direction.magnitude <= nextWayPointDistance)
+        // Multiply direction by speed and move
+        _rb.velocity = direction.normalized * Speed;
+
+        // If the distance is small enough, switch to next waypoint
+        if (direction.magnitude <= NextWaypointDistance)
         {
-            currentWaypoint++;
+            _currentWaypoint++;
         }
 
-        //Are we at the end of the path?
-        if (currentWaypoint >= path.vectorPath.Count)
+        // Are we at the end of the path?
+        if (_currentWaypoint >= _path.vectorPath.Count)
         {
-            reachedEndOfPath = true;
+            _reachedEndOfPath = true;
         }
     }
+    #endregion
 
+    #region CalculatePath Method
     /// <summary>
     /// Calculate a new path (this is done every half second or second or so)
     /// </summary>
     void CalculatePath()
     {
-        //First make sure the seeker is done calculating the last path
-        if (seeker.IsDone())
+        // First make sure the seeker is done calculating the last path
+        if (_seeker.IsDone())
         {
-            path = seeker.StartPath(this.transform.position, target.transform.position);
-            reachedEndOfPath = false;
-            currentWaypoint = 0;
+            _path = _seeker.StartPath(this.transform.position, _target.transform.position);
+            _reachedEndOfPath = false;
+            _currentWaypoint = 0;
         }
     }
+    #endregion
 }

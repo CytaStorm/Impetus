@@ -2,31 +2,36 @@ using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour
 {
-    public float speed = 10f;
-    public float damage = 10f;
+    #region Variables
+    [SerializeField] private float _speed = 10f;
+    [SerializeField] private float _damage = 10f;
+    private Rigidbody2D _rb;
+    #endregion
 
-    private Rigidbody2D rb;
-
+    #region Start Method
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
+        _rb = GetComponent<Rigidbody2D>();
+        if (_rb != null)
         {
-            rb.velocity = transform.right * speed; // Assuming the projectile is facing right initially
+            // Assuming the projectile is facing right initially
+            _rb.velocity = transform.right * _speed;
         }
         else
         {
             Debug.LogError("Rigidbody2D component missing from the projectile!");
         }
     }
+    #endregion
 
+    #region Collision Handling
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
         PlayerScript player = hitInfo.GetComponent<PlayerScript>();
         if (player != null)
         {
-            player.TakeDamage(damage, 1f);
-            Debug.Log("Player hit! Damage applied: " + damage);
+            player.TakeDamage(_damage, 1f);
+            Debug.Log("Player hit! Damage applied: " + _damage);
         }
         else
         {
@@ -34,4 +39,5 @@ public class ProjectileScript : MonoBehaviour
         }
         Destroy(gameObject); // Destroy the projectile after it hits something
     }
+    #endregion
 }
