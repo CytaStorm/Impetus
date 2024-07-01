@@ -7,32 +7,30 @@ public class RangedEnemyScript : MonoBehaviour
 {
     #region Variables
     // Variable Declarations
-    private Path _path;                    // The calculated path for the enemy to follow
-    private int _currentWaypoint;          // Index of the current waypoint in the path
-    private bool _reachedEndOfPath;        // Indicates if the enemy has reached the end of the path
+    private Path _path;                     // The calculated path for the enemy to follow
+    private int _currentWaypoint;           // Index of the current waypoint in the path
+    private bool _reachedEndOfPath;         // Indicates if the enemy has reached the end of the path
     [SerializeField] private Seeker _seeker; // Component responsible for pathfinding
     [SerializeField] private Rigidbody2D _rb; // Rigidbody component for handling physics
     [SerializeField] private GameObject _target; // Target the enemy is moving towards
     [SerializeField] private LayerMask _obstructionMask; // LayerMask for detecting obstructions
     [SerializeField] private GameObject _projectilePrefab; // Prefab for the projectile
     [SerializeField] private Transform _firePoint; // Point from where the projectile is fired
+
+    // Constants
+    private const float NextWaypointDistance = .5f;
+    private const float Speed = 1f;
+    [SerializeField] private float _detectionRange = 10f;
+    [SerializeField] private float _evadeRange = 3f;
+    [SerializeField] private float _approachRange = 5f;
+    [SerializeField] private float _fireRate = 3f; // Time between shots
+    [SerializeField] private float _releaseSpeed = 1f; // Pause between each attack
+    private float _nextFireTime;
     #endregion
 
     #region Scripts
     // Get the universal enemy script from our enemy
     private EnemyScript _enemyScript;
-    #endregion
-
-    #region Constant Variables
-    // NextWaypointDistance represents the distance you CAN be from the target waypoint before
-    // switching to the next waypoint. This helps curve the path and make it more natural.
-    private const float NextWaypointDistance = .5f;
-    private const float Speed = 5f;
-    [SerializeField] private float _detectionRange = 10f;
-    [SerializeField] private float _evadeRange = 3f;
-    [SerializeField] private float _approachRange = 5f;
-    [SerializeField] private float _fireRate = 3f; // Time between shots
-    private float _nextFireTime;
     #endregion
 
     #region Start Method
@@ -41,9 +39,9 @@ public class RangedEnemyScript : MonoBehaviour
     {
         // Define objects
         _target = GameObject.FindWithTag("Player");
-        _seeker = this.GetComponent<Seeker>();
-        _rb = this.GetComponent<Rigidbody2D>();
-        _enemyScript = this.GetComponent<EnemyScript>();
+        _seeker = GetComponent<Seeker>();
+        _rb = GetComponent<Rigidbody2D>();
+        _enemyScript = GetComponent<EnemyScript>();
 
         // SPECIFIC TO MEDIUM ENEMY
         _enemyScript.EnemyHealth = 300;
@@ -51,7 +49,7 @@ public class RangedEnemyScript : MonoBehaviour
         _enemyScript.EnemyDamage = 15;
         _enemyScript.FlowWorth = 100;
 
-        // Setup CalculatePath() to run every half second
+        // Setup CalculatePath() to run every quarter second
         InvokeRepeating(nameof(CalculatePath), 0f, .25f);
     }
     #endregion
@@ -63,7 +61,7 @@ public class RangedEnemyScript : MonoBehaviour
         if (_path == null || _reachedEndOfPath) return;
 
         // Calculate distance to player
-        float distanceToPlayer = Vector2.Distance(this.transform.position, _target.transform.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, _target.transform.position);
 
         // Check if player is within detection range and there are no obstructions
         if (distanceToPlayer <= _detectionRange &&
@@ -72,7 +70,7 @@ public class RangedEnemyScript : MonoBehaviour
             if (distanceToPlayer <= _evadeRange)
             {
                 // Evade player
-                Vector2 direction = (this.transform.position - _target.transform.position).normalized;
+                Vector2 direction = (transform.position - _target.transform.position).normalized;
                 _rb.velocity = direction * Speed;
             }
             else if (distanceToPlayer <= _approachRange)
@@ -101,7 +99,7 @@ public class RangedEnemyScript : MonoBehaviour
     void MoveTowardsPlayer()
     {
         // Move towards the next waypoint
-        Vector2 direction = (_path.vectorPath[_currentWaypoint] - this.transform.position);
+        Vector2 direction = (_path.vectorPath[_currentWaypoint] - transform.position);
         _rb.velocity = direction.normalized * Speed;
 
         // If the distance is small enough, switch to the next waypoint
@@ -125,7 +123,7 @@ public class RangedEnemyScript : MonoBehaviour
         // First make sure the seeker is done calculating the last path
         if (_seeker.IsDone())
         {
-            _path = _seeker.StartPath(this.transform.position, _target.transform.position);
+            _path = _seeker.StartPath(transform.position, _target.transform.position);
             _reachedEndOfPath = false;
             _currentWaypoint = 0;
         }
@@ -144,10 +142,10 @@ public class RangedEnemyScript : MonoBehaviour
             GameObject projectile = Instantiate(_projectilePrefab, _firePoint.position, _firePoint.rotation);
             Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
             Vector2 direction = (_target.transform.position - _firePoint.position).normalized;
-            rbProjectile.velocity = direction * 10f;
+            rbProjectile.velocity = direction * _releaseSpeed;
             Debug.Log("Projectile Direction: " + direction);
             // Update next fire time
-            _nextFireTime = Time.time + 1f / _fireRate;
+            _nextFireTime = Time.time + _releaseSpeed;
         }
     }
     #endregion
@@ -160,15 +158,15 @@ public class RangedEnemyScript : MonoBehaviour
     {
         // Draw the detection range
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(this.transform.position, _detectionRange);
+        Gizmos.DrawWireSphere(transform.position, _detectionRange);
 
         // Draw the approach range
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(this.transform.position, _approachRange);
+        Gizmos.DrawWireSphere(transform.position, _approachRange);
 
         // Draw the evade range
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(this.transform.position, _evadeRange);
+        Gizmos.DrawWireSphere(transform.position, _evadeRange);
     }
     #endregion
 }

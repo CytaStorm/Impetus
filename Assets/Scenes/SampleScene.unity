@@ -896,6 +896,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75da0e8c2c54aa44c968e8166e89092d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _seeker: {fileID: 0}
+  _rb: {fileID: 0}
+  _target: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75da0e8c2c54aa44c968e8166e89092d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _seeker: {fileID: 0}
+  _rb: {fileID: 0}
+  _target: {fileID: 0}
 --- !u!1 &621789068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,9 +1442,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   weapon: {fileID: 0}
-  _enemyHealth: 0
+  _enemyHealth: 100
   _aetherIncrease: 0
-  _enemyDamage: 0
+  _enemyDamage: 10
   _flowWorth: 0
 --- !u!50 &621789070
 Rigidbody2D:
@@ -1609,11 +1615,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a284daadcacd1b4eb744d8608997bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aoeRadius: 2
-  aoeDamage: 20
-  aoeCooldown: 5
-  attackRange: 3
-  minAttackDistance: 1
+  _seeker: {fileID: 0}
+  _rb: {fileID: 0}
+  _target: {fileID: 0}
+  _aoeRadius: 2
+  _aoeDamage: 20
+  _aoeCooldown: 5
+  _attackRange: 3
+  _minAttackDistance: 0
 --- !u!1 &814704460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,7 +1770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df41d0d7046f37741b1b8a68678fc148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerScript: {fileID: 0}
+  _playerScript: {fileID: 814704470}
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
   _spriteRenderer: {fileID: 814704466}
@@ -2015,7 +2024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300778f28da3abe4eb5788e4d1e3ae9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _player: {fileID: 814704470}
   _spellInputDuration: 4
   _spellInputTimer: 0
 --- !u!114 &814704470
@@ -2025,13 +2034,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814704460}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovementScript: {fileID: 0}
-  _health: 1
+  _playerMovementScript: {fileID: 814704465}
+  _health: 100
   _maxHealth: 100
   _aether: 50
   _maxAether: 50
@@ -2589,15 +2598,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7a1561a83d6ef4bb7145ded9323b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstructionMask:
+  _seeker: {fileID: 0}
+  _rb: {fileID: 0}
+  _target: {fileID: 0}
+  _obstructionMask:
     serializedVersion: 2
     m_Bits: 0
-  detectionRange: 10
-  evadeRange: 3
-  approachRange: 5
-  ProjectilePrefab: {fileID: 1900512489}
-  firePoint: {fileID: 1477707175}
-  fireRate: 1
+  _projectilePrefab: {fileID: 1900512489}
+  _firePoint: {fileID: 1348759494}
+  _detectionRange: 10
+  _evadeRange: 3
+  _approachRange: 5
+  _fireRate: 3
+  _releaseSpeed: 1
 --- !u!114 &1348759493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2612,7 +2625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   weapon: {fileID: 0}
-  _enemyHealth: 0
+  _enemyHealth: 10
   _aetherIncrease: 0
   _enemyDamage: 0
   _flowWorth: 0
@@ -3334,6 +3347,14 @@ PrefabInstance:
     - target: {fileID: 953577884469280694, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
       propertyPath: m_Name
       value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770619849991108418, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
+      propertyPath: _speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770619849991108418, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
+      propertyPath: _releaseSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5315797476446117666, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
       propertyPath: m_Size.x
