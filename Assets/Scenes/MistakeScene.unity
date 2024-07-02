@@ -1040,11 +1040,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a284daadcacd1b4eb744d8608997bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aoeRadius: 2
-  aoeDamage: 20
-  aoeCooldown: 5
-  attackRange: 3
-  minAttackDistance: 1
+  _seeker: {fileID: 0}
+  _rb: {fileID: 0}
+  _target: {fileID: 0}
+  _aoeRadius: 2
+  _aoeDamage: 20
+  _aoeCooldown: 5
+  _attackRange: 3
+  _minAttackDistance: 0
 --- !u!1001 &665819795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1177,7 +1180,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.009884238, y: 0.00000023841858}
@@ -1248,7 +1251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df41d0d7046f37741b1b8a68678fc148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerScript: {fileID: 0}
+  _playerScript: {fileID: 814704470}
   _animator: {fileID: 814704461}
   _rigidbody: {fileID: 814704463}
   _spriteRenderer: {fileID: 814704466}
@@ -1502,7 +1505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300778f28da3abe4eb5788e4d1e3ae9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _player: {fileID: 814704470}
   _spellInputDuration: 4
   _spellInputTimer: 0
 --- !u!114 &814704470
@@ -1517,7 +1520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ac11b140160243ba6ddac119ffff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovementScript: {fileID: 0}
+  _playerMovementScript: {fileID: 814704465}
+  _soundManager: {fileID: 0}
   _health: 100
   _maxHealth: 100
   _aether: 50
