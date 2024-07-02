@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 61122715929265036}
   - component: {fileID: 1251854128965715328}
   - component: {fileID: 5925918337566382396}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: smallEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,6 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75da0e8c2c54aa44c968e8166e89092d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _seeker: {fileID: 0}
+  _rb: {fileID: 0}
+  _target: {fileID: 0}
 --- !u!58 &1251854128965715328
 CircleCollider2D:
   m_ObjectHideFlags: 0

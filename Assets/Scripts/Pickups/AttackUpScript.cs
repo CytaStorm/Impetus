@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackUpScript : MonoBehaviour
+public class AttackUpScript : PickupScript
 {
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,7 +25,6 @@ public class AttackUpScript : MonoBehaviour
         PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
         _player.AttackDamage += 10;
         _player.AttackBuffRoomsLeft = 3;
-        Destroy(this.gameObject);
+        StartCoroutine(PlayPickupSound());
 	}
-
 }
