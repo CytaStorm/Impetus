@@ -159,14 +159,6 @@ public class EnemyScript : MonoBehaviour
     {
         print("Hitting with " + collision.tag);
 
-        //Check if it has the tag "player" to see if the player is physically touching the enemy
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            print($"Player taking {_enemyDamage} damage from touching enemy!");
-
-            _player.TakeDamage(_enemyDamage, 1f);
-        }
-
         // Check if the colliding object has the tag "Weapon"
         // to see if the weapon is hitting the enemy
 
@@ -201,7 +193,7 @@ public class EnemyScript : MonoBehaviour
     /// damage the player
     /// </summary>
     /// <param name="collision"></param>
-    /*private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         //Check if it has the tag "player" to see if the player is physically touching the enemy
         if (collision.gameObject.CompareTag("Player"))
@@ -210,7 +202,7 @@ public class EnemyScript : MonoBehaviour
 
             _player.TakeDamage(_enemyDamage, 1f);
         }
-    }*/
+    }
 
     #region Flash Enemy Red
     /// <summary>
