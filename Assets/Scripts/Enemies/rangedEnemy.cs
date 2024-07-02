@@ -26,6 +26,7 @@ public class RangedEnemyScript : MonoBehaviour
     [SerializeField] private float _fireRate = 3f; // Time between shots
     [SerializeField] private float _releaseSpeed = 1f; // Pause between each attack
     private float _nextFireTime;
+    private Vector3 _lastKnownPlayerPosition;
     #endregion
 
     #region Scripts
@@ -132,20 +133,20 @@ public class RangedEnemyScript : MonoBehaviour
 
     #region Attack Functions
     /// <summary>
-    /// Attack the player by firing a projectile.
+    /// Attack the player by firing a projectile at their last known position.
     /// </summary>
     void Attack()
     {
         if (Time.time >= _nextFireTime)
         {
-            // Instantiate projectile and set its direction
+            // Instantiate projectile and set its direction towards the last known player position
             GameObject projectile = Instantiate(_projectilePrefab, _firePoint.position, _firePoint.rotation);
             Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
-            Vector2 direction = (_target.transform.position - _firePoint.position).normalized;
-            rbProjectile.velocity = direction * _releaseSpeed;
+            Vector2 direction = (_lastKnownPlayerPosition - _firePoint.position).normalized;
+            rbProjectile.velocity = direction * _projectilePrefab.GetComponent<ProjectileScript>().Speed;
             Debug.Log("Projectile Direction: " + direction);
             // Update next fire time
-            _nextFireTime = Time.time + _releaseSpeed;
+            _nextFireTime = Time.time + 1f / _fireRate;
         }
     }
     #endregion

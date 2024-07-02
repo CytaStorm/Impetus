@@ -8,6 +8,10 @@ public class ProjectileScript : MonoBehaviour
     private Rigidbody2D _rb;
     #endregion
 
+    #region Properties
+    public float Speed => _speed;
+    #endregion
+
     #region Start Method
     void Start()
     {
