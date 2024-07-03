@@ -6,112 +6,97 @@ using UnityEngine;
 
 public class RoomScript : MonoBehaviour
 {
-	public List<Directions> AllDoorDirections;
-	public bool HasDoorTop { get => AllDoorDirections.Contains(Directions.Top); }
-	public bool HasDoorBottom { get => AllDoorDirections.Contains(Directions.Bottom); }
-	public bool HasDoorLeft { get => AllDoorDirections.Contains(Directions.Left); }
-	public bool HasDoorRight { get => AllDoorDirections.Contains(Directions.Right); }
+	[SerializeField] private List<GameObject> _doors;
+	public bool HasTopDoor;
+	public bool HasBottomDoor;
+	public bool HasLeftDoor;
+	public bool HasRightDoor;
 
-	private Directions _entranceDoorDirection = Directions.None;
-	private Directions _exitDoorDirection = Directions.None;
-	public Directions EntranceDoorDirection { get => _entranceDoorDirection; }
-	public Directions ExitDoorDirection { get => _exitDoorDirection; }
+	public string EntranceDoorDirection { get; private set; }
+	public string ExitDoorDirection { get; private set; }
 
-	private GameObject _entranceDoor;
-	private GameObject _exitDoor;
-	private DoorScript _entranceDoorScript;
-	private DoorScript _exitDoorScript;
-	public DoorScript EntranceDoorScript { get => _entranceDoorScript; }
-	public DoorScript ExitDoorScript { get => _exitDoorScript; }
+	public GameObject EntranceDoor { get; private set; }
+	public GameObject ExitDoor { get; private set; }
+	public DoorScript EntranceDoorScript { get; private set; }
+	public DoorScript ExitDoorScript { get; private set; }
 
-    public void SetupFirstRoomDoor()
+	public void SetupFirstRoomDoor()
 	{
 		int entranceDoorIndex = Random.Range(0, 2);
-		_exitDoorDirection = AllDoorDirections[entranceDoorIndex];
+		ExitDoorDirection = _doors[entranceDoorIndex].tag;
 
 		//Delete extra doors and assign entrance/exit door(s).
-		foreach (Transform door in transform)
+		for (int i = 0; i < _doors.Count; i++)
 		{
-			DoorScript doorScript = door.gameObject.GetComponent<DoorScript>();
-			if (doorScript.Direction != _exitDoorDirection)
+			if (_doors[i].tag != ExitDoorDirection)
 			{
-				Destroy(door.gameObject);
+				Destroy(_doors[i]);
+				_doors.RemoveAt(i);
+				i--;
 			}
 			else
 			{
-				_exitDoorScript = doorScript;
-				_exitDoor = doorScript.gameObject;
+				ExitDoor = _doors[i];
+				ExitDoorScript = _doors[i].GetComponent<DoorScript>();
+				ExitDoorScript.IsExit = true;
 			}
 		}
-	}
-	public void SetupMiddleRoomDoors(
-		Directions entrance, RoomScript prevRoomScript)
-	{
-		if (AllDoorDirections.IndexOf(entrance) == -1)
-		{
-			throw new System.Exception("Room does not have this entrance door!");
-		}
-		_entranceDoorDirection = entrance;
-		AllDoorDirections.Remove(entrance);
-
-		_exitDoorDirection = AllDoorDirections[0];
-
-		//Delete extra doors and assign entrance/exit door(s).
-		foreach (Transform door in transform)
-		{
-			DoorScript doorScript = door.gameObject.GetComponent<DoorScript>();
-			if (doorScript.Direction == _entranceDoorDirection)
-			{
-				_entranceDoorScript = doorScript;
-				_entranceDoor = doorScript.gameObject;
-			}
-			else if (doorScript.Direction == _exitDoorDirection)
-			{
-				_exitDoorScript = doorScript;
-				_exitDoor = doorScript.gameObject;
-			}
-			else
-			{
-				Destroy(door.gameObject);
-			}
-		}
-
-		//Link previous room's door to this one, and vice versa.
-		//print(prevRoomScript.gameObject.name);
-		//print(prevRoomScript.ExitDoorScript.gameObject.name);
-		//print(_entranceDoor.name);
-		prevRoomScript.ExitDoorScript.LinkedDoor = _entranceDoor;
-		EntranceDoorScript.LinkedDoor = prevRoomScript.ExitDoorScript.gameObject;
-		//print($"Parent: {gameObject.name}\n" +
-		//	$"Entrance Door Name: {EntranceDoorScript.gameObject.name}\n" +
-		//	$"Exit Door Name: {ExitDoorScript.gameObject.name}");
-		
 		return;
 	}
-	public void SetupBossRoomDoor(
-		Directions entrance, RoomScript prevRoomScript)
-	{
-		_entranceDoorDirection = entrance;
-		_exitDoorDirection = Directions.None;
 
-		//Delete extra doors and assign entrance/exit door(s).
-		foreach (Transform door in transform)
+	public void SetupMiddleRoomDoors(string entrance, RoomScript prevRoomScript)
+	{
+		//Set entrance/exit doors.
+		//ASSUMES EACH MIDDLE ROOM DOOR HAS ONLY 2 DOORS MAX
+		EntranceDoorDirection = entrance;
+		for (int i = 0; i < _doors.Count; i++)
 		{
-			DoorScript doorScript = door.gameObject.GetComponent<DoorScript>();
-			if (doorScript.Direction != _entranceDoorDirection)
+			if (_doors[i].tag == EntranceDoorDirection)
 			{
-				Destroy(door.gameObject);
+				EntranceDoor = _doors[i];
+				EntranceDoorScript = EntranceDoor.GetComponent<DoorScript>();
+				EntranceDoorScript.IsEntrance = true;
 			}
 			else
 			{
-				_entranceDoorScript = doorScript;
-				_entranceDoor = doorScript.gameObject;
+				ExitDoor = _doors[i];
+				ExitDoorScript = ExitDoor.GetComponent<DoorScript>();
+				ExitDoorScript.IsExit = true;
+				ExitDoorDirection = ExitDoor.tag;
 			}
 		}
 
-		//Link previous room's door to this one, and vice versa.
-		prevRoomScript.ExitDoorScript.LinkedDoor = _entranceDoor;
-		EntranceDoorScript.LinkedDoor = prevRoomScript.ExitDoorScript.gameObject;
+		LinkPrevRoom(prevRoomScript);
 		return;
+	}
+
+	public void SetupBossRoomDoor(string entrance, RoomScript prevRoomScript)
+	{
+		EntranceDoorDirection = entrance;
+
+		//Delete extra doors and assign entrance/exit door(s).
+		for (int i = 0; i < _doors.Count; i++)
+		{
+			if (_doors[i].tag != EntranceDoorDirection)
+			{
+				Destroy(_doors[i]);
+				_doors.RemoveAt(i);
+				i--;
+			}
+			else
+			{
+				EntranceDoor = _doors[i];
+				EntranceDoorScript = EntranceDoor.GetComponent<DoorScript>();
+				EntranceDoorScript.IsEntrance = true;
+			}
+		}
+
+		LinkPrevRoom(prevRoomScript);
+		return;
+	}
+	private void LinkPrevRoom(RoomScript prevRoomScript)
+	{
+		prevRoomScript.ExitDoorScript.LinkedDoor = EntranceDoor;
+		EntranceDoorScript.LinkedDoor = prevRoomScript.ExitDoorScript.gameObject;
 	}
 }

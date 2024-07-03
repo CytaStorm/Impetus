@@ -436,22 +436,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _normalRooms:
-  - {fileID: 7318898959976251409, guid: 1c2d54ccac17a7b4eb7db1877c3c9a14, type: 3}
-  - {fileID: 1885633430208290157, guid: c4d904b00cdbb7d46a8862804b90b12b, type: 3}
-  - {fileID: 1776204365343071692, guid: 7ba7f75b8fd4eb646aec53e4bab6f0bb, type: 3}
-  - {fileID: 3211194987920010609, guid: 4266f2292478420419107bc53ed75dbf, type: 3}
-  - {fileID: 6577575373887846376, guid: cd5e50b616e8c8e4a85894102c060735, type: 3}
-  - {fileID: 3035141025755827061, guid: 985380c44ded58c4286ce9fc366a7fd4, type: 3}
-  - {fileID: 2934098283047879760, guid: 780016dcddb1e874aacef6192d94f0eb, type: 3}
-  - {fileID: 3263307669247153251, guid: a086b4cdc4e5874478a2ec1100ad2f1c, type: 3}
-  - {fileID: 1153151334126939171, guid: b2209dde46a159d4b90408dcb227bba9, type: 3}
-  - {fileID: 5700707051020032520, guid: 1b3dad70b14a3cf4297ca19d38428fa9, type: 3}
-  - {fileID: 3670456621780100231, guid: cb2e878b0249ec24bb2a7c9b3955648c, type: 3}
-  - {fileID: 4740926978345932796, guid: 658a094b7c541a84db9d3eb2349d7723, type: 3}
-  - {fileID: 8112046015812435740, guid: 270a662724e4cf746b9f3069b04e0679, type: 3}
+  - {fileID: 8972345335849547278, guid: 0fb701637fd8c4a4b8527342e191fa74, type: 3}
+  - {fileID: 5210866907368249425, guid: fe368d7ca670c4440b76460b562f23f2, type: 3}
+  - {fileID: 4066002279075294632, guid: f0188acf2982ffb4992c05a1ac1a1d78, type: 3}
+  - {fileID: 3281097460645212249, guid: bdf8bb370313e4c4a94e109c1e7cd9e6, type: 3}
+  - {fileID: 8933648622133273869, guid: ab2766e3fa7f07d428a85ff85ffbe205, type: 3}
+  - {fileID: 435101410075995531, guid: 6eeb3abf5fdb4c242a976e4bc7963095, type: 3}
+  - {fileID: 8657541859638658693, guid: 188a6892ec3ccaf46a5fab0d7ab76a51, type: 3}
+  - {fileID: 9106132293136370133, guid: 007938dc872450f43ac9fcf80ca9cc3c, type: 3}
+  - {fileID: 6344684127336285523, guid: c1c4ce31a8030224d9d5167b9c035724, type: 3}
+  - {fileID: 7754584114012455793, guid: e2c4f0224ad86fa4fa12db466e10d033, type: 3}
+  - {fileID: 1858071726012514775, guid: 631f62f439aa8ae479d3bffea25aec15, type: 3}
+  - {fileID: 8369890652997239263, guid: ab9eda4e51db3244483becfdf54456f2, type: 3}
+  - {fileID: 7192705353767064889, guid: 6fb368011df500947879b553a9c7f7a0, type: 3}
+  - {fileID: 1584543716470538495, guid: 0bcda154fd25ca1479ca4b5e9efaf360, type: 3}
+  - {fileID: 2480332301730071200, guid: eefa743b5b42dfd4a901750d9de176bf, type: 3}
   _bossRooms:
-  - {fileID: 6756575036113988252, guid: aa967541f9b63b9478ccf9aaac9a7a7d, type: 3}
-  - {fileID: 8322769571128563252, guid: cafd722b8f22f90489bc4b9509732a84, type: 3}
+  - {fileID: 3930390152670468904, guid: 94dcdc460cd5260438f245e42d0c5237, type: 3}
+  - {fileID: 6956265128088141517, guid: 30113e698479fca4aa2c0091c9418d50, type: 3}
+  - {fileID: 4098339546443991505, guid: 2984ab43d34bb294aab95b1103824c97, type: 3}
+  - {fileID: 8347965522173622318, guid: d27f54ee27fe32e4daed668dfe097707, type: 3}
   _roomsToMake: 5
   roomIndex: 0
 --- !u!1 &1774738013
@@ -464,7 +468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1774738025}
   - component: {fileID: 1774738024}
-  - component: {fileID: 1774738023}
   - component: {fileID: 1774738022}
   - component: {fileID: 1774738021}
   - component: {fileID: 1774738020}
@@ -490,7 +493,7 @@ SortingGroup:
   m_GameObject: {fileID: 1774738013}
   m_Enabled: 1
   m_SortingLayerID: -554799531
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 100
   m_SortAtRoot: 0
 --- !u!114 &1774738015
@@ -908,63 +911,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.5, y: 5.5}
   m_EdgeRadius: 0
---- !u!66 &1774738023
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774738013}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1774738022}
-    m_ColliderPaths:
-    - - X: 3532787
-        Y: 3532787
-      - X: -3532787
-        Y: 3532787
-      - X: -3532787
-        Y: -3532787
-      - X: 3532787
-        Y: -3532787
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 0.3532494, y: -0.3532787}
-      - {x: 0.3532494, y: 0.3532787}
-      - {x: -0.3532787, y: 0.3532494}
-      - {x: -0.3532494, y: -0.3532787}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 1774738013}
 --- !u!50 &1774738024
 Rigidbody2D:
   serializedVersion: 4

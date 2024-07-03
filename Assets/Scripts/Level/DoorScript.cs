@@ -7,15 +7,13 @@ public class DoorScript : MonoBehaviour
 {
     [SerializeField] private Collider2D _collider;
     public GameObject LinkedDoor;
-    public Directions Direction;
+    [HideInInspector] public bool IsEntrance;
+    [HideInInspector] public bool IsExit;
 
-
-    public static UnityEvent ExitRoom;
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -32,27 +30,39 @@ public class DoorScript : MonoBehaviour
         {
             return;
         }
+
+        //Set player in new room.
         Vector3 DirectionToSendPlayer = Vector3.zero;
         float nextDoorOffset = 1.25f;
-        switch (Direction)
+        switch (this.gameObject.tag)
         {
-            case Directions.Top:
-                DirectionToSendPlayer = Vector3.up * nextDoorOffset;
+            case "Top Door":
+                DirectionToSendPlayer = Vector3.up;
                 break;
-            case Directions.Bottom:
-                DirectionToSendPlayer = Vector3.down * nextDoorOffset;
+            case "Bottom Door":
+                DirectionToSendPlayer = Vector3.down;
                 break;
-            case Directions.Left:
-                DirectionToSendPlayer = Vector3.left * nextDoorOffset;
+            case "Left Door":
+                DirectionToSendPlayer = Vector3.left;
                 break;
-            case Directions.Right:
-                DirectionToSendPlayer = Vector3.right * nextDoorOffset;
+            case "Right Door":
+                DirectionToSendPlayer = Vector3.right;
                 break;
             default:
-                throw new UnityException("" +
-                    "Linked Door Script has no direction assigned to it!");
+                throw new UnityException("Untagged Door!");
         }
         collision.gameObject.transform.position = 
-            LinkedDoor.transform.position + DirectionToSendPlayer;
+            LinkedDoor.transform.position + DirectionToSendPlayer * nextDoorOffset;
+
+        //Load new rooms.
+        if (IsEntrance)
+        {
+            LevelManagerScript.Instance.ChangeRoom.Invoke(-1);
+        }
+        else if (IsExit)
+        {
+            LevelManagerScript.Instance.ChangeRoom.Invoke(1);
+        }
+
     }
 }
