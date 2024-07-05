@@ -6078,7 +6078,7 @@ MonoBehaviour:
   _maxAether: 50
   _flow: 50
   _maxFlow: 100
-  _flowState: 5
+  _flowState: 4
   _flowStateMaxDropTimesSeconds:
   - 15
   - 10
@@ -6426,7 +6426,7 @@ PrefabInstance:
     - target: {fileID: 1162579936646787238, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
       propertyPath: _audioSource
       value: 
-      objectReference: {fileID: 1492050163}
+      objectReference: {fileID: 0}
     - target: {fileID: 1162579936646787238, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
       propertyPath: _spriteRenderer
       value: 
@@ -6991,11 +6991,6 @@ Rigidbody2D:
 --- !u!212 &1492050161 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6317656755539074205, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
-  m_PrefabInstance: {fileID: 1135555057}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1492050163 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: -16734090069615480, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
   m_PrefabInstance: {fileID: 1135555057}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1526032507
