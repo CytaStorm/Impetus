@@ -61,6 +61,12 @@ public class EnemyScript : MonoBehaviour
     }
     #endregion
 
+    #region Enemy Movement Properties
+    [SerializeField] private float minSpeed = 1.0f;
+    [SerializeField] private float maxSpeed = 3.0f;
+    private float enemySpeed;
+    private Vector3 targetPosition;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +75,9 @@ public class EnemyScript : MonoBehaviour
         //Get the player via tag instead of relying on dragging him into the public box in unity UI
         player = GameObject.FindWithTag("Player");
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+
+        // Set random speed for the enemy
+        enemySpeed = Random.Range(minSpeed, maxSpeed);
 
         // this._enemyHealth = 100;
 
@@ -89,7 +98,7 @@ public class EnemyScript : MonoBehaviour
         //screenTop = mainCamera.transform.position.y + verticalExtent;
 
         //Get the script for this individual enemy type
-        
+
 
         //Safety check to make sure 
         if (player != null)
@@ -140,6 +149,7 @@ public class EnemyScript : MonoBehaviour
         {
             _enemyDied.Invoke();
         }
+
 
         // Keeps enemy on the screen
         //Vector3 enemyPos = transform.position;

@@ -24,7 +24,11 @@ public class SmallEnemyScript : MonoBehaviour
     // NextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
     private const float NextWaypointDistance = .5f;
-    private const float Speed = 3f;
+    #endregion
+
+    #region Variable Speed
+    // Variable speed for each small enemy instance
+    private float _speed;
     #endregion
 
     #region Start Method
@@ -42,6 +46,9 @@ public class SmallEnemyScript : MonoBehaviour
         _enemyScript.AetherIncrease = 10;
         _enemyScript.EnemyDamage = 10;
         _enemyScript.FlowWorth = 50;
+
+        // Set random speed between 2.0f and 10.0f
+        _speed = Random.Range(2.0f, 10.0f);
 
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
@@ -63,7 +70,7 @@ public class SmallEnemyScript : MonoBehaviour
         Vector2 direction = (_path.vectorPath[_currentWaypoint] - this.transform.position);
 
         // Multiply direction by speed and move
-        _rb.velocity = direction.normalized * Speed;
+        _rb.velocity = direction.normalized * _speed;
 
         // If the distance is small enough, switch to next waypoint
         if (direction.magnitude <= NextWaypointDistance)

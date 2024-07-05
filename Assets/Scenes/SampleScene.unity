@@ -800,6 +800,8 @@ MonoBehaviour:
   _aetherIncrease: 5
   _enemyDamage: 5
   _flowWorth: 60
+  minSpeed: 1
+  maxSpeed: 3
 --- !u!212 &364630262
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1160,6 +1162,8 @@ MonoBehaviour:
   _aetherIncrease: 20
   _enemyDamage: 20
   _flowWorth: 50
+  minSpeed: 1
+  maxSpeed: 3
 --- !u!212 &602688536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1427,7 +1431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &621789069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1440,12 +1444,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501c9009326a68b489b0032441520e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 814704460}
   weapon: {fileID: 0}
   _enemyHealth: 100
   _aetherIncrease: 0
   _enemyDamage: 10
   _flowWorth: 0
+  minSpeed: 1
+  maxSpeed: 3
 --- !u!50 &621789070
 Rigidbody2D:
   serializedVersion: 4
@@ -2040,6 +2046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovementScript: {fileID: 814704465}
+  _soundManager: {fileID: 0}
   _health: 100
   _maxHealth: 100
   _aether: 50
@@ -2443,7 +2450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1348759488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2610,7 +2617,7 @@ MonoBehaviour:
   _evadeRange: 3
   _approachRange: 5
   _fireRate: 3
-  _releaseSpeed: 1
+  _releaseSpeed: 0.75
 --- !u!114 &1348759493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2629,6 +2636,8 @@ MonoBehaviour:
   _aetherIncrease: 0
   _enemyDamage: 0
   _flowWorth: 0
+  minSpeed: 1
+  maxSpeed: 3
 --- !u!4 &1348759494
 Transform:
   m_ObjectHideFlags: 0
@@ -3347,6 +3356,10 @@ PrefabInstance:
     - target: {fileID: 953577884469280694, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
       propertyPath: m_Name
       value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 953577884469280694, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3770619849991108418, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
       propertyPath: _speed
