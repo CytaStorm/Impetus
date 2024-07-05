@@ -16,7 +16,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
 	//Sound
 	[SerializeField] private GameObject _soundManager;
-	private SoundPlayerScript _soundPlayer;
 	#endregion
 
 	#region Health
@@ -72,7 +71,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	[Header("Flow")]
 	[SerializeField] private float _flow;
 	[SerializeField] private float _maxFlow;
-	[SerializeField] [Range(0, 5)] private int _flowState;
+	[SerializeField] [Range(1, 5)] private int _flowState;
 	public float Flow
 	{
 		get => _flow;
@@ -225,16 +224,13 @@ public class PlayerScript : MonoBehaviour, IDamageable
 			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] *
 				Time.deltaTime;
 		}
-		if (Flow == 0 && FlowState != 0)
+		if (Flow == 0 && FlowState != 1)
 		{
 			_flowState--;
 			Flow = 100;
 		}
 
 		Flow = Mathf.Clamp(Flow, 0, _maxFlow);
-		
-
-		
 	}
 
 	#region World Interactions

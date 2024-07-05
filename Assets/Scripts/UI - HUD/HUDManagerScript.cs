@@ -17,7 +17,6 @@ public class HUDManagerScript : MonoBehaviour
 
     [Header("Flow")]
     [SerializeField] private GameObject _flowBar;
-    [SerializeField] private GameObject _flowStateLevel;
 
     [Header("Gold")]
     [SerializeField] private GameObject _goldCounter;
@@ -32,7 +31,6 @@ public class HUDManagerScript : MonoBehaviour
     private Slider _aetherBarSlider;
 
     private Slider _flowBarSlider;
-    private TextMeshProUGUI _flowStateLevelText;
 
 
     private TextMeshProUGUI _goldCounterText;
@@ -47,7 +45,6 @@ public class HUDManagerScript : MonoBehaviour
         _healthBarSlider = _healthBar.GetComponent<Slider>();
         _aetherBarSlider = _aetherBar.GetComponent<Slider>();
         _flowBarSlider = _flowBar.GetComponent<Slider>();
-        _flowStateLevelText = _flowStateLevel.GetComponent<TextMeshProUGUI>();
         _goldCounterText = _goldCounter.GetComponent<TextMeshProUGUI>();
         _AttackBuffCounterText = _AttackBuffCounter.GetComponent<TextMeshProUGUI>();
     }
@@ -61,7 +58,6 @@ public class HUDManagerScript : MonoBehaviour
         _aetherBarSlider.maxValue = _player.MaxAether;
         _flowBarSlider.value = _player.Flow;
         _flowBarSlider.maxValue = _player.MaxFlow;
-        _flowStateLevelText.text = _player.FlowState.ToString();
         _goldCounterText.text = _player.Gold.ToString();
         _AttackBuffCounterText.text = _player.AttackBuffRoomsLeft.ToString();
     }
