@@ -6,59 +6,48 @@ using UnityEngine.UI;
 
 public class HUDManagerScript : MonoBehaviour
 {
-    [Header("Player")]
-    [SerializeField] private GameObject _playerObject;
+	[Header("Player")] [SerializeField] private GameObject _playerObject;
+	private PlayerScript _playerScript;
 
-    [Header("Health")]
-	[SerializeField] private GameObject _healthBar;
+	[Header("Health")] [SerializeField] private GameObject _healthBar;
 
-    [Header("Aether")]
-    [SerializeField] private GameObject _aetherBar;
+	[Header("Aether")] [SerializeField] private GameObject _aetherBar;
 
-    [Header("Flow")]
-    [SerializeField] private GameObject _flowBar;
+	[Header("Flow Bar")] [SerializeField] private GameObject _flowBar;
 
-    [Header("Gold")]
-    [SerializeField] private GameObject _goldCounter;
+	[Header("Gold")] [SerializeField] private GameObject _goldCounter;
 
-    [Header("Attack Buff")]
-    [SerializeField] private GameObject _AttackBuffCounter;
-
-    private PlayerScript _player;
+	[Header("Attack Buff")] [SerializeField] private GameObject _AttackBuffCounter;
 
 	private Slider _healthBarSlider;
 
-    private Slider _aetherBarSlider;
+	private TextMeshProUGUI _goldCounterText;
 
-    private Slider _flowBarSlider;
+	private TextMeshProUGUI _AttackBuffCounterText;
 
+	void Awake()
+	{
+		_playerScript = _playerObject.GetComponent<PlayerScript>();
 
-    private TextMeshProUGUI _goldCounterText;
+		//Setup Health/Flow/Aether
+		_flowBar.GetComponent<FlowBarScript>().PlayerScript = _playerScript;
+		_aetherBar.GetComponent<AetherBarScript>().PlayerScript = _playerScript;
+	}
 
-    private TextMeshProUGUI _AttackBuffCounterText;
+	// Start is called before the first frame update
+	void Start()
+	{
+		_healthBarSlider = _healthBar.GetComponent<Slider>();
+		_goldCounterText = _goldCounter.GetComponent<TextMeshProUGUI>();
+		_AttackBuffCounterText = _AttackBuffCounter.GetComponent<TextMeshProUGUI>();
+	}
 
-    // Start is called before the first frame update
-
-    void Start()
-    {
-        _player = _playerObject.GetComponent<PlayerScript>();
-        _healthBarSlider = _healthBar.GetComponent<Slider>();
-        _aetherBarSlider = _aetherBar.GetComponent<Slider>();
-        _flowBarSlider = _flowBar.GetComponent<Slider>();
-        _goldCounterText = _goldCounter.GetComponent<TextMeshProUGUI>();
-        _AttackBuffCounterText = _AttackBuffCounter.GetComponent<TextMeshProUGUI>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        _healthBarSlider.value = _player.Health;
-        _healthBarSlider.maxValue = _player.MaxHealth;
-        _aetherBarSlider.value = _player.Aether;
-        _aetherBarSlider.maxValue = _player.MaxAether;
-        _flowBarSlider.value = _player.Flow;
-        _flowBarSlider.maxValue = _player.MaxFlow;
-        _goldCounterText.text = _player.Gold.ToString();
-        _AttackBuffCounterText.text = _player.AttackBuffRoomsLeft.ToString();
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		_healthBarSlider.value = _playerScript.Health;
+		_healthBarSlider.maxValue = _playerScript.MaxHealth;
+		_goldCounterText.text = _playerScript.Gold.ToString();
+		_AttackBuffCounterText.text = _playerScript.AttackBuffRoomsLeft.ToString();
+	}
 }

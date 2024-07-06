@@ -33,7 +33,7 @@ public class PlayerAttackScript : MonoBehaviour
 	}
     #endregion
 
-    //CURRENTLY, We are using the damage field in PlayerScript instead of this one
+    //CURRENTLY, We are using the damage field in _PlayerScript instead of this one
     //#region Damage field
 
     //[Header("Damage")]
