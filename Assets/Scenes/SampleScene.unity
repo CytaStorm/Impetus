@@ -800,8 +800,6 @@ MonoBehaviour:
   _aetherIncrease: 5
   _enemyDamage: 5
   _flowWorth: 60
-  minSpeed: 1
-  maxSpeed: 3
 --- !u!212 &364630262
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1162,8 +1160,6 @@ MonoBehaviour:
   _aetherIncrease: 20
   _enemyDamage: 20
   _flowWorth: 50
-  minSpeed: 1
-  maxSpeed: 3
 --- !u!212 &602688536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1431,7 +1427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &621789069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1444,14 +1440,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501c9009326a68b489b0032441520e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 814704460}
+  player: {fileID: 0}
   weapon: {fileID: 0}
   _enemyHealth: 100
   _aetherIncrease: 0
   _enemyDamage: 10
   _flowWorth: 0
-  minSpeed: 1
-  maxSpeed: 3
 --- !u!50 &621789070
 Rigidbody2D:
   serializedVersion: 4
@@ -1595,7 +1589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   drawGizmos: 1
-  detailedGizmos: 0
+  detailedGizmos: 1
   startEndModifier:
     addPoints: 0
     exactStartPoint: 3
@@ -1621,14 +1615,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a284daadcacd1b4eb744d8608997bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _seeker: {fileID: 0}
-  _rb: {fileID: 0}
-  _target: {fileID: 0}
+  _seeker: {fileID: 621789076}
+  _rb: {fileID: 621789070}
+  _target: {fileID: 814704460}
   _aoeRadius: 2
   _aoeDamage: 20
   _aoeCooldown: 5
   _attackRange: 3
   _minAttackDistance: 0
+  minSpeed: 0.05
+  maxSpeed: 10
 --- !u!1 &814704460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2450,7 +2446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1348759488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2636,8 +2632,6 @@ MonoBehaviour:
   _aetherIncrease: 0
   _enemyDamage: 0
   _flowWorth: 0
-  minSpeed: 1
-  maxSpeed: 3
 --- !u!4 &1348759494
 Transform:
   m_ObjectHideFlags: 0
@@ -3359,7 +3353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953577884469280694, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3770619849991108418, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
       propertyPath: _speed

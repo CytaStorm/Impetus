@@ -139,10 +139,11 @@ public class RangedEnemyScript : MonoBehaviour
     {
         if (Time.time >= _nextFireTime)
         {
-            // Instantiate projectile and set its direction towards the last known player position
+            // Instantiate projectile and set its direction towards the player's current position
+            _lastKnownPlayerPosition = _target.transform.position; // Get the current position of the player
             GameObject projectile = Instantiate(_projectilePrefab, _firePoint.position, _firePoint.rotation);
             Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
-            Vector2 direction = (_lastKnownPlayerPosition - _firePoint.position).normalized;
+            Vector2 direction = (_lastKnownPlayerPosition - _firePoint.position).normalized; // Calculate direction
             rbProjectile.velocity = direction * _projectilePrefab.GetComponent<ProjectileScript>().Speed;
             Debug.Log("Projectile Direction: " + direction);
             // Update next fire time
