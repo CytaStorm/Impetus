@@ -71,9 +71,6 @@ public class EnemyScript : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         spriteRenderer = this.GetComponent<SpriteRenderer>();
 
-        // Set random speed for the enemy
-        enemySpeed = Random.Range(minSpeed, maxSpeed);
-
         // this._enemyHealth = 100;
 
         //Temporary for testing purposes

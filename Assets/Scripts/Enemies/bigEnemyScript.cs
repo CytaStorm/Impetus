@@ -29,6 +29,7 @@ public class BigEnemyScript : MonoBehaviour
     // NextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
     private const float NextWaypointDistance = .5f;
+    private float Speed;
     #endregion
 
     #region Scripts
@@ -37,8 +38,8 @@ public class BigEnemyScript : MonoBehaviour
     #endregion
 
     #region Enemy Movement Properties
-    private const float minSpeed = 0.5f;
-    private const float maxSpeed = 1.5f;
+    [SerializeField] private float minSpeed = 0.05f;
+    [SerializeField] private float maxSpeed = 10.0f;
     private float enemySpeed;
     private Vector3 targetPosition;
     #endregion
@@ -63,9 +64,7 @@ public class BigEnemyScript : MonoBehaviour
 
         // Initialize AoE attack timer
         _aoeTimer = _aoeCooldown;
-
-        // Set random speed for the enemy
-        enemySpeed = Random.Range(minSpeed, maxSpeed);
+        Speed = Random.Range(1.5f, 10f);
     }
 
     // Update is called once per frame
@@ -79,28 +78,22 @@ public class BigEnemyScript : MonoBehaviour
 
         // MOVE
         // Find direction of the next waypoint (vector2)
-        Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] - (Vector2)this.transform.position);
+        Vector2 direction = (_path.vectorPath[_currentWaypoint] - this.transform.position);
 
         // Multiply direction by speed and move
-        _rb.velocity = direction.normalized * enemySpeed;
+        _rb.velocity = direction.normalized * Speed;
 
         // If the distance is small enough, switch to next waypoint
         if (direction.magnitude <= NextWaypointDistance)
         {
             _currentWaypoint++;
-            // Recalculate path if we reached the end of the current path
-            if (_currentWaypoint >= _path.vectorPath.Count)
-            {
-                _reachedEndOfPath = false;
-                CalculatePath();
-            }
         }
 
         // Are we at the end of the path?
-        /*if (_currentWaypoint >= _path.vectorPath.Count)
-		{
-			_reachedEndOfPath = true;
-		}*/
+        if (_currentWaypoint >= _path.vectorPath.Count)
+        {
+            _reachedEndOfPath = true;
+        }
 
         // AoE Attack
         _aoeTimer -= Time.deltaTime;
