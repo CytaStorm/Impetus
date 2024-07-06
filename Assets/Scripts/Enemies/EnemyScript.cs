@@ -61,12 +61,7 @@ public class EnemyScript : MonoBehaviour
     }
     #endregion
 
-    #region Enemy Movement Properties
-    [SerializeField] private float minSpeed = 1.0f;
-    [SerializeField] private float maxSpeed = 3.0f;
-    private float enemySpeed;
-    private Vector3 targetPosition;
-    #endregion
+    
 
     // Start is called before the first frame update
     void Start()
