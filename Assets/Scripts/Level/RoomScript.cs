@@ -70,7 +70,7 @@ public class RoomScript : MonoBehaviour
 		return;
 	}
 
-	public void SetupBossRoomDoor(string entrance, RoomScript prevRoomScript)
+	public void SetupBossRoomDoors(string entrance, RoomScript prevRoomScript)
 	{
 		EntranceDoorDirection = entrance;
 

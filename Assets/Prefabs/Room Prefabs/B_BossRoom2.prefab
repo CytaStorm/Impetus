@@ -626,8 +626,8 @@ MonoBehaviour:
   - {fileID: 7740125048529881244}
   HasTopDoor: 1
   HasBottomDoor: 1
-  HasLeftDoor: 1
-  HasRightDoor: 1
+  HasLeftDoor: 0
+  HasRightDoor: 0
 --- !u!1 &7739841222324396009
 GameObject:
   m_ObjectHideFlags: 0

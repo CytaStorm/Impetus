@@ -11162,8 +11162,8 @@ MonoBehaviour:
   - {fileID: 7106151444909727347}
   HasTopDoor: 1
   HasBottomDoor: 1
-  HasLeftDoor: 1
-  HasRightDoor: 1
+  HasLeftDoor: 0
+  HasRightDoor: 0
 --- !u!1001 &1772209627388249989
 PrefabInstance:
   m_ObjectHideFlags: 0

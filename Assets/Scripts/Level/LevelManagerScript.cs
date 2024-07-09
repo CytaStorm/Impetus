@@ -18,10 +18,14 @@ public class LevelManagerScript : MonoBehaviour
 	[SerializeField] private List<GameObject> _bossRooms;
 
 	//Tagged rooms
-	public List<GameObject> _hasTopDoor = new List<GameObject>();
-	public List<GameObject> _hasBottomDoor = new List<GameObject>();
-	public List<GameObject> _hasLeftDoor = new List<GameObject>();
-	public List<GameObject> _hasRightDoor = new List<GameObject>();
+	private List<GameObject> _hasTopDoor = new List<GameObject>();
+	private List<GameObject> _hasBottomDoor = new List<GameObject>();
+	private List<GameObject> _hasLeftDoor = new List<GameObject>();
+	private List<GameObject> _hasRightDoor = new List<GameObject>();
+	private List<GameObject> _bossRoomHasTopDoor = new List<GameObject>();
+	private List<GameObject> _bossRoomHasBottomDoor = new List<GameObject>();
+	private List<GameObject> _bossRoomHasLeftDoor = new List<GameObject>();
+	private List<GameObject> _bossRoomHasRightDoor = new List<GameObject>();
 	#endregion
 
 	#region Actual Level
@@ -60,30 +64,70 @@ public class LevelManagerScript : MonoBehaviour
 	{
 	}
 
-	/// <summary>
-	/// Create a new layout linked list with non-empty rooms
-	/// </summary>
-	/// <exception cref="NullReferenceException">Doordirections enum
-	/// is not a valid direction.</exception>
-	private void GenerateLayout(int roomsToMake) 
+	private void SortRooms()
 	{
-		int roomNumber = 1;
-        #region First Room
-        //First room
-        //_layout.AddFirst(
-        //	Instantiate(
-        //		_normalRooms[UnityEngine.Random.Range(0, _normalRooms.Count)],
-        //		GetRoomOffset(roomNumber),
-        //		Quaternion.identity).GetComponent<RoomScript>());
-        _layout.AddFirst(Instantiate(_normalRooms[
-			Random.Range(0, _normalRooms.Count)].GetComponent<RoomScript>()));
+		foreach (GameObject room in _normalRooms)
+		{
+			RoomScript roomScript = room.GetComponent<RoomScript>();
+			//Boss rooms are separated into their own category.
+			if (roomScript.HasLeftDoor)
+			{
+				_hasLeftDoor.Add(room);
+			}
+			if (roomScript.HasRightDoor)
+			{
+				_hasRightDoor.Add(room);
+			}
+			if (roomScript.HasTopDoor)
+			{
+				_hasTopDoor.Add(room);
+			}
+			if (roomScript.HasBottomDoor)
+			{
+				_hasBottomDoor.Add(room);
+			}
+		}
+
+		//Sort boss rooms
+		foreach (GameObject room in _bossRooms)
+		{
+			RoomScript roomScript = room.GetComponent<RoomScript>();
+			if (roomScript.HasLeftDoor)
+			{
+				_bossRoomHasLeftDoor.Add(room);
+			}
+			if (roomScript.HasRightDoor)
+			{
+				_bossRoomHasRightDoor.Add(room);
+			}
+			if (roomScript.HasTopDoor)
+			{
+				_bossRoomHasTopDoor.Add(room);
+			}
+			if (roomScript.HasBottomDoor)
+			{
+				_bossRoomHasBottomDoor.Add(room);
+			}
+		}
+		return;
+	}
+
+	private void GenerateLayout(int roomsToMake)
+	{
+		GenerateFirstRoom();
+		GenerateMiddleRooms(roomsToMake - 2);
+		GenerateBossRoom();
+	}
+	private void GenerateFirstRoom()
+	{
+		_layout.AddFirst(Instantiate(_normalRooms[
+					Random.Range(0, _normalRooms.Count)].GetComponent<RoomScript>()));
 		_layout.First.Value.SetupFirstRoomDoor();
 		_currentRoomNode = _layout.First;
-		roomNumber++;
-		#endregion
-
-		#region Middle Rooms
-		while (roomNumber < roomsToMake)
+	}
+	private void GenerateMiddleRooms(int roomsToMake)
+	{
+		for (int i = 0; i < roomsToMake; i++)
 		{
 			string newRoomEntranceDoor =
 			GetOppositeDoorDirection(
@@ -118,56 +162,40 @@ public class LevelManagerScript : MonoBehaviour
 			_layout.Last.Value.SetupMiddleRoomDoors(
 				newRoomEntranceDoor, _layout.Last.Previous.Value);
 			_layout.Last.Value.gameObject.SetActive(false);
-			roomNumber++;
 		}
-		#endregion
-
-		#region End Room
-		//End room (boss)
-		//_layout.AddLast(
-		//	Instantiate(
-		//		_bossRooms[Random.Range(0, _bossRooms.Count)],
-		//		GetRoomOffset(roomNumber),
-		//		Quaternion.identity).GetComponent<RoomScript>());
+	}
+	private void GenerateBossRoom()
+	{
+		string newRoomEntranceDoor = GetOppositeDoorDirection(
+					_layout.Last.Value.ExitDoorDirection);
+		List<GameObject> listToPickFrom;
+		switch (newRoomEntranceDoor)
+		{
+			case "Top Door":
+				listToPickFrom = _bossRoomHasTopDoor;
+				break;
+			case "Bottom Door":
+				listToPickFrom = _bossRoomHasBottomDoor;
+				break;
+			case "Left Door":
+				listToPickFrom = _bossRoomHasLeftDoor;
+				break;
+			case "Right Door":
+				listToPickFrom = _bossRoomHasRightDoor;
+				break;
+			default:
+				throw new InvalidEnumArgumentException(
+					"Invalid direction string supplied.");
+		}
 		_layout.AddLast(Instantiate(
-			_bossRooms[Random.Range(
-				0, _bossRooms.Count)].GetComponent<RoomScript>()));
-		_layout.Last.Value.SetupBossRoomDoor(
+			listToPickFrom[Random.Range(
+				0, listToPickFrom.Count)].GetComponent<RoomScript>()));
+		_layout.Last.Value.SetupBossRoomDoors(
 			GetOppositeDoorDirection(_layout.Last.Previous.Value.ExitDoorDirection),
 			_layout.Last.Previous.Value);
 		_layout.Last.Value.gameObject.SetActive(false);
-		#endregion
-		return;
 	}
 
-	/// <summary>
-	/// Sorts Rooms into their respective lists.
-	/// </summary>
-	private void SortRooms()
-	{
-		foreach (GameObject room in _normalRooms)
-		{
-			RoomScript roomScript = room.GetComponent<RoomScript>();
-			//Boss rooms are separated into their own category.
-			if (roomScript.HasLeftDoor)
-			{
-				_hasLeftDoor.Add(room);
-			}
-			if (roomScript.HasRightDoor)
-			{
-				_hasRightDoor.Add(room);
-			}
-			if (roomScript.HasTopDoor)
-			{
-				_hasTopDoor.Add(room);
-			}
-			if (roomScript.HasBottomDoor)
-			{
-				_hasBottomDoor.Add(room);
-			}
-		}
-		return;
-	}
 
 	private string GetOppositeDoorDirection(string doorDirection)
 	{
@@ -185,11 +213,6 @@ public class LevelManagerScript : MonoBehaviour
 				throw new InvalidEnumArgumentException(
 					"Invalid Direction string supplied.");
 		}
-	}
-
-	private Vector3 GetRoomOffset (int roomNumber)
-	{
-		return new Vector3(20 * roomNumber - 20, 0, 0);
 	}
 
 	/// <summary>
