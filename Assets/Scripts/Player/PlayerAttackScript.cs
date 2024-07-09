@@ -11,6 +11,7 @@ public class PlayerAttackScript : MonoBehaviour
 	[SerializeField] private GameObject _swordPivotPoint;
     #endregion
 
+
     #region Attack Properties
     [Header("Attack Properties")]
 	//Attack duration
@@ -30,7 +31,23 @@ public class PlayerAttackScript : MonoBehaviour
 	{
 		get { return _currentAttackCooldownTime == 0f; }
 	}
-	#endregion
+    #endregion
+
+    //CURRENTLY, We are using the damage field in PlayerScript instead of this one
+    //#region Damage field
+
+    //[Header("Damage")]
+    //[SerializeField] private float _damage;
+    //public float Damage
+    //{
+    //    get => _damage;
+    //    set
+    //    {           
+    //        _damage = value;
+    //    }
+    //}
+
+    //#endregion
 
     #region Sword Drawing
     [SerializeField] [Range(0f, 360f)] private int _slashArc;
@@ -109,7 +126,7 @@ public class PlayerAttackScript : MonoBehaviour
 		if (!context.performed) return;
 		if (!_attackReady)
 		{
-			print("attack on cooldown!");
+			
 			return;
 		}
 		_swordPivotPoint.SetActive(true);

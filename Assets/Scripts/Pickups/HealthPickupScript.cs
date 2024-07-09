@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickupScript : MonoBehaviour
+public class HealthPickupScript : PickupScript
 {
     // Start is called before the first frame update
     void Start()
@@ -22,13 +22,12 @@ public class HealthPickupScript : MonoBehaviour
         {
             return;
         }
-
         PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
         if (_player.Health == _player.MaxHealth)
         {
             return;
         }
         _player.Heal(1, 1, false);
-        Destroy(this.gameObject);
+        StartCoroutine(PlayPickupSound());
 	}
 }

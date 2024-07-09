@@ -45,8 +45,8 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 
 	#region Dashing
 	[Header("Dash Settings")]
-	[SerializeField] private float _dashDistance;
-	[SerializeField] private float _dashCooldownSeconds;
+	[SerializeField] private float _dashDistance = 1000;
+	[SerializeField] private float _dashCooldownSeconds = 1;
 	public float DashDistance
 	{
 		get => _dashDistance;

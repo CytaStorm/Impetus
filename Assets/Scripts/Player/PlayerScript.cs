@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 	#region GameObject Components
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
+	//Sound
+	[SerializeField] private GameObject _soundManager;
+	private SoundPlayerScript _soundPlayer;
 	#endregion
 
 	#region Health
@@ -79,17 +83,17 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	public float Flow
 	{
 		get => _flow;
-		private set => _flow = value;
+		set => _flow = value;
 	}
 	public float MaxFlow
 	{
 		get => _maxFlow;
-		private set => _maxFlow = value;
+		set => _maxFlow = value;
 	}
 	public int FlowState
 	{
 		get => _flowState;
-		private set => _flowState = value;
+		set => _flowState = value;
 	}
 	/// <summary>
 	/// The index is the level you are dropping from, the element at that index
@@ -102,14 +106,15 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 	#region Damage
 	[SerializeField] private float _attackDamage;
-	private int _attackBuffRoomsLeft;
 	public float AttackDamage
 	{
 		get => _attackDamage;
 		set => _attackDamage = value;
 	}
+
 	//Decrement each time new room is entered.
-	public int AttackBuffRoomsLeft
+	private int _attackBuffRoomsLeft;
+    public int AttackBuffRoomsLeft
 	{
 		get => _attackBuffRoomsLeft;
 		set => _attackBuffRoomsLeft = value;
@@ -149,10 +154,27 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	#endregion
 
 	#region Functions to change stats
-
+	//Health
+	public void Heal(float amount, float multiplier, bool canHealPastMax)
+	{
+		float amountRegained = amount * multiplier;
+		if (Health + amountRegained > MaxHealth &&
+			!canHealPastMax) 
+		{
+			amountRegained = MaxHealth - MaxHealth;
+		}
+		Health += amountRegained;
+		HealthChanged.Invoke(amountRegained);
+	}
+	public void FullHeal()
+	{
+		Health = MaxHealth;
+		PlayerFullHealed.Invoke();
+	}
 	public void TakeDamage(float amount, float multiplier)
 	{
 		Health -= (amount * multiplier);
+		print(Health);
 		if (Health <= 0)
 		{
 			print("Player has died"); 
@@ -166,30 +188,14 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	}
 	public void RespawnPlayer()
 	{
-		Health = MaxHealth;
+		FullHeal();
 		PlayerRevived.Invoke();
 	}
 
-	public void Heal(float amount, float multiplier, bool canHealPastMax)
-	{
-		float amountRegained = amount * multiplier;
-		if (Health + amountRegained > MaxHealth &&
-			!canHealPastMax) 
-		{
-			amountRegained = MaxHealth - MaxHealth;
-		}
-		Health += amountRegained;
-		HealthChanged.Invoke(amountRegained);
-	}
-
-	public void PlayerFullHeal()
-	{
-		Health = MaxHealth;
-		PlayerFullHealed.Invoke();
-	}
-
+	//Aether
 	public void PlayerRegainAether(float amount, float multiplier, bool canRegenPastMax)
 	{
+		print("regained aether");
 		float amountRegained = amount * multiplier;
 		if (Aether + amountRegained > MaxAether &&
 			!canRegenPastMax) 
@@ -214,8 +220,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	// Start is called before the first frame update
 	void Start()
 	{
-		//Uncomment once finished testing flowstate.
-		//_flowState = 0;
+		_flowState = 0;
 	}
 
 	// Update is called once per frame
@@ -235,12 +240,11 @@ public class PlayerScript : MonoBehaviour, IDamageable
 			_flowState--;
 			Flow = 100;
 		}
-		//Increase flow state if needed.
-		if (Flow > 100)
-		{
-			_flowState++;
-			Flow -= 100;
-		}
+
+		Flow = Mathf.Clamp(Flow, 0, _maxFlow);
+		
+
+		
 	}
 
 	#region World Interactions

@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Vsconfig file
 *.vsconfig
+Packages/manifest.json
+Packages/manifest.json
+Packages/packages-lock.json

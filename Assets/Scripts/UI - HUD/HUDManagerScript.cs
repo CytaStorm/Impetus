@@ -34,11 +34,13 @@ public class HUDManagerScript : MonoBehaviour
     private Slider _flowBarSlider;
     private TextMeshProUGUI _flowStateLevelText;
 
+
     private TextMeshProUGUI _goldCounterText;
 
     private TextMeshProUGUI _AttackBuffCounterText;
 
     // Start is called before the first frame update
+
     void Start()
     {
         _player = _playerObject.GetComponent<PlayerScript>();
