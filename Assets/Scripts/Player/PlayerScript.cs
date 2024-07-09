@@ -11,6 +11,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour, IDamageable
 {
+	#region Singleton
+	public static PlayerScript Player 
+	{
+		get; private set; 
+	}
+	#endregion
+
 	#region GameObject Components
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
 	#endregion
@@ -193,6 +200,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
 		AetherChanged.Invoke(amountRegained);
 	}
 	#endregion
+
+	private void Awake()
+    {
+        if (Player != null &&
+			Player != this)
+        {
+            Destroy(gameObject);
+        }
+        else Player = this;
+    }
 
 	// Start is called before the first frame update
 	void Start()

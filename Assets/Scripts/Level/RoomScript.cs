@@ -12,7 +12,6 @@ public class RoomScript : MonoBehaviour
 	public bool HasLeftDoor;
 	public bool HasRightDoor;
 
-	public string EntranceDoorDirection { get; private set; }
 	public string ExitDoorDirection { get; private set; }
 
 	public GameObject EntranceDoor { get; private set; }
@@ -22,39 +21,35 @@ public class RoomScript : MonoBehaviour
 
 	public void SetupFirstRoomDoor()
 	{
+		//Set entrance door
 		int entranceDoorIndex = Random.Range(0, 2);
-		ExitDoorDirection = _doors[entranceDoorIndex].tag;
-
-		//Delete extra doors and assign entrance/exit door(s).
-		for (int i = 0; i < _doors.Count; i++)
+		foreach (GameObject door in _doors)
 		{
-			if (_doors[i].tag != ExitDoorDirection)
+			if (door.tag == _doors[entranceDoorIndex].tag)
 			{
-				Destroy(_doors[i]);
-				_doors.RemoveAt(i);
-				i--;
+				EntranceDoor = door;
+				continue;
 			}
-			else
-			{
-				ExitDoor = _doors[i];
-				ExitDoorScript = _doors[i].GetComponent<DoorScript>();
-				ExitDoorScript.IsExit = true;
-			}
+			//Only other door is exit.
+			ExitDoor = door;
+			ExitDoorScript = door.GetComponent<DoorScript>();
+			ExitDoorScript.IsExit = true;
+			continue;
 		}
-		return;
 	}
 
-	public void SetupMiddleRoomDoors(string entrance, RoomScript prevRoomScript)
+	public void SetupMiddleRoomDoors(string entranceDirection,
+		RoomScript prevRoomScript)
 	{
 		//Set entrance/exit doors.
 		//ASSUMES EACH MIDDLE ROOM DOOR HAS ONLY 2 DOORS MAX
-		EntranceDoorDirection = entrance;
 		for (int i = 0; i < _doors.Count; i++)
 		{
-			if (_doors[i].tag == EntranceDoorDirection)
+			if (_doors[i].tag == entranceDirection)
 			{
 				EntranceDoor = _doors[i];
-				EntranceDoorScript = EntranceDoor.GetComponent<DoorScript>();
+				EntranceDoorScript = 
+					EntranceDoor.GetComponent<DoorScript>();
 				EntranceDoorScript.IsEntrance = true;
 			}
 			else
@@ -62,7 +57,6 @@ public class RoomScript : MonoBehaviour
 				ExitDoor = _doors[i];
 				ExitDoorScript = ExitDoor.GetComponent<DoorScript>();
 				ExitDoorScript.IsExit = true;
-				ExitDoorDirection = ExitDoor.tag;
 			}
 		}
 
@@ -70,14 +64,12 @@ public class RoomScript : MonoBehaviour
 		return;
 	}
 
-	public void SetupBossRoomDoors(string entrance, RoomScript prevRoomScript)
+	public void SetupBossRoomDoors(string entranceDirection, RoomScript prevRoomScript)
 	{
-		EntranceDoorDirection = entrance;
-
 		//Delete extra doors and assign entrance/exit door(s).
 		for (int i = 0; i < _doors.Count; i++)
 		{
-			if (_doors[i].tag != EntranceDoorDirection)
+			if (_doors[i].tag != entranceDirection)
 			{
 				Destroy(_doors[i]);
 				_doors.RemoveAt(i);

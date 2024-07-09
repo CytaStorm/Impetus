@@ -40,20 +40,17 @@ public class LevelManagerScript : MonoBehaviour
 
 	[HideInInspector] public UnityEvent<int> ChangeRoom;
 
-    private void Awake()
-    {
-        if (Instance != null &&
+	private void Awake()
+	{
+		if (Instance != null &&
 			Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+		{
+			Destroy(gameObject);
+		}
+		else Instance = this;
+	}
 
-    void Start()
+	void Start()
 	{
 		SortRooms();
 		GenerateLayout(_roomsToMake);
@@ -117,6 +114,7 @@ public class LevelManagerScript : MonoBehaviour
 		GenerateFirstRoom();
 		GenerateMiddleRooms(roomsToMake - 2);
 		GenerateBossRoom();
+		SetPlayerSpawn();
 	}
 	private void GenerateFirstRoom()
 	{
@@ -129,12 +127,12 @@ public class LevelManagerScript : MonoBehaviour
 	{
 		for (int i = 0; i < roomsToMake; i++)
 		{
-			string newRoomEntranceDoor =
+			string newRoomEntranceDoorDirection =
 			GetOppositeDoorDirection(
-				_layout.Last.Value.ExitDoorDirection);
+				_layout.Last.Value.ExitDoor.tag);
 
 			List<GameObject> listToPickFrom;
-			switch (newRoomEntranceDoor)
+			switch (newRoomEntranceDoorDirection)
 			{
 				case "Top Door":
 					listToPickFrom = _hasTopDoor;
@@ -160,14 +158,15 @@ public class LevelManagerScript : MonoBehaviour
 				listToPickFrom[Random.Range(
 					0, listToPickFrom.Count)].GetComponent<RoomScript>()));
 			_layout.Last.Value.SetupMiddleRoomDoors(
-				newRoomEntranceDoor, _layout.Last.Previous.Value);
+				newRoomEntranceDoorDirection,
+				_layout.Last.Previous.Value);
 			_layout.Last.Value.gameObject.SetActive(false);
 		}
 	}
 	private void GenerateBossRoom()
 	{
 		string newRoomEntranceDoor = GetOppositeDoorDirection(
-					_layout.Last.Value.ExitDoorDirection);
+					_layout.Last.Value.ExitDoor.tag);
 		List<GameObject> listToPickFrom;
 		switch (newRoomEntranceDoor)
 		{
@@ -191,10 +190,36 @@ public class LevelManagerScript : MonoBehaviour
 			listToPickFrom[Random.Range(
 				0, listToPickFrom.Count)].GetComponent<RoomScript>()));
 		_layout.Last.Value.SetupBossRoomDoors(
-			GetOppositeDoorDirection(_layout.Last.Previous.Value.ExitDoorDirection),
+			GetOppositeDoorDirection(_layout.Last.Previous.Value.ExitDoor.tag),
 			_layout.Last.Previous.Value);
 		_layout.Last.Value.gameObject.SetActive(false);
 	}
+	private void SetPlayerSpawn()
+	{
+		Vector3 DirectionToSendPlayer;
+		float nextDoorOffset = 1.25f;
+		switch (_layout.First.Value.EntranceDoor.tag)
+		{
+		    case "Top Door":
+		        DirectionToSendPlayer = Vector3.down;
+		        break;
+		    case "Bottom Door":
+		        DirectionToSendPlayer = Vector3.up;
+		        break;
+		    case "Left Door":
+		        DirectionToSendPlayer = Vector3.right;
+		        break;
+		    case "Right Door":
+		        DirectionToSendPlayer = Vector3.left;
+		        break;
+		    default:
+		        throw new UnityException("Untagged Door!");
+		}
+		PlayerScript.Player.transform.position = 
+			_layout.First.Value.EntranceDoor.transform.position + 
+			DirectionToSendPlayer * nextDoorOffset;
+	}
+
 
 
 	private string GetOppositeDoorDirection(string doorDirection)

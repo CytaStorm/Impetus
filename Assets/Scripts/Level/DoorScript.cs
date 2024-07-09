@@ -32,7 +32,7 @@ public class DoorScript : MonoBehaviour
         }
 
         //Set player in new room.
-        Vector3 DirectionToSendPlayer = Vector3.zero;
+        Vector3 DirectionToSendPlayer;
         float nextDoorOffset = 1.25f;
         switch (this.gameObject.tag)
         {
