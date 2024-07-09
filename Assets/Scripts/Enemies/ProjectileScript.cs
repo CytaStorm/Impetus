@@ -15,16 +15,16 @@ public class ProjectileScript : MonoBehaviour
     #region Start Method
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        if (_rb != null)
-        {
-            // Assuming the projectile is facing right initially
-            _rb.velocity = transform.right * _speed;
-        }
-        else
-        {
-            Debug.LogError("Rigidbody2D component missing from the projectile!");
-        }
+        //_rb = GetComponent<Rigidbody2D>();
+        //if (_rb != null)
+        //{
+        //    // Assuming the projectile is facing right initially
+        //    _rb.velocity = transform.right * _speed;
+        //}
+        //else
+        //{
+        //    Debug.LogError("Rigidbody2D component missing from the projectile!");
+        //}
     }
     #endregion
 

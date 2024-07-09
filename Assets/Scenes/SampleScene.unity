@@ -2606,7 +2606,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   _obstructionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   _projectilePrefab: {fileID: 1900512489}
   _firePoint: {fileID: 1348759494}
   _detectionRange: 10
@@ -3425,6 +3425,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7448399924468478846, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959606985314389074, guid: 4df5a8c810d67414085ea5d64938bc54, type: 3}
+      propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
