@@ -16,16 +16,16 @@ public class FlowBarScript : MonoBehaviour
 	void Start()
     {
         _animator = _star.GetComponent<Animator>();
-        PlayerScript.UpgradeFlowState.AddListener(UpgradeFlowState);
-        PlayerScript.DegradeFlowState.AddListener(DegradeFlowState);
-        _animator.SetInteger("Start State", PlayerScript.FlowState);
+        PlayerScript.Player.UpgradeFlowState.AddListener(UpgradeFlowState);
+        PlayerScript.Player.DegradeFlowState.AddListener(DegradeFlowState);
+        _animator.SetInteger("Start State", PlayerScript.Player.FlowState);
     }
 
     // Update is called once per frame
     void Update()
     {
-        _flowBarSlider.value = PlayerScript.Flow;
-        _flowBarSlider.maxValue = PlayerScript.MaxFlow;
+        _flowBarSlider.value = PlayerScript.Player.Flow;
+        _flowBarSlider.maxValue = PlayerScript.Player.MaxFlow;
     }
 
     void UpgradeFlowState(int currentState, int newState)

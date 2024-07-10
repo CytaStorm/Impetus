@@ -6,10 +6,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerSpellScript : MonoBehaviour
 {
-	#region Other Script Components
-	[Header("Other Script Components")]
-	[SerializeField] private PlayerScript _player;
-	#endregion
 	#region Spell Fields
 	/**  
 	 *	SPELLS EXPLANATION
@@ -133,7 +129,7 @@ public class PlayerSpellScript : MonoBehaviour
 	{
 		if (!context.performed ||
 			!_spellBeingInputted ||
-			_player.OnPedestal) 
+			PlayerScript.Player.OnPedestal) 
 		{
 			return;
 		}
@@ -157,7 +153,7 @@ public class PlayerSpellScript : MonoBehaviour
 	{
 		if (!context.performed ||
 			!_spellBeingInputted ||
-			_player.OnPedestal) 
+			PlayerScript.Player.OnPedestal) 
 		{
 			return;
 		}

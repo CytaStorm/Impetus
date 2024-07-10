@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class HUDManagerScript : MonoBehaviour
 {
-	[Header("Player")] [SerializeField] private GameObject _playerObject;
-	private PlayerScript _playerScript;
-
 	[Header("Health")] [SerializeField] private GameObject _healthBar;
 
 	[Header("Aether")] [SerializeField] private GameObject _aetherBar;
@@ -25,15 +22,6 @@ public class HUDManagerScript : MonoBehaviour
 
 	private TextMeshProUGUI _AttackBuffCounterText;
 
-	void Awake()
-	{
-		_playerScript = _playerObject.GetComponent<PlayerScript>();
-
-		//Setup Health/Flow/Aether
-		_flowBar.GetComponent<FlowBarScript>().PlayerScript = _playerScript;
-		_aetherBar.GetComponent<AetherBarScript>().PlayerScript = _playerScript;
-	}
-
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -45,9 +33,9 @@ public class HUDManagerScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		_healthBarSlider.value = _playerScript.Health;
-		_healthBarSlider.maxValue = _playerScript.MaxHealth;
-		_goldCounterText.text = _playerScript.Gold.ToString();
-		_AttackBuffCounterText.text = _playerScript.AttackBuffRoomsLeft.ToString();
+		_healthBarSlider.value = PlayerScript.Player.Health;
+		_healthBarSlider.maxValue = PlayerScript.Player.MaxHealth;
+		_goldCounterText.text = PlayerScript.Player.Gold.ToString();
+		_AttackBuffCounterText.text = PlayerScript.Player.AttackBuffRoomsLeft.ToString();
 	}
 }
