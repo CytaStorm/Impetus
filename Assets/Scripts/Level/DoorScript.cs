@@ -26,7 +26,8 @@ public class DoorScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Transfer room
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag != "Player" ||
+            LinkedDoor == null)
         {
             return;
         }

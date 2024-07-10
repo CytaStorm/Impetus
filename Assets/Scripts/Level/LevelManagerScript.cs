@@ -29,13 +29,16 @@ public class LevelManagerScript : MonoBehaviour
 	#endregion
 
 	#region Actual Level
-	[SerializeField] private int _roomsToMake;
 	// current layout
 	private LinkedList<RoomScript> _layout = new LinkedList<RoomScript>();
 
-	// reference to room player is currently in
+	[SerializeField] private int _roomsToMake;
+
+	// references to room player is currently in
 	private LinkedListNode<RoomScript> _currentRoomNode;
 	private GameObject _currentRoom { get => _currentRoomNode.Value.gameObject; }
+	//Number of room player is in.
+	private int _roomNumber = 1;
 	#endregion
 
 	[HideInInspector] public UnityEvent<int> ChangeRoom;
@@ -220,8 +223,6 @@ public class LevelManagerScript : MonoBehaviour
 			DirectionToSendPlayer * nextDoorOffset;
 	}
 
-
-
 	private string GetOppositeDoorDirection(string doorDirection)
 	{
 		switch (doorDirection)
@@ -253,6 +254,8 @@ public class LevelManagerScript : MonoBehaviour
 			for (int i = 0; i < roomNumber; i++)
 			{
 				_currentRoomNode = _currentRoomNode.Next;
+				_roomNumber++;
+				print(_roomNumber);
 			}
 			_currentRoom.SetActive(true);
 		}
@@ -262,6 +265,8 @@ public class LevelManagerScript : MonoBehaviour
 			for (int i = 0; i > roomNumber; i--)
 			{
 				_currentRoomNode = _currentRoomNode.Previous;
+				_roomNumber--;
+				print(_roomNumber);
 			}
 			_currentRoom.SetActive(true);
 		}
