@@ -142,7 +142,7 @@ PrefabInstance:
     - target: {fileID: 1162579936646787238, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
       propertyPath: _audioSource
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1041674533}
     - target: {fileID: 1162579936646787238, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
       propertyPath: _spriteRenderer
       value: 
@@ -6882,6 +6882,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015530398}
   m_CullTransparentMesh: 1
+--- !u!82 &1041674533 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: -16734090069615480, guid: 86e1cce8fb4f30e4e95b9968f592a035, type: 3}
+  m_PrefabInstance: {fileID: 58630813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051992199
 GameObject:
   m_ObjectHideFlags: 0
