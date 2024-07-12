@@ -9,7 +9,6 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 {
 	#region GameObject Components
 	[Header("GameObject Components")]
-	[SerializeField] private PlayerScript _playerScript;
 	[SerializeField] private Animator _animator;
 	[SerializeField] private Rigidbody2D _rigidbody;
 	[SerializeField] private SpriteRenderer _spriteRenderer;
@@ -70,7 +69,7 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 	void Start()
 	{
 		Moveable = true;
-		_playerScript.PlayerDied.AddListener(CannotMove);
+		PlayerScript.Player.PlayerDied.AddListener(CannotMove);
 	}
 
 	// Update is called once per frame

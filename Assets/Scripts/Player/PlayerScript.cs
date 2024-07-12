@@ -12,7 +12,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour, IDamageable
 {
-	#region Misc.
+	#region Singleton
+	public static PlayerScript Player 
+	{
+		get; private set; 
+	}
+	#endregion
+
+	#region GameObject Components
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
 	//Sound
 	[SerializeField] private GameObject _soundManager;
@@ -200,6 +207,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	}
 	#endregion
 
+	private void Awake()
+    {
+        if (Player != null &&
+			Player != this)
+        {
+            Destroy(gameObject);
+        }
+        else Player = this;
+    }
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -216,16 +233,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
 		//Decrease flow state
 		if (Flow != 0)
 		{
-			if (FlowState > 5)
-			{
-				print(MaxFlow);
-				FlowState--;
-				Flow = 99;
-			}
-			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] *
-				Time.deltaTime;
+			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] * Time.deltaTime;
 		}
-		if (Flow == 0 && FlowState != 0)
+		if (Flow <= 0 && FlowState != 0)
 		{
 			_flowState--;
 			Flow = 100;
