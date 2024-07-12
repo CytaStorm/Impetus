@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class LevelManagerScript : MonoBehaviour
 {
-	public static LevelManagerScript Instance 
+	public static LevelManagerScript LevelManager 
 	{
 		get; private set; 
 	}
@@ -31,32 +31,35 @@ public class LevelManagerScript : MonoBehaviour
 	#region Actual Level
 	// current layout
 	private LinkedList<RoomScript> _layout = new LinkedList<RoomScript>();
-
 	[SerializeField] private int _roomsToMake;
+	public int RoomsToMake
+	{
+		get => _roomsToMake;
+	}
 
 	// references to room player is currently in
 	private LinkedListNode<RoomScript> _currentRoomNode;
 	private GameObject _currentRoom { get => _currentRoomNode.Value.gameObject; }
 	//Number of room player is in.
-	private int _roomNumber = 1;
+	[HideInInspector] public int RoomNumber = 1;
 	#endregion
 
 	[HideInInspector] public UnityEvent<int> ChangeRoom;
 
 	private void Awake()
 	{
-		if (Instance != null &&
-			Instance != this)
+		if (LevelManager != null &&
+			LevelManager != this)
 		{
 			Destroy(gameObject);
 		}
-		else Instance = this;
+		else LevelManager = this;
 	}
 
 	void Start()
 	{
 		SortRooms();
-		GenerateLayout(_roomsToMake);
+		GenerateLayout(RoomsToMake);
 		ChangeRoom.AddListener(LoadNewRoom);
 	}
 
@@ -254,8 +257,8 @@ public class LevelManagerScript : MonoBehaviour
 			for (int i = 0; i < roomNumber; i++)
 			{
 				_currentRoomNode = _currentRoomNode.Next;
-				_roomNumber++;
-				print(_roomNumber);
+				RoomNumber++;
+				print(RoomNumber);
 			}
 			_currentRoom.SetActive(true);
 		}
@@ -265,8 +268,8 @@ public class LevelManagerScript : MonoBehaviour
 			for (int i = 0; i > roomNumber; i--)
 			{
 				_currentRoomNode = _currentRoomNode.Previous;
-				_roomNumber--;
-				print(_roomNumber);
+				RoomNumber--;
+				print(RoomNumber);
 			}
 			_currentRoom.SetActive(true);
 		}
