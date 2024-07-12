@@ -104,7 +104,7 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 		}
 		if (!_dashReady)
 		{
-			Debug.Log("Dash on cooldown!");
+			//Debug.Log("Dash on cooldown!");
 			return;
 		}
 
@@ -113,7 +113,7 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 		//Dash towards cursor if player is still.
 		if (_moveVector.magnitude == 0)
 		{
-			Debug.Log("Cursor Dash");
+			//Debug.Log("Cursor Dash");
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			Vector2 dashDirection = new Vector2(
 				mousePosition.x - transform.position.x,
@@ -125,7 +125,7 @@ public class PlayerMovementScript : MonoBehaviour, IMoveable
 		//Dash in direction of movement if player is moving.
 		else 
 		{
-			Debug.Log("Movement Dash");
+			//Debug.Log("Movement Dash");
 			_rigidbody.AddForce(_moveVector.normalized * DashDistance);
 			return;
 		}

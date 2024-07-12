@@ -258,7 +258,6 @@ public class LevelManagerScript : MonoBehaviour
 			{
 				_currentRoomNode = _currentRoomNode.Next;
 				RoomNumber++;
-				print(RoomNumber);
 			}
 			_currentRoom.SetActive(true);
 		}
@@ -269,7 +268,6 @@ public class LevelManagerScript : MonoBehaviour
 			{
 				_currentRoomNode = _currentRoomNode.Previous;
 				RoomNumber--;
-				print(RoomNumber);
 			}
 			_currentRoom.SetActive(true);
 		}
