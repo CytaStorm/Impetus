@@ -24,8 +24,7 @@ public class FlowBarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _flowBarSlider.value = PlayerScript.Player.Flow;
-        _flowBarSlider.maxValue = PlayerScript.Player.MaxFlow;
+        _flowBarSlider.value = PlayerScript.Player.FlowPercent * 1.35f;
     }
 
     void UpgradeFlowState(int currentState, int newState)
