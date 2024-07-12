@@ -10,10 +10,14 @@ public class MinimapScript : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		print(LevelManagerScript.LevelManager.RoomsToMake);
-		//_roomIncrementWidth = 
-		//	_rectTransform.rect.width / LevelManagerScript.LevelManager._roomsToMake;
-		//LevelManagerScript.LevelManager.ChangeRoom.AddListener(ChangeRoom);
+		_roomIncrementWidth =
+			(_rectTransform.rect.width -
+			_playerIcon.GetComponent<RectTransform>().rect.width) /
+			(LevelManagerScript.LevelManager.RoomsToMake - 1);
+
+		print(_rectTransform.rect.width + 
+			_playerIcon.GetComponent<RectTransform>().rect.width / 2);
+		LevelManagerScript.LevelManager.ChangeRoom.AddListener(ChangeRoom);
 	}
 
 	// Update is called once per frame
