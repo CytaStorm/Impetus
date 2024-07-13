@@ -64,9 +64,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	[Header("Flow")]
 	public float Flow;
 	public float MaxFlow;
-	public float FlowPercent
+	public float FlowRatio
 	{
-		get => 100 * Flow / MaxFlow;
+		get => Flow / MaxFlow;
 	}
 	[Range(1, 5)] public int FlowState;
 	
