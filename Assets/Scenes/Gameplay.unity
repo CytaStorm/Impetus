@@ -265,7 +265,7 @@ SortingGroup:
   m_GameObject: {fileID: 21126716}
   m_Enabled: 1
   m_SortingLayerID: -843977345
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!61 &21126720
@@ -760,7 +760,7 @@ SortingGroup:
   m_GameObject: {fileID: 88256055}
   m_Enabled: 1
   m_SortingLayerID: -843977345
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!61 &88256059
@@ -6148,7 +6148,7 @@ SortingGroup:
   m_GameObject: {fileID: 697689858}
   m_Enabled: 1
   m_SortingLayerID: 2077048945
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 2
   m_SortAtRoot: 0
 --- !u!1 &803720881
@@ -6813,16 +6813,7 @@ MonoBehaviour:
   PlayerDied:
     m_PersistentCalls:
       m_Calls:
-      - {m_Target: {fileID: 1236217443}, m_TargetAssemblyTypeName: Menus, Assembly-CSharp, m_MethodName: GameOver, m_Mode: 1, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
-    m_CallsDirty: 1
-  PlayerRevived:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  PlayerFullHealed:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
+      - {m_Target: {fileID: 1236217443}, m_TargetAssemblyTypeName: Menus, Assembly-CSharp: }
 --- !u!66 &814704471
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -6889,7 +6880,7 @@ SortingGroup:
   m_GameObject: {fileID: 814704460}
   m_Enabled: 1
   m_SortingLayerID: -554799531
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 100
   m_SortAtRoot: 0
 --- !u!81 &814704473
@@ -7318,7 +7309,7 @@ SortingGroup:
   m_GameObject: {fileID: 1140698701}
   m_Enabled: 1
   m_SortingLayerID: -843977345
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!61 &1140698705
@@ -8783,7 +8774,7 @@ SortingGroup:
   m_GameObject: {fileID: 1185713257}
   m_Enabled: 1
   m_SortingLayerID: -843977345
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!61 &1492050166
@@ -9532,7 +9523,7 @@ SortingGroup:
   m_GameObject: {fileID: 1979959437}
   m_Enabled: 1
   m_SortingLayerID: 2077048945
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 50
   m_SortAtRoot: 0
 --- !u!1 &1980636183
@@ -10662,7 +10653,7 @@ SortingGroup:
   m_GameObject: {fileID: 1992005531}
   m_Enabled: 1
   m_SortingLayerID: 2077048945
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 3
   m_SortAtRoot: 0
 --- !u!1 &2032442503
