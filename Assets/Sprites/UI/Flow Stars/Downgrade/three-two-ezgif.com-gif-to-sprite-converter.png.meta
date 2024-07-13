@@ -115,8 +115,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_1
       rect:
         serializedVersion: 2
-        x: 560
+        x: 386
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_2
       rect:
         serializedVersion: 2
-        x: 1120
+        x: 772
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_3
       rect:
         serializedVersion: 2
-        x: 1680
+        x: 1158
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_4
       rect:
         serializedVersion: 2
-        x: 2240
+        x: 1544
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_5
       rect:
         serializedVersion: 2
-        x: 2800
+        x: 1930
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_6
       rect:
         serializedVersion: 2
-        x: 3360
+        x: 2316
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +260,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_7
       rect:
         serializedVersion: 2
-        x: 3920
+        x: 2702
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +281,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_8
       rect:
         serializedVersion: 2
-        x: 4480
+        x: 3088
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: three-two-ezgif.com-gif-to-sprite-converter_9
       rect:
         serializedVersion: 2
-        x: 5040
+        x: 3474
         y: 0
-        width: 560
-        height: 420
+        width: 386
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
