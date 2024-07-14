@@ -12,11 +12,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour, IDamageable
 {
-	#region Misc.
+	#region Singleton
+	public static PlayerScript Player 
+	{
+		get; private set; 
+	}
+	#endregion
+
+	#region GameObject Components
 	[SerializeField] private PlayerMovementScript _playerMovementScript;
-	//Sound
-	[SerializeField] private GameObject _soundManager;
-	private SoundPlayerScript _soundPlayer;
 	#endregion
 
 	#region Health
@@ -32,11 +36,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	public float MaxHealth
 	{
 		get => _maxHealth;
-		set 
-		{
-			MaxHealthChanged.Invoke(value);
-			_maxHealth = value; 
-		}
+		set => _maxHealth = value; 
 	}
 	public bool Alive
 	{
@@ -51,43 +51,21 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	public float Aether
 	{
 		get => _aether;
-		set 
-		{
-			AetherChanged.Invoke(value);
-			_aether = value; 
-		}
+		set => _aether = value; 
 	}
 	public float MaxAether
 	{
 		get => _maxAether;
-		set 
-		{
-			MaxAetherChanged.Invoke(value);
-			_maxAether = value; 
-		}
+		set => _maxAether = value; 
 	}
 	#endregion
 
 	#region Flow
 	[Header("Flow")]
-	[SerializeField] private float _flow;
-	[SerializeField] private float _maxFlow;
-	[SerializeField] [Range(0, 5)] private int _flowState;
-	public float Flow
-	{
-		get => _flow;
-		set => _flow = value;
-	}
-	public float MaxFlow
-	{
-		get => _maxFlow;
-		set => _maxFlow = value;
-	}
-	public int FlowState
-	{
-		get => _flowState;
-		set => _flowState = value;
-	}
+	public float Flow;
+	public float MaxFlow;
+	[Range(1, 5)] public int FlowState;
+	
 	/// <summary>
 	/// The index is the level you are dropping from, the element at that index
 	/// is how much time it takes to drop from a full flow bar.
@@ -132,18 +110,12 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	#endregion
 
 	#region Events
-	public UnityEvent<float> HealthChanged;
-	public UnityEvent<float> MaxHealthChanged;
 
-	public UnityEvent<float> AetherChanged;
-	public UnityEvent<float> MaxAetherChanged;
-
-	public UnityEvent<float> PlayerDamageChanged;
 	public UnityEvent<PlayerScript, float> BuyItem;
+	public UnityEvent<int, int> UpgradeFlowState;
+	public UnityEvent<int, int> DegradeFlowState;
 
 	public UnityEvent PlayerDied;
-	public UnityEvent PlayerRevived;
-	public UnityEvent PlayerFullHealed;
 	#endregion
 
 	#region Functions to change stats
@@ -157,12 +129,10 @@ public class PlayerScript : MonoBehaviour, IDamageable
 			amountRegained = MaxHealth - MaxHealth;
 		}
 		Health += amountRegained;
-		HealthChanged.Invoke(amountRegained);
 	}
 	public void FullHeal()
 	{
 		Health = MaxHealth;
-		PlayerFullHealed.Invoke();
 	}
 	public void TakeDamage(float amount, float multiplier)
 	{
@@ -182,7 +152,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	public void RespawnPlayer()
 	{
 		FullHeal();
-		PlayerRevived.Invoke();
 	}
 
 	//Aether
@@ -196,14 +165,22 @@ public class PlayerScript : MonoBehaviour, IDamageable
 			amountRegained = MaxAether - MaxAether;
 		}
 		MaxAether += amountRegained;
-		AetherChanged.Invoke(amountRegained);
 	}
 	#endregion
+
+	private void Awake()
+    {
+        if (Player != null &&
+			Player != this)
+        {
+            Destroy(gameObject);
+        }
+        else Player = this;
+    }
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		_flowState = 0;
 	}
 
 	// Update is called once per frame
@@ -213,28 +190,30 @@ public class PlayerScript : MonoBehaviour, IDamageable
 		{
 			PlayerDied.Invoke();
 		}
-		//Decrease flow state
-		if (Flow != 0)
+
+		//Decrease flow state over time.
+		Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[FlowState] *
+			Time.deltaTime;
+
+		//Upgrade flow if necessary.
+		if (Flow > 99)
 		{
-			if (FlowState > 5)
-			{
-				print(MaxFlow);
-				FlowState--;
-				Flow = 99;
-			}
-			Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[_flowState] *
-				Time.deltaTime;
+			FlowState++;
+			UpgradeFlowState.Invoke(FlowState - 1, FlowState);
+			Flow -= 100;
 		}
-		if (Flow == 0 && FlowState != 0)
+
+		//Drop flowstate if necessary
+		if (Flow <= 0 && FlowState != 1)
 		{
-			_flowState--;
+			FlowState--;
+			DegradeFlowState.Invoke(FlowState + 1, FlowState);
 			Flow = 100;
 		}
 
-		Flow = Mathf.Clamp(Flow, 0, _maxFlow);
-		
-
-		
+		//Keep flowstate from going over the max in level or value.
+		FlowState = Mathf.Clamp(FlowState, 1, 5);
+		Flow = Mathf.Clamp(Flow, 0, MaxFlow);
 	}
 
 	#region World Interactions

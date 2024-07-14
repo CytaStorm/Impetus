@@ -22,12 +22,11 @@ public class HealthPickupScript : PickupScript
         {
             return;
         }
-        PlayerScript _player = collision.gameObject.GetComponent<PlayerScript>();
-        if (_player.Health == _player.MaxHealth)
+        if (PlayerScript.Player.Health == PlayerScript.Player.MaxHealth)
         {
             return;
         }
-        _player.Heal(1, 1, false);
+        PlayerScript.Player.Heal(1, 1, false);
         StartCoroutine(PlayPickupSound());
 	}
 }

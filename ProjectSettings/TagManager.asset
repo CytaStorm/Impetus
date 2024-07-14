@@ -7,6 +7,10 @@ TagManager:
   - Health Pickup
   - Enemy
   - Weapon
+  - Top Door
+  - Bottom Door
+  - Left Door
+  - Right Door
   layers:
   - Default
   - TransparentFX
@@ -43,6 +47,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map
+    uniqueID: 2520220799
+    locked: 0
+  - name: Doors
+    uniqueID: 112153519
     locked: 0
   - name: Environment
     uniqueID: 2077048945

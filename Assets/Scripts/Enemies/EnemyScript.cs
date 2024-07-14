@@ -97,7 +97,7 @@ public class EnemyScript : MonoBehaviour
         {
             _player = player.GetComponent<PlayerScript>();
 
-            //Checks if PlayerScript is missing
+            //Checks if _PlayerScript is missing
             if (_player == null)
             {
                 Debug.LogError("Player components are missing.");
