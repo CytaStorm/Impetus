@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraScript : MonoBehaviour
+public class HealthBarScript : MonoBehaviour
 {
+    [HideInInspector] public PlayerScript PlayerScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,6 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       transform.position = PlayerScript.Player.transform.position + new Vector3(0, 0, -5);
+        
     }
 }
