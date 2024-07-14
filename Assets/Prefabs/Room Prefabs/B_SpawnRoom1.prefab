@@ -11164,6 +11164,10 @@ MonoBehaviour:
   HasBottomDoor: 1
   HasLeftDoor: 0
   HasRightDoor: 0
+  EntranceDoor: {fileID: 0}
+  ExitDoor: {fileID: 0}
+  EntranceDoorScript: {fileID: 0}
+  ExitDoorScript: {fileID: 0}
 --- !u!1001 &1772209627388249989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11218,7 +11222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8792777251318405622, guid: b5640787ce6e6cb468d4509552268711, type: 3}
       propertyPath: m_TagString
-      value: TopDoor
+      value: Top Door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

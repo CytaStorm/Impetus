@@ -1470,11 +1470,11 @@ MonoBehaviour:
   - {fileID: 7192705353767064889, guid: 6fb368011df500947879b553a9c7f7a0, type: 3}
   - {fileID: 1584543716470538495, guid: 0bcda154fd25ca1479ca4b5e9efaf360, type: 3}
   - {fileID: 2480332301730071200, guid: eefa743b5b42dfd4a901750d9de176bf, type: 3}
+  - {fileID: 8347965522173622318, guid: d27f54ee27fe32e4daed668dfe097707, type: 3}
   _bossRooms:
-  - {fileID: 3930390152670468904, guid: 94dcdc460cd5260438f245e42d0c5237, type: 3}
   - {fileID: 6956265128088141517, guid: 30113e698479fca4aa2c0091c9418d50, type: 3}
   - {fileID: 4098339546443991505, guid: 2984ab43d34bb294aab95b1103824c97, type: 3}
-  - {fileID: 8347965522173622318, guid: d27f54ee27fe32e4daed668dfe097707, type: 3}
+  - {fileID: 3930390152670468904, guid: 94dcdc460cd5260438f245e42d0c5237, type: 3}
   _roomsToMake: 5
   RoomNumber: 1
   ChangeRoom:
