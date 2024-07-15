@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class bossEnemyAttacksScript : MonoBehaviour
 {
+    #region Variables
     //The damage the ground smash attacks will do
     [SerializeField] private float _smashDamage = 50f;
 
@@ -17,7 +18,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private float _minAttackDistance = 1f;
     private GameObject _target;
-
+    #endregion
     void Start()
     {
         _target = GameObject.FindWithTag("Player");
@@ -40,6 +41,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
         }
     }
 
+    #region PlusGroundSmashAttack
     void PerformPlusGroundSmashAttack()
     {
         // Define the directions for the '+' pattern
@@ -65,7 +67,9 @@ public class bossEnemyAttacksScript : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region XGroundSmashAttack
     void PerformXGroundSmashAttack()
     {
         // Define the directions for the 'x' pattern
@@ -92,7 +96,9 @@ public class bossEnemyAttacksScript : MonoBehaviour
         }
 
     }
+    #endregion
 
+    #region DrawAttack
     /// <summary>
     /// Draws visual representations of the attack ranges for the ground smash attacks
     /// when the GameObject is selected in the editor.
@@ -121,5 +127,6 @@ public class bossEnemyAttacksScript : MonoBehaviour
         // Draw a diagonal ray (bottom-right) from the current position with the length of the attack range
         Gizmos.DrawRay(transform.position, new Vector2(-1, 1) * _attackRange);
     }
+    #endregion
 
 }
