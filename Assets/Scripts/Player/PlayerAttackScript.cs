@@ -9,11 +9,12 @@ public class PlayerAttackScript : MonoBehaviour
 	#region GameObject Components
 	[Header("GameObject Components")]
 	[SerializeField] private GameObject _swordPivotPoint;
-    #endregion
+	[SerializeField] private GameObject _sword;
+	private Animator _swordAnimator;
+	#endregion
 
-
-    #region Attack Properties
-    [Header("Attack Properties")]
+	#region Attack Properties
+	[Header("Attack Properties")]
 	//Attack duration
 	[SerializeField] private float _attackDuration = 0.5f;
 	private float _currentAttackTime;
@@ -31,26 +32,10 @@ public class PlayerAttackScript : MonoBehaviour
 	{
 		get { return _currentAttackCooldownTime == 0f; }
 	}
-    #endregion
+	#endregion
 
-    //CURRENTLY, We are using the damage field in _PlayerScript instead of this one
-    //#region Damage field
-
-    //[Header("Damage")]
-    //[SerializeField] private float _damage;
-    //public float Damage
-    //{
-    //    get => _damage;
-    //    set
-    //    {           
-    //        _damage = value;
-    //    }
-    //}
-
-    //#endregion
-
-    #region Sword Drawing
-    [SerializeField] [Range(0f, 360f)] private int _slashArc;
+	#region Sword Drawing
+	[SerializeField][Range(0f, 360f)] private int _slashArc;
 	private Vector3 _slashArcOffset
 	{
 		get { return new Vector3(0, 0, _slashArc / 2); }
@@ -63,9 +48,8 @@ public class PlayerAttackScript : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		#region Sword Initialization
 		_swordPivotPoint.SetActive(false);
-		#endregion
+		_swordAnimator = _sword.GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
@@ -99,36 +83,38 @@ public class PlayerAttackScript : MonoBehaviour
 	#region Attack Methods
 	public void OnSlashInput(InputAction.CallbackContext context)
 	{
+		if (!context.performed || !_attackReady) return;
+		print("triggered");
+		_swordAnimator.SetTrigger("Swing");
 		HandleBasicAttack(context);
 		return;
 	}
 
 	public void OnThrustInput(InputAction.CallbackContext context)
-	{
+	{	
+		if (!context.performed || !_attackReady) return;
+		_swordAnimator.SetTrigger("Thrust");
 		HandleBasicAttack(context);
 		return;
 	}
 
 	public void OnSlamInput(InputAction.CallbackContext context)
 	{
+		if (!context.performed || !_attackReady) return;
+		_swordAnimator.SetTrigger("Slam");
 		HandleBasicAttack(context);
 		return;
 	}
 	#endregion
 
 	#region Helper Methods
+
 	/// <summary>
 	/// Sets up common elements between different basic attacks
 	/// like setting attack cooldowns and attack duration.
 	/// </summary>
 	private void HandleBasicAttack(InputAction.CallbackContext context)
 	{
-		if (!context.performed) return;
-		if (!_attackReady)
-		{
-			
-			return;
-		}
 		_swordPivotPoint.SetActive(true);
 		//Reset attack cooldown and attack duration
 		_currentAttackCooldownTime = _attackCooldownDuration;
@@ -136,12 +122,12 @@ public class PlayerAttackScript : MonoBehaviour
 		_currentAttackTime = 0f;
 
 		//Lock attack direction to cardinal/diagonal
-		_mostRecentAttackDirection = GetAttackDirection();
-		_swordPivotPoint.transform.right = GetAttackDirection();
-		_slashArcBegin = _swordPivotPoint.transform.eulerAngles +
-			_slashArcOffset;
-		_slashArcEnd = _swordPivotPoint.transform.eulerAngles -
-			_slashArcOffset;
+		//_mostRecentAttackDirection = GetAttackDirection();
+		//_swordPivotPoint.transform.right = GetAttackDirection();
+		//_slashArcBegin = _swordPivotPoint.transform.eulerAngles +
+		//	_slashArcOffset;
+		//_slashArcEnd = _swordPivotPoint.transform.eulerAngles -
+		//	_slashArcOffset;
 	}
 
 	private Vector2 GetAttackDirection()
