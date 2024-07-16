@@ -84,7 +84,6 @@ public class PlayerAttackScript : MonoBehaviour
 	public void OnSlashInput(InputAction.CallbackContext context)
 	{
 		if (!context.performed || !_attackReady) return;
-		print("triggered");
 		_swordAnimator.SetTrigger("Swing");
 		HandleBasicAttack(context);
 		return;
@@ -122,12 +121,12 @@ public class PlayerAttackScript : MonoBehaviour
 		_currentAttackTime = 0f;
 
 		//Lock attack direction to cardinal/diagonal
-		//_mostRecentAttackDirection = GetAttackDirection();
-		//_swordPivotPoint.transform.right = GetAttackDirection();
-		//_slashArcBegin = _swordPivotPoint.transform.eulerAngles +
-		//	_slashArcOffset;
-		//_slashArcEnd = _swordPivotPoint.transform.eulerAngles -
-		//	_slashArcOffset;
+		_mostRecentAttackDirection = GetAttackDirection();
+		_swordPivotPoint.transform.right = GetAttackDirection();
+		_slashArcBegin = _swordPivotPoint.transform.eulerAngles +
+			_slashArcOffset;
+		_slashArcEnd = _swordPivotPoint.transform.eulerAngles -
+			_slashArcOffset;
 	}
 
 	private Vector2 GetAttackDirection()
