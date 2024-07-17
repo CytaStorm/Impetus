@@ -14,14 +14,15 @@ public class bossEnemyAttacksScript : MonoBehaviour
     //Timer
     private float _smashTimer;
 
-    
+
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private float _minAttackDistance = 1f;
-    private GameObject _target;
+    [SerializeField] private GameObject _target;
+    [SerializeField] private GameObject hammer;
+    [SerializeField] private GameObject AOE;
     #endregion
     void Start()
     {
-        _target = GameObject.FindWithTag("Player");
         _smashTimer = _smashCooldown;
     }
 
@@ -64,6 +65,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
                     // Apply damage to the player
                     player.Health -= _smashDamage;
                 }
+                break;
             }
         }
     }
