@@ -419,9 +419,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sword: {fileID: 1388981260}
-  _attackDuration: 0.5
-  _attackCooldownDuration: 0
-  _slashArc: 202
+  _swingAnimationClip: {fileID: 7400000, guid: a0748204edc9a8f41a7a1a7d06ec4112, type: 2}
+  _thrustAnimationClip: {fileID: 7400000, guid: ef45e3ebdee23d949b81be7876e142e5, type: 2}
+  _slamAnimationClip: {fileID: 7400000, guid: 29dce2f84a0957f4f96e64e438949daf, type: 2}
+  _swingAttackDuration: 0.48
+  _thrustAttackDuration: 0.97
+  _slamAttackDuration: 1.53
+  _attackCooldownDuration: 1
 --- !u!114 &371202963
 MonoBehaviour:
   m_ObjectHideFlags: 0
