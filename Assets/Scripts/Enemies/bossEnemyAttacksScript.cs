@@ -14,16 +14,33 @@ public class bossEnemyAttacksScript : MonoBehaviour
     //Timer
     private float _smashTimer;
 
-
+    //Attack stats
+    [SerializeField, Range(0f, 5f)] private float _meleeRange;
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private float _minAttackDistance = 1f;
+
+    //GameObjects
     [SerializeField] private GameObject _target;
     [SerializeField] private GameObject hammer;
     [SerializeField] private GameObject AOE;
+    [SerializeField] private Sprite hammerSprite;
+    [SerializeField] private Sprite AOESprite;
+
+    //useful values
+    private float hammerWidth;
+
     #endregion
     void Start()
     {
+        //Instantiate variables
         _smashTimer = _smashCooldown;
+        hammerWidth = hammerSprite.rect.width / hammerSprite.pixelsPerUnit;
+
+        //Set weapons to inactive
+        hammer.SetActive(false);
+        AOE.SetActive(false);
+
+        StartCoroutine("PerformBasicMeleeAttack");
     }
 
     void Update()
@@ -40,7 +57,36 @@ public class bossEnemyAttacksScript : MonoBehaviour
                 _smashTimer = _smashCooldown;
             }
         }
+
+        
     }
+
+    #region BasicMeleeAttack
+    IEnumerator PerformBasicMeleeAttack()
+    {
+        hammer.SetActive(true);
+        //Get direction, rotation, and magnitude of the range of motion
+        Vector2 direction = (_target.transform.position - this.transform.position).normalized;
+        hammer.transform.right = direction;
+        Vector2 attackVector = direction * _meleeRange;
+
+        //Set position so that tip of hammer is at center of boss, pointed at the target
+        hammer.transform.position -= 
+            new Vector3(direction.x, direction.y, 0) * hammerWidth;
+        
+        //Get rigidbody2D
+        Rigidbody2D hammerRB = hammer.GetComponent<Rigidbody2D>();
+
+        //Take .5 seconds to move forward and again to go backwards
+        hammerRB.velocity = attackVector * 2f;
+        yield return new WaitForSeconds(.5f);
+        hammerRB.velocity = attackVector * -2f;
+        yield return new WaitForSeconds(.5f);
+        hammerRB.velocity = Vector2.zero;
+        hammer.SetActive(false);
+        print("doneMeleeing");
+    }
+    #endregion
 
     #region PlusGroundSmashAttack
     void PerformPlusGroundSmashAttack()
