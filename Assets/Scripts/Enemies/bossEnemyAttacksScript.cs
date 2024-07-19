@@ -18,9 +18,13 @@ public class bossEnemyAttacksScript : MonoBehaviour
     [SerializeField, Range(0f, 5f)] private float _meleeRange;
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private float _minAttackDistance = 1f;
+    [SerializeField, Range(0f, 2f)] private float _meleeAttackDuration;
+    [SerializeField] private float _spinRadiusOffset;
+    [SerializeField] private float _spinAttackDuration;
 
     //GameObjects
     [SerializeField] private GameObject _target;
+    [SerializeField] private GameObject pivot;
     [SerializeField] private GameObject hammer;
     [SerializeField] private GameObject AOE;
     [SerializeField] private Sprite hammerSprite;
@@ -40,7 +44,8 @@ public class bossEnemyAttacksScript : MonoBehaviour
         hammer.SetActive(false);
         AOE.SetActive(false);
 
-        StartCoroutine("PerformBasicMeleeAttack");
+        //StartCoroutine("PerformBasicMeleeAttack");
+        StartCoroutine("SpinAttack");
     }
 
     void Update()
@@ -65,26 +70,55 @@ public class bossEnemyAttacksScript : MonoBehaviour
     IEnumerator PerformBasicMeleeAttack()
     {
         hammer.SetActive(true);
+
         //Get direction, rotation, and magnitude of the range of motion
-        Vector2 direction = (_target.transform.position - this.transform.position).normalized;
+        Vector3 direction = (_target.transform.position - this.transform.position).normalized;
         hammer.transform.right = direction;
-        Vector2 attackVector = direction * _meleeRange;
+        Vector3 attackVector = direction * _meleeRange;
 
         //Set position so that tip of hammer is at center of boss, pointed at the target
-        hammer.transform.position -= 
-            new Vector3(direction.x, direction.y, 0) * hammerWidth;
+        hammer.transform.position = -direction * (hammerWidth / 2f);
         
         //Get rigidbody2D
         Rigidbody2D hammerRB = hammer.GetComponent<Rigidbody2D>();
 
-        //Take .5 seconds to move forward and again to go backwards
-        hammerRB.velocity = attackVector * 2f;
-        yield return new WaitForSeconds(.5f);
-        hammerRB.velocity = attackVector * -2f;
-        yield return new WaitForSeconds(.5f);
+        //Take half the duration to move forward and again to go backwards
+        float halfAttackDuration = _meleeAttackDuration / 2f;
+        hammerRB.velocity = attackVector / halfAttackDuration;
+        yield return new WaitForSeconds(halfAttackDuration);
+        hammerRB.velocity = attackVector / halfAttackDuration * -1;
+        yield return new WaitForSeconds(halfAttackDuration);
         hammerRB.velocity = Vector2.zero;
+
         hammer.SetActive(false);
         print("doneMeleeing");
+    }
+    #endregion
+
+    #region SpinAttack
+    IEnumerator SpinAttack()
+    {
+        hammer.SetActive(true);
+
+        //Get direction and get the direction 90 degrees from it
+        Vector3 direction = (_target.transform.position - this.transform.position).normalized;
+        Vector3 orthogonalDirection = new Vector3(
+            direction.y,
+            -direction.x,
+            0f);
+
+        //Set the direction and position of the hammer
+        hammer.transform.right = orthogonalDirection;
+        hammer.transform.position = orthogonalDirection * (hammerWidth / 2f + _spinRadiusOffset);
+
+        //Set the angular velocity of the hammer to rotate according to the speed
+        Rigidbody2D pivotRB = pivot.GetComponent<Rigidbody2D>();
+        pivotRB.angularVelocity = 360f / _spinAttackDuration;
+
+        //Wait the duration and then put the hammer away
+        yield return new WaitForSeconds(_spinAttackDuration);
+        pivotRB.angularVelocity = 0;
+        hammer.SetActive(false);
     }
     #endregion
 
