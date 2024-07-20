@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour
@@ -15,23 +16,26 @@ public class ProjectileScript : MonoBehaviour
     #region Start Method
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        if (_rb != null)
-        {
-            // Assuming the projectile is facing right initially
-            _rb.velocity = transform.right * _speed;
-        }
-        else
-        {
-            Debug.LogError("Rigidbody2D component missing from the projectile!");
-        }
+        //_rb = GetComponent<Rigidbody2D>();
+        //if (_rb != null)
+        //{
+        //    // Assuming the projectile is facing right initially
+        //    _rb.velocity = transform.right * _speed;
+        //}
+        //else
+        //{
+        //    Debug.LogError("Rigidbody2D component missing from the projectile!");
+        //}
+
+        //Start a timer to delete the object
+        StartCoroutine("SelfDestruct");
     }
     #endregion
 
     #region Collision Handling
-    void OnTriggerEnter2D(Collider2D hitInfo)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerScript player = hitInfo.GetComponent<PlayerScript>();
+        PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
         if (player != null)
         {
             player.TakeDamage(_damage, 1f);
@@ -39,9 +43,17 @@ public class ProjectileScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Hit object is not a player: " + hitInfo.name);
+            Debug.Log("Hit object is not a player: " + collision.gameObject.name);
         }
-        Destroy(gameObject); // Destroy the projectile after it hits something
+        Destroy(this.gameObject); // Destroy the projectile after it hits something
     }
     #endregion
+
+    #region Self Destruct
+    private IEnumerator SelfDestruct()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(this.gameObject);
+    }
+    #endregion 
 }

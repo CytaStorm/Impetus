@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Health Pickup
+  - Enemy
+  - Weapon
   - Top Door
   - Bottom Door
   - Left Door
@@ -20,7 +22,7 @@ TagManager:
   - Weapon
   - Enemy
   - Walls
-  - 
+  - Projectiles
   - 
   - 
   - 

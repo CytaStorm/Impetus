@@ -61,6 +61,7 @@ public class EnemyScript : MonoBehaviour
     }
     #endregion
 
+    
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +90,7 @@ public class EnemyScript : MonoBehaviour
         //screenTop = mainCamera.transform.position.y + verticalExtent;
 
         //Get the script for this individual enemy type
-        
+
 
         //Safety check to make sure 
         if (player != null)
@@ -140,6 +141,7 @@ public class EnemyScript : MonoBehaviour
         {
             _enemyDied.Invoke();
         }
+
 
         // Keeps enemy on the screen
         //Vector3 enemyPos = transform.position;
