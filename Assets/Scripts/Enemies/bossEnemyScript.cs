@@ -66,8 +66,8 @@ public class bossEnemyScript : MonoBehaviour
 
         // ------------------------------CHANGE THIS TO MATCH BOSS BEHAVIORS-----------------------
         // Initialize AoE attack timer
-        //_aoeTimer = _aoeCooldown;
-        //Speed = Random.Range(1.5f, 10f);
+          _aoeTimer = _aoeCooldown;
+          Speed = 3f;
         // ----------------------------------------------------------------------------------------
     }
 
@@ -99,19 +99,17 @@ public class bossEnemyScript : MonoBehaviour
             _reachedEndOfPath = true;
         }
 
-        // ------------------------------CHANGE THIS TO MATCH BOSS BEHAVIORS-----------------------
         // AoE Attack
-        //_aoeTimer -= Time.deltaTime;
-        //if (_aoeTimer <= 0f)
-        //{
-        //    float distanceToPlayer = Vector2.Distance(this.transform.position, _target.transform.position);
-        //    if (distanceToPlayer <= _attackRange && distanceToPlayer >= _minAttackDistance)
-        //    {
-        //        PerformAoEAttack();
-        //        _aoeTimer = _aoeCooldown;
-        //    }
-        //}
-        // ----------------------------------------------------------------------------------------
+        _aoeTimer -= Time.deltaTime;
+        if (_aoeTimer <= 0f)
+        {
+            float distanceToPlayer = Vector2.Distance(this.transform.position, _target.transform.position);
+            if (distanceToPlayer <= _attackRange && distanceToPlayer >= _minAttackDistance)
+            {
+                _bossAttackScript.PerformAoEAttack(_aoeRadius, _aoeDamage);
+                _aoeTimer = _aoeCooldown;
+            }
+        }
 
         // Move the enemy towards the target position
         if (targetPosition != null)

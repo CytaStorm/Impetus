@@ -66,6 +66,66 @@ public class bossEnemyAttacksScript : MonoBehaviour
         
     }
 
+    #region PerformAoEAttack
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_aoeRadius"></param>
+    /// <param name="_aoeDamage"></param>
+    public void PerformAoEAttack(float _aoeRadius, float _aoeDamage)
+    {
+        int attackType = Random.Range(0, 3); 
+
+        switch (attackType)
+        {
+            case 0:
+                StartCoroutine(PerformBasicMeleeAttack());
+                break;
+            case 1:
+                StartCoroutine(SpinAttack());
+                break;
+            case 2:
+                PerformPlusGroundSmashAttack();
+                break;
+            case 3:
+                PerformXGroundSmashAttack();
+                break;
+        }
+    }// <summary>
+    /// Performs a (AoE) attack by randomly selecting one of the available attack types:
+    /// Basic Melee Attack, Spin Attack, Plus Ground Smash Attack, or X Ground Smash Attack.(more will be added)
+    /// </summary>
+    /// <param name="_aoeRadius">The radius of the AoE attack.</param>
+    /// <param name="_aoeDamage">The damage dealt by the AoE attack.</param>
+    public void PerformAoEAttack(float _aoeRadius, float _aoeDamage)
+    {
+        // Generate a random number between 0 and 3 to select the type of attack
+        int attackType = Random.Range(0, 3);
+
+        // Perform the selected attack based on the random number
+        switch (attackType)
+        {
+            case 0:
+                // Perform a basic melee attack
+                StartCoroutine(PerformBasicMeleeAttack());
+                break;
+            case 1:
+                // Perform a spin attack
+                StartCoroutine(SpinAttack());
+                break;
+            case 2:
+                // Perform a plus ground smash attack
+                PerformPlusGroundSmashAttack();
+                break;
+            case 3:
+                // Perform an X ground smash attack
+                PerformXGroundSmashAttack();
+                break;
+        }
+    }
+    #endregion
+
     #region BasicMeleeAttack
     IEnumerator PerformBasicMeleeAttack()
     {
