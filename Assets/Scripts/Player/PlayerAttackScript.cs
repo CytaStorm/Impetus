@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,37 +10,36 @@ public class PlayerAttackScript : MonoBehaviour
 	#region GameObject Components
 	[SerializeField] private GameObject _sword;
 	private Animator _swordAnimator;
-	private SpriteRenderer _swordSpriteRenderer;
+	[Space(10)]
 	[SerializeField] private AnimationClip _swingAnimationClip;
 	[SerializeField] private AnimationClip _thrustAnimationClip;
 	[SerializeField] private AnimationClip _slamAnimationClip;
+	[Space(10)]
+	[SerializeField] private GameObject _hitboxObject;
+	private BoxCollider2D _hitbox;
 	[Space(20)]
 	#endregion
 
 	#region Attack Properties
 	//Attack durations
-	[Range(0, 2)] [SerializeField] private float _swingAttackDuration;
-	[Range(0, 2)] [SerializeField] private float _thrustAttackDuration;
-	[Range(0, 2)] [SerializeField] private float _slamAttackDuration;
+	[Range(0, 2)][SerializeField] private float _swingAttackDuration;
+	[Range(0, 2)][SerializeField] private float _thrustAttackDuration;
+	[Range(0, 2)][SerializeField] private float _slamAttackDuration;
 
 	//Cooldowns
 	[SerializeField] private float _attackCooldownDuration = 2f;
-
 	private bool _swingReady = true;
 	private bool _thrustReady = true;
 	private bool _slamReady = true;
-
 	#endregion
 
 	// Start is called before the first frame update
 	private void Start()
 	{
+		_hitbox = _hitboxObject.GetComponent<BoxCollider2D>();
 		_swordAnimator = _sword.GetComponent<Animator>();
-		_swordSpriteRenderer = _sword.GetComponent<SpriteRenderer>();
-
 		SetAttackSpeeds();
 	}
-
 
 	// Update is called once per frame
 	void Update()
@@ -55,15 +55,20 @@ public class PlayerAttackScript : MonoBehaviour
 		_swordAnimator.SetTrigger("Swing");
 		SetAttackDirection();
 		StartCoroutine(BeginSwingCooldown());
+
+		//Hitbox
+
 		return;
 	}
 
 	public void OnThrustInput(InputAction.CallbackContext context)
-	{	
+	{
 		if (!context.performed || !_thrustReady) return;
 		_swordAnimator.SetTrigger("Thrust");
 		SetAttackDirection();
 		StartCoroutine(BeginThrustCooldown());
+
+		//Hitbox
 		return;
 	}
 
@@ -73,6 +78,8 @@ public class PlayerAttackScript : MonoBehaviour
 		_swordAnimator.SetTrigger("Slam");
 		SetAttackDirection();
 		StartCoroutine(BeginSlamCooldown());
+
+		//Hitbox
 		return;
 	}
 	#endregion
@@ -164,8 +171,25 @@ public class PlayerAttackScript : MonoBehaviour
 		#endregion
 
 		//Flip if attack on left to prevent animation rotating.
-		if (realAttackDirection == Vector2.left) _swordSpriteRenderer.flipX = true;
-		else _swordSpriteRenderer.flipX = false;
+		if (realAttackDirection == Vector2.left ||
+			realAttackDirection == Vector2.left + Vector2.down ||
+			realAttackDirection == Vector2.left + Vector2.up)
+		{
+			if (_sword.transform.localScale.x > 0)
+			{
+				_sword.transform.localScale = new Vector3(
+					_sword.transform.localScale.x * -1,
+					_sword.transform.localScale.y,
+					_sword.transform.localScale.z);
+			}
+		}
+		else
+		{
+			_sword.transform.localScale = new Vector3(
+				Mathf.Abs(_sword.transform.localScale.x),
+				_sword.transform.localScale.y,
+				_sword.transform.localScale.z);
+		}
 
 		_sword.transform.up = realAttackDirection;
 	}
