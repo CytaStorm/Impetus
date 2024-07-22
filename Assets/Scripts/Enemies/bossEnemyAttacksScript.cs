@@ -19,8 +19,8 @@ public class bossEnemyAttacksScript : MonoBehaviour
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private float _minAttackDistance = 1f;
     [SerializeField, Range(0f, 2f)] private float _meleeAttackDuration;
-    [SerializeField] private float _spinRadiusOffset;
-    [SerializeField] private float _spinAttackDuration;
+    [SerializeField, Range(0f, 3f)] private float _spinRadiusOffset;
+    [SerializeField, Range(1f, 5f)] private float _spinAttackDuration;
 
     //GameObjects
     [SerializeField] private GameObject _target;
@@ -28,17 +28,24 @@ public class bossEnemyAttacksScript : MonoBehaviour
     [SerializeField] private GameObject hammer;
     [SerializeField] private GameObject AOE;
     [SerializeField] private Sprite hammerSprite;
-    [SerializeField] private Sprite AOESprite;
+    private Rigidbody2D pivotRB;
 
     //useful values
-    private float hammerWidth;
+    private float hammerLength;
+    private Vector3 bossPos;
+    private Vector3 lastBossPos;
+    private bool rotating;
 
     #endregion
     void Start()
     {
         //Instantiate variables
         _smashTimer = _smashCooldown;
-        hammerWidth = hammerSprite.rect.width / hammerSprite.pixelsPerUnit;
+        hammerLength = hammerSprite.rect.width / hammerSprite.pixelsPerUnit;
+        lastBossPos = this.transform.position;
+        bossPos = this.transform.position;
+        pivotRB = pivot.GetComponent<Rigidbody2D>();
+        rotating = false;
 
         //Set weapons to inactive
         hammer.SetActive(false);
@@ -63,42 +70,32 @@ public class bossEnemyAttacksScript : MonoBehaviour
             }
         }
 
-        
+        //Keep the hammer moving with the boss, while keeping its velocities seperate.
+        //This allows me to use rigidbody2d instead of transform for the basic melee attack
+        if (hammer.activeInHierarchy)
+        {
+            //Update the boss positions and move based on their movement each frame
+            lastBossPos = bossPos;
+            bossPos = this.transform.position;
+            pivot.transform.position += bossPos - lastBossPos;
+
+            //While the spin attack keeps rotating true, rotate
+            if (rotating)
+            {
+                pivot.transform.Rotate(0, 0, 360f / _spinAttackDuration * Time.deltaTime);
+            }
+        }
     }
 
-    #region PerformAoEAttack
+    #region PerformAnyAttack
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="_aoeRadius"></param>
-    /// <param name="_aoeDamage"></param>
-    public void PerformAoEAttack(float _aoeRadius, float _aoeDamage)
-    {
-        int attackType = Random.Range(0, 3); 
-
-        switch (attackType)
-        {
-            case 0:
-                StartCoroutine(PerformBasicMeleeAttack());
-                break;
-            case 1:
-                StartCoroutine(SpinAttack());
-                break;
-            case 2:
-                PerformPlusGroundSmashAttack();
-                break;
-            case 3:
-                PerformXGroundSmashAttack();
-                break;
-        }
-    }// <summary>
     /// Performs a (AoE) attack by randomly selecting one of the available attack types:
     /// Basic Melee Attack, Spin Attack, Plus Ground Smash Attack, or X Ground Smash Attack.(more will be added)
     /// </summary>
     /// <param name="_aoeRadius">The radius of the AoE attack.</param>
     /// <param name="_aoeDamage">The damage dealt by the AoE attack.</param>
-    public void PerformAoEAttack(float _aoeRadius, float _aoeDamage)
+    public void PerformAnyAttack(float _aoeRadius, float _aoeDamage)
     {
         // Generate a random number between 0 and 3 to select the type of attack
         int attackType = Random.Range(0, 3);
@@ -130,15 +127,16 @@ public class bossEnemyAttacksScript : MonoBehaviour
     IEnumerator PerformBasicMeleeAttack()
     {
         hammer.SetActive(true);
+        bossPos = this.transform.position;
 
         //Get direction, rotation, and magnitude of the range of motion
         Vector3 direction = (_target.transform.position - this.transform.position).normalized;
-        hammer.transform.right = direction;
+        pivot.transform.right = direction;
         Vector3 attackVector = direction * _meleeRange;
 
         //Set position so that tip of hammer is at center of boss, pointed at the target
-        hammer.transform.position = -direction * (hammerWidth / 2f);
-        
+        pivot.transform.position = bossPos - direction * hammerLength;
+
         //Get rigidbody2D
         Rigidbody2D hammerRB = hammer.GetComponent<Rigidbody2D>();
 
@@ -159,6 +157,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
     IEnumerator SpinAttack()
     {
         hammer.SetActive(true);
+        bossPos = this.transform.position;
 
         //Get direction and get the direction 90 degrees from it
         Vector3 direction = (_target.transform.position - this.transform.position).normalized;
@@ -168,16 +167,14 @@ public class bossEnemyAttacksScript : MonoBehaviour
             0f);
 
         //Set the direction and position of the hammer
-        hammer.transform.right = orthogonalDirection;
-        hammer.transform.position = orthogonalDirection * (hammerWidth / 2f + _spinRadiusOffset);
+        pivot.transform.right = orthogonalDirection;
+        pivot.transform.position = bossPos + orthogonalDirection;
+        hammer.transform.position += orthogonalDirection * _spinRadiusOffset;
 
-        //Set the angular velocity of the hammer to rotate according to the speed
-        Rigidbody2D pivotRB = pivot.GetComponent<Rigidbody2D>();
-        pivotRB.angularVelocity = 360f / _spinAttackDuration;
-
-        //Wait the duration and then put the hammer away
+        //Rotate in update for the duration, then stop
+        rotating = true;
         yield return new WaitForSeconds(_spinAttackDuration);
-        pivotRB.angularVelocity = 0;
+        rotating = false;
         hammer.SetActive(false);
     }
     #endregion

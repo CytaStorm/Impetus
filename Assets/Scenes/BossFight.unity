@@ -769,8 +769,7 @@ Transform:
   m_LocalPosition: {x: -0.42, y: -0.01, z: 0}
   m_LocalScale: {x: 0.4334, y: 0.4334, z: 0.4334}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2103394395}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &204131774
@@ -809,14 +808,13 @@ MonoBehaviour:
   _attackRange: 5
   _minAttackDistance: 1
   _meleeAttackDuration: 1
-  _spinRadiusOffset: 0
-  _spinAttackDuration: 2
+  _spinRadiusOffset: 1.5
+  _spinAttackDuration: 4
   _target: {fileID: 178177027}
   pivot: {fileID: 2103394394}
   hammer: {fileID: 1439439365}
   AOE: {fileID: 1432269993}
   hammerSprite: {fileID: 21300000, guid: 0818895a773b6b64f91240610bf6213f, type: 3}
-  AOESprite: {fileID: 21300000, guid: 299a6e144e64d0f479dff70d7edf8bc4, type: 3}
 --- !u!114 &204131776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,7 +1099,7 @@ GameObject:
   - component: {fileID: 1432269995}
   - component: {fileID: 1432269997}
   - component: {fileID: 1432269996}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,11 +1278,11 @@ GameObject:
   - component: {fileID: 1439439370}
   m_Layer: 7
   m_Name: Hammer
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1439439366
 Transform:
   m_ObjectHideFlags: 0
@@ -1294,7 +1292,7 @@ Transform:
   m_GameObject: {fileID: 1439439365}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.845408, y: 0, z: 0}
   m_LocalScale: {x: 3.088614, y: 3.4330614, z: 2.3073373}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1610,7 +1608,7 @@ GameObject:
   - component: {fileID: 2103394395}
   - component: {fileID: 2103394396}
   - component: {fileID: 2103394397}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1625,14 +1623,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103394394}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.42, y: -0.01, z: 0}
+  m_LocalScale: {x: 0.4334, y: 0.4334, z: 0.4334}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1439439366}
   - {fileID: 1432269994}
-  m_Father: {fileID: 204131773}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2103394396
 SpriteRenderer:
@@ -1838,6 +1836,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 942144375}
   - {fileID: 204131773}
+  - {fileID: 2103394395}
   - {fileID: 178177038}
   - {fileID: 607772430}
   - {fileID: 2107070976}
