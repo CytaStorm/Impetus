@@ -39,8 +39,6 @@ public class bossEnemyScript : MonoBehaviour
     #endregion
 
     #region Enemy Movement Properties
-    [SerializeField] private float minSpeed = 0.05f;
-    [SerializeField] private float maxSpeed = 10.0f;
     private float enemySpeed;
     private Vector3 targetPosition;
     #endregion

@@ -64,9 +64,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
             float distanceToPlayer = Vector2.Distance(transform.position, _target.transform.position);
             if (distanceToPlayer <= _attackRange && distanceToPlayer >= _minAttackDistance)
             {
-                //NOT A METHOD just logic because we will need attack logic here
-                //PerformAttack();
-                _smashTimer = _smashCooldown;
+                PerformAnyAttack(2, 20);
             }
         }
 
@@ -147,6 +145,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
         hammerRB.velocity = attackVector / halfAttackDuration * -1;
         yield return new WaitForSeconds(halfAttackDuration);
         hammerRB.velocity = Vector2.zero;
+        _smashTimer = _smashCooldown;
 
         hammer.SetActive(false);
         print("doneMeleeing");
@@ -176,6 +175,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
         yield return new WaitForSeconds(_spinAttackDuration);
         rotating = false;
         hammer.SetActive(false);
+        _smashTimer = _smashCooldown;
     }
     #endregion
 
@@ -205,6 +205,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
                 break;
             }
         }
+        _smashTimer = _smashCooldown;
     }
     #endregion
 
@@ -233,6 +234,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
                 }
             }
         }
+        _smashTimer = _smashCooldown;
 
     }
     #endregion
