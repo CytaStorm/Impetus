@@ -184,24 +184,28 @@ public class bossEnemyAttacksScript : MonoBehaviour
     #region PlusGroundSmashAttack
     void PerformPlusGroundSmashAttack()
     {
-        // Define the directions for the '+' pattern
+        Debug.Log("Performing Plus Ground Smash Attack");
         Vector2[] attackDirections = new Vector2[]
         {
         Vector2.up, Vector2.down, Vector2.left, Vector2.right
         };
 
+        float boxWidth = 15f; // Adjust the width as necessary
+        float boxHeight = _attackRange;
+
         foreach (Vector2 direction in attackDirections)
         {
-            // Perform the raycast in the given direction
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, _attackRange);
-            // Check if the raycast hit the player
+            Vector2 boxSize = (direction == Vector2.left || direction == Vector2.right) ?
+                new Vector2(_attackRange, boxWidth) :
+                new Vector2(boxWidth, _attackRange);
+
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0, direction, _attackRange);
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
-                // Get the PlayerScript component
                 PlayerScript player = hit.collider.GetComponent<PlayerScript>();
                 if (player != null)
                 {
-                    // Apply damage to the player
+                    Debug.Log("Player hit in Plus Ground Smash!");
                     player.Health -= _smashDamage;
                 }
                 break;
@@ -214,30 +218,29 @@ public class bossEnemyAttacksScript : MonoBehaviour
     #region XGroundSmashAttack
     void PerformXGroundSmashAttack()
     {
-        // Define the directions for the 'x' pattern
+        Debug.Log("Performing X Ground Smash Attack");
         Vector2[] attackDirections = new Vector2[]
-    {
+        {
         new Vector2(1, 1), new Vector2(-1, -1), new Vector2(1, -1), new Vector2(-1, 1)
-    };
+        };
+
+        float boxWidth = 15f; // Adjust the width as necessary
 
         foreach (Vector2 direction in attackDirections)
         {
-            // Perform the raycast in the given direction
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, _attackRange);
-            // Check if the raycast hit the player
+            Vector2 boxSize = new Vector2(boxWidth, _attackRange);
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0, direction, _attackRange);
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
-                // Get the PlayerScript component
                 PlayerScript player = hit.collider.GetComponent<PlayerScript>();
                 if (player != null)
                 {
-                    // Apply damage to the player
+                    Debug.Log("Player hit in X Ground Smash!");
                     player.Health -= _smashDamage;
                 }
             }
         }
         _smashTimer = _smashCooldown;
-
     }
     #endregion
 
