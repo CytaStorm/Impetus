@@ -828,15 +828,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seeker: {fileID: 0}
-  _rb: {fileID: 0}
+  _rb: {fileID: 204131770}
   _target: {fileID: 178177027}
   _aoeRadius: 2
   _aoeDamage: 20
   _aoeCooldown: 5
-  _attackRange: 3
+  _attackRange: 10
   _minAttackDistance: 0
-  minSpeed: 0.05
-  maxSpeed: 10
 --- !u!114 &204131777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,7 +849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   drawGizmos: 1
-  detailedGizmos: 0
+  detailedGizmos: 1
   startEndModifier:
     addPoints: 0
     exactStartPoint: 3

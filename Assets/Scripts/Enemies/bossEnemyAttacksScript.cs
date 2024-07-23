@@ -103,11 +103,13 @@ public class bossEnemyAttacksScript : MonoBehaviour
         {
             case 0:
                 // Perform a basic melee attack
-                StartCoroutine(PerformBasicMeleeAttack());
+                //StartCoroutine(PerformBasicMeleeAttack());
+                PerformXGroundSmashAttack();
                 break;
             case 1:
                 // Perform a spin attack
-                StartCoroutine(SpinAttack());
+                // StartCoroutine(SpinAttack());
+                PerformPlusGroundSmashAttack();
                 break;
             case 2:
                 // Perform a plus ground smash attack
@@ -246,27 +248,31 @@ public class bossEnemyAttacksScript : MonoBehaviour
     /// </summary>
     void OnDrawGizmosSelected()
     {
-        // Set the color of the Gizmos to red
-        Gizmos.color = Color.red;
-        // Draw a ray upward from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, Vector2.up * _attackRange);
-        // Draw a ray downward from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, Vector2.down * _attackRange);
-        // Draw a ray to the left from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, Vector2.left * _attackRange);
-        // Draw a ray to the right from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, Vector2.right * _attackRange);
+        if(_attackRange > 0)
+        {
+            // Set the color of the Gizmos to red
+            Gizmos.color = Color.red;
+            // Draw a ray upward from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, Vector2.up * _attackRange);
+            // Draw a ray downward from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, Vector2.down * _attackRange);
+            // Draw a ray to the left from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, Vector2.left * _attackRange);
+            // Draw a ray to the right from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, Vector2.right * _attackRange);
 
-        // Set the color of the Gizmos to blue
-        Gizmos.color = Color.blue;
-        // Draw a diagonal ray (top-right) from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, new Vector2(1, 1) * _attackRange);
-        // Draw a diagonal ray (bottom-left) from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, new Vector2(-1, -1) * _attackRange);
-        // Draw a diagonal ray (top-left) from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, new Vector2(1, -1) * _attackRange);
-        // Draw a diagonal ray (bottom-right) from the current position with the length of the attack range
-        Gizmos.DrawRay(transform.position, new Vector2(-1, 1) * _attackRange);
+            // Set the color of the Gizmos to blue
+            Gizmos.color = Color.blue;
+            // Draw a diagonal ray (top-right) from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, new Vector2(1, 1) * _attackRange);
+            // Draw a diagonal ray (bottom-left) from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, new Vector2(-1, -1) * _attackRange);
+            // Draw a diagonal ray (top-left) from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, new Vector2(1, -1) * _attackRange);
+            // Draw a diagonal ray (bottom-right) from the current position with the length of the attack range
+            Gizmos.DrawRay(transform.position, new Vector2(-1, 1) * _attackRange);
+        }
+        
     }
     #endregion
 

@@ -21,7 +21,7 @@ public class bossEnemyScript : MonoBehaviour
     private float _aoeTimer;       // Timer to track the AoE cooldown
 
     // Attack range variables
-    [SerializeField] private float _attackRange = 3f; // Distance to start the attack
+    [SerializeField] private float _attackRange = 5f; // Distance to start the attack
     [SerializeField] private float _minAttackDistance = 0f; // Minimum distance to perform the attack
     #endregion
 
