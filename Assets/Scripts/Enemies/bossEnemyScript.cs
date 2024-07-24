@@ -53,12 +53,6 @@ public class bossEnemyScript : MonoBehaviour
         _enemyScript = this.GetComponent<EnemyScript>();
         _bossAttackScript = this.GetComponent<bossEnemyAttacksScript>();
 
-        // SPECIFIC TO BOSS
-        _enemyScript.EnemyHealth = 500;
-        _enemyScript.AetherIncrease = 100;
-        _enemyScript.EnemyDamage = 40;
-        _enemyScript.FlowWorth = 500;
-
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
 
