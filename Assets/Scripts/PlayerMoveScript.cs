@@ -26,6 +26,10 @@ public class PlayerMovementScript : MonoBehaviour
     /// Used for SmoothDamp in Update(), requires a ref.
     /// </summary>
     private Vector3 _smoothDampVector = Vector3.zero;
+    /// <summary>
+    /// If the absolute value of the x or y velocity is lower than this value it will be set to 0.
+    /// </summary>
+    private float _moveClamp = 0.1f;
     #endregion
 
 	#region Dashing
@@ -51,7 +55,19 @@ public class PlayerMovementScript : MonoBehaviour
         _rigidbody.velocity = Vector3.SmoothDamp(_rigidbody.velocity, _moveVector,
             ref _smoothDampVector, _movementSmoothing);
 
-        _animator.SetFloat("Speed", _rigidbody.velocity.magnitude);
+        // clamp velocity values
+        if (Mathf.Abs(_rigidbody.velocity.x) < _moveClamp)
+        {
+            _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);            
+        }
+        if (Mathf.Abs(_rigidbody.velocity.y) < _moveClamp)
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
+        }
+
+        // update animator values based on rigidbody velocity
+        _animator.SetFloat("XVelocity", _rigidbody.velocity.x);
+        _animator.SetFloat("YVelocity", _rigidbody.velocity.y);
 
         if (!_dashReady)
         {
