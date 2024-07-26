@@ -124,8 +124,8 @@ public class LevelManagerScript : MonoBehaviour
 	}
 	private void GenerateFirstRoom()
 	{
-		_layout.AddFirst(Instantiate(_normalRooms[
-					Random.Range(0, _normalRooms.Count)].GetComponent<RoomScript>()));
+		_layout.AddFirst(Instantiate(_normalRooms[Random.Range(
+			0, _normalRooms.Count)], transform).GetComponent<RoomScript>());
 		_layout.First.Value.SetupFirstRoomDoor();
 		_currentRoomNode = _layout.First;
 	}
@@ -162,7 +162,7 @@ public class LevelManagerScript : MonoBehaviour
 			//	Quaternion.identity).GetComponent<RoomScript>());
 			_layout.AddLast(Instantiate(
 				listToPickFrom[Random.Range(
-					0, listToPickFrom.Count)].GetComponent<RoomScript>()));
+					0, listToPickFrom.Count)], transform).GetComponent<RoomScript>());
 			_layout.Last.Value.SetupMiddleRoomDoors(
 				newRoomEntranceDoorDirection,
 				_layout.Last.Previous.Value);
@@ -194,7 +194,7 @@ public class LevelManagerScript : MonoBehaviour
 		}
 		_layout.AddLast(Instantiate(
 			listToPickFrom[Random.Range(
-				0, listToPickFrom.Count)].GetComponent<RoomScript>()));
+				0, listToPickFrom.Count)], transform).GetComponent<RoomScript>());
 		_layout.Last.Value.SetupBossRoomDoors(
 			GetOppositeDoorDirection(_layout.Last.Previous.Value.ExitDoor.tag),
 			_layout.Last.Previous.Value);

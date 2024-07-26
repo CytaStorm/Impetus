@@ -23,6 +23,7 @@ public class BigEnemyScript : MonoBehaviour
     // Attack range variables
     [SerializeField] private float _attackRange = 3f; // Distance to start the attack
     [SerializeField] private float _minAttackDistance = 0f; // Minimum distance to perform the attack
+
     #endregion
 
     #region Constant Variables
@@ -52,12 +53,6 @@ public class BigEnemyScript : MonoBehaviour
         _seeker = this.GetComponent<Seeker>();
         _rb = this.GetComponent<Rigidbody2D>();
         _enemyScript = this.GetComponent<EnemyScript>();
-
-        // SPECIFIC TO BIG ENEMY
-        _enemyScript.EnemyHealth = 250;
-        _enemyScript.AetherIncrease = 50;
-        _enemyScript.EnemyDamage = 10;
-        _enemyScript.FlowWorth = 200;
 
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);

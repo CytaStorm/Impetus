@@ -41,12 +41,6 @@ public class SmallEnemyScript : MonoBehaviour
         _rb = this.GetComponent<Rigidbody2D>();
         _enemyScript = this.GetComponent<EnemyScript>();
 
-        // SPECIFIC TO SMALL ENEMY
-        _enemyScript.EnemyHealth = 100;
-        _enemyScript.AetherIncrease = 10;
-        _enemyScript.EnemyDamage = 10;
-        _enemyScript.FlowWorth = 50;
-
         // Set random speed between 2.0f and 10.0f
         _speed = Random.Range(2.0f, 10.0f);
 

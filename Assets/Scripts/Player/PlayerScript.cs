@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 /**  PLAYER STATS
  *      The purpose of this class is to create ways for enemies or
  *   other items and upgrades etc to interact with the stats of the player
@@ -64,6 +65,10 @@ public class PlayerScript : MonoBehaviour, IDamageable
 	[Header("Flow")]
 	public float Flow;
 	public float MaxFlow;
+	public float FlowRatio
+	{
+		get => Flow / MaxFlow;
+	}
 	[Range(1, 5)] public int FlowState;
 	
 	/// <summary>
@@ -176,21 +181,18 @@ public class PlayerScript : MonoBehaviour, IDamageable
             Destroy(gameObject);
         }
         else Player = this;
+
     }
 
 	// Start is called before the first frame update
 	void Start()
 	{
+		PlayerDied.AddListener(MenuScript.Menu.GameOver);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (Health <= 0)
-		{
-			PlayerDied.Invoke();
-		}
-
 		//Decrease flow state over time.
 		Flow -= MaxFlow / _flowStateMaxDropTimesSeconds[FlowState] *
 			Time.deltaTime;
