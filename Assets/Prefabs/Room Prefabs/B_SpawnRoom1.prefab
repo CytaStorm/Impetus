@@ -705,7 +705,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1774746497
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2462,7 +2462,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1774746497
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -11164,10 +11164,6 @@ MonoBehaviour:
   HasBottomDoor: 1
   HasLeftDoor: 0
   HasRightDoor: 0
-  EntranceDoor: {fileID: 0}
-  ExitDoor: {fileID: 0}
-  EntranceDoorScript: {fileID: 0}
-  ExitDoorScript: {fileID: 0}
 --- !u!1001 &1772209627388249989
 PrefabInstance:
   m_ObjectHideFlags: 0

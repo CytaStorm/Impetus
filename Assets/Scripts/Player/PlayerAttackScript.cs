@@ -14,9 +14,6 @@ public class PlayerAttackScript : MonoBehaviour
 	[SerializeField] private AnimationClip _swingAnimationClip;
 	[SerializeField] private AnimationClip _thrustAnimationClip;
 	[SerializeField] private AnimationClip _slamAnimationClip;
-	[Space(10)]
-	[SerializeField] private GameObject _hitboxObject;
-	private BoxCollider2D _hitbox;
 	[Space(20)]
 	#endregion
 
@@ -36,7 +33,6 @@ public class PlayerAttackScript : MonoBehaviour
 	// Start is called before the first frame update
 	private void Start()
 	{
-		_hitbox = _hitboxObject.GetComponent<BoxCollider2D>();
 		_swordAnimator = _sword.GetComponent<Animator>();
 		SetAttackSpeeds();
 	}

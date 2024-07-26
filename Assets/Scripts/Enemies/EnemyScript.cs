@@ -164,7 +164,7 @@ public class EnemyScript : MonoBehaviour
         // Check if the colliding object has the tag "Weapon"
         // to see if the weapon is hitting the enemy
 
-        if (collision.CompareTag("Weapon"))
+        if (collision.gameObject.CompareTag("Weapon"))
         {
             print("Player hit enemy!");
             float playerDamage = _player.AttackDamage;
