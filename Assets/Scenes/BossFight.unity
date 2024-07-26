@@ -786,10 +786,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 178177027}
   weapon: {fileID: 1697370793}
-  _enemyHealth: 0
-  _aetherIncrease: 0
-  _enemyDamage: 0
-  _flowWorth: 0
+  _enemyHealth: 100
+  _aetherIncrease: 100
+  _enemyDamage: 2
+  _flowWorth: 100
 --- !u!114 &204131775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,7 +1280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1439439366
 Transform:
   m_ObjectHideFlags: 0

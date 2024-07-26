@@ -50,9 +50,6 @@ public class bossEnemyAttacksScript : MonoBehaviour
         //Set weapons to inactive
         hammer.SetActive(false);
         AOE.SetActive(false);
-
-        //StartCoroutine("PerformBasicMeleeAttack");
-        StartCoroutine("SpinAttack");
     }
 
     void Update()
