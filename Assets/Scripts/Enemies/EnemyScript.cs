@@ -186,7 +186,7 @@ public class EnemyScript : MonoBehaviour
 
             //Regain aether on the player
             _player.Aether += _aetherIncrease;
-        }     
+        }
     }
     #endregion
 

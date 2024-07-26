@@ -35,9 +35,7 @@ public class MenuScript : MonoBehaviour
 
 	public void GameOver()
 	{
-		print("here0");
 		StartCoroutine(GoToGameOver(_gameOverScreenDelaySeconds));
-		print("here");
 	}
 	IEnumerator GoToGameOver(float delayTime)
 	{
