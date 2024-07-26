@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class BigEnemyScript : MonoBehaviour
+public class bossEnemyScript : MonoBehaviour
 {
     #region Variables
     // Variable Declarations
@@ -21,9 +21,8 @@ public class BigEnemyScript : MonoBehaviour
     private float _aoeTimer;       // Timer to track the AoE cooldown
 
     // Attack range variables
-    [SerializeField] private float _attackRange = 3f; // Distance to start the attack
+    [SerializeField] private float _attackRange = 5f; // Distance to start the attack
     [SerializeField] private float _minAttackDistance = 0f; // Minimum distance to perform the attack
-
     #endregion
 
     #region Constant Variables
@@ -36,11 +35,10 @@ public class BigEnemyScript : MonoBehaviour
     #region Scripts
     // Get the universal enemy script from our enemy
     private EnemyScript _enemyScript;
+    private bossEnemyAttacksScript _bossAttackScript;
     #endregion
 
     #region Enemy Movement Properties
-    [SerializeField] private float minSpeed = 0.05f;
-    [SerializeField] private float maxSpeed = 10.0f;
     private float enemySpeed;
     private Vector3 targetPosition;
     #endregion
@@ -53,13 +51,16 @@ public class BigEnemyScript : MonoBehaviour
         _seeker = this.GetComponent<Seeker>();
         _rb = this.GetComponent<Rigidbody2D>();
         _enemyScript = this.GetComponent<EnemyScript>();
+        _bossAttackScript = this.GetComponent<bossEnemyAttacksScript>();
 
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
 
+        // ------------------------------CHANGE THIS TO MATCH BOSS BEHAVIORS-----------------------
         // Initialize AoE attack timer
-        _aoeTimer = _aoeCooldown;
-        Speed = Random.Range(1.5f, 10f);
+          _aoeTimer = _aoeCooldown;
+          Speed = 3f;
+        // ----------------------------------------------------------------------------------------
     }
 
     // Update is called once per frame
@@ -97,7 +98,7 @@ public class BigEnemyScript : MonoBehaviour
             float distanceToPlayer = Vector2.Distance(this.transform.position, _target.transform.position);
             if (distanceToPlayer <= _attackRange && distanceToPlayer >= _minAttackDistance)
             {
-                PerformAoEAttack();
+                _bossAttackScript.PerformAnyAttack(_aoeRadius, _aoeDamage);
                 _aoeTimer = _aoeCooldown;
             }
         }
@@ -123,43 +124,6 @@ public class BigEnemyScript : MonoBehaviour
             _reachedEndOfPath = false;
             _currentWaypoint = 0;
         }
-    }
-    #endregion
-
-    #region Perform Big Enemy Attack
-    /// <summary>
-    /// Perform an area-of-effect attack.
-    /// </summary>
-    void PerformAoEAttack()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(this.transform.position, _aoeRadius);
-
-        foreach (var hitCollider in hitColliders)
-        {
-            // Check if the hit object is a player
-            if (!hitCollider.CompareTag("Player"))
-            {
-                continue; // Skip non-player colliders
-            }
-            // Apply damage to the player
-            PlayerScript player = hitCollider.gameObject.GetComponent<PlayerScript>();
-            if (player != null)
-            {
-                player.Health -= _aoeDamage;
-            }
-        }
-    }
-    #endregion
-
-    #region Draw Attack Radius
-    /// <summary>
-    /// Draw the AoE radius when selected.
-    /// </summary>
-    void OnDrawGizmosSelected()
-    {
-        // Draw the AoE radius when selected
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(this.transform.position, _aoeRadius);
     }
     #endregion
 }

@@ -44,12 +44,6 @@ public class RangedEnemyScript : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _enemyScript = GetComponent<EnemyScript>();
 
-        // SPECIFIC TO MEDIUM ENEMY
-        _enemyScript.EnemyHealth = 300;
-        _enemyScript.AetherIncrease = 20;
-        _enemyScript.EnemyDamage = 15;
-        _enemyScript.FlowWorth = 100;
-
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating(nameof(CalculatePath), 0f, .25f);
     }
