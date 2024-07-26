@@ -6,7 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+	public static MenuScript Menu 
+	{
+		get; private set; 
+	}
+
 	[SerializeField] private float _gameOverScreenDelaySeconds;
+
+	private void Awake()
+    {
+        if (Menu != null &&
+			Menu != this)
+        {
+            Destroy(gameObject);
+        }
+        else Menu = this;
+    }
+
 	public void MainMenu()
 	{
 		SceneManager.LoadScene(0);
@@ -14,17 +30,19 @@ public class MenuScript : MonoBehaviour
 
 	public void StartGame()
 	{
-		SceneManager.LoadScene(1);
+		SceneManager.LoadScene(2);
 	}
 
 	public void GameOver()
 	{
+		print("here0");
 		StartCoroutine(GoToGameOver(_gameOverScreenDelaySeconds));
+		print("here");
 	}
 	IEnumerator GoToGameOver(float delayTime)
 	{
 		yield return new WaitForSeconds(delayTime);
-		SceneManager.LoadScene(2);
+		SceneManager.LoadScene(1);
 	}
 
 	public void Retry()
