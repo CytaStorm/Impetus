@@ -100,13 +100,11 @@ public class bossEnemyAttacksScript : MonoBehaviour
         {
             case 0:
                 // Perform a basic melee attack
-                //StartCoroutine(PerformBasicMeleeAttack());
-                PerformXGroundSmashAttack();
+                StartCoroutine(PerformBasicMeleeAttack());
                 break;
             case 1:
                 // Perform a spin attack
-                // StartCoroutine(SpinAttack());
-                PerformPlusGroundSmashAttack();
+                StartCoroutine(SpinAttack());
                 break;
             case 2:
                 // Perform a plus ground smash attack
