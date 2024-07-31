@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Room1EnemySpawn : MonoBehaviour
 {
     #region Variables
     // Serialized fields allow these variables to be set in the Unity Editor
