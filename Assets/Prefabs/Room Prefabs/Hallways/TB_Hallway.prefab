@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &212983333621134942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4147418040291237738}
+  - component: {fileID: 8435720479097194990}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4147418040291237738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212983333621134942}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.013, y: 2.475, z: 4.8067465}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1964095744463653419}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8435720479097194990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212983333621134942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb26ec83571b39a4f9701453ee3adc68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallEnemy: {fileID: 2346838787717900255, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
+  smallEnemyCount: 1
+  rangedEnemy: {fileID: 1889082817444708342, guid: fe14e84530aaf7547bac3edaf27daddf, type: 3}
+  rangedEnemyCount: 1
+  bigEnemy: {fileID: 2644824056525507382, guid: 9849a40bb51dd7c45b49bada3962ff0b, type: 3}
+  bigEnemyCount: 1
+  spawnAreaCenter1: {x: -8, y: 2.5}
+  spawnAreaSize1: {x: 6, y: 6}
+  spawnAreaCenter2: {x: 0, y: 2.5}
+  spawnAreaSize2: {x: 6, y: 6}
 --- !u!1 &3160179697392536795
 GameObject:
   m_ObjectHideFlags: 0
@@ -14177,5 +14231,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 535676157327394292}
+  - {fileID: 4147418040291237738}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
