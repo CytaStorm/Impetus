@@ -13472,6 +13472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3238859376350605958}
+  - component: {fileID: 9123632253923915431}
   m_Layer: 0
   m_Name: RB_L-Shaped1
   m_TagString: Untagged
@@ -13496,3 +13497,22 @@ Transform:
   - {fileID: 5009647939881127657}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9123632253923915431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7754584114012455793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d682440ff0523c4e9a5861b81f3f014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doors:
+  - {fileID: 0}
+  - {fileID: 0}
+  HasTopDoor: 0
+  HasBottomDoor: 1
+  HasLeftDoor: 0
+  HasRightDoor: 1

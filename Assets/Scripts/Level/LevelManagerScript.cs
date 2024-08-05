@@ -67,7 +67,7 @@ public class LevelManagerScript : MonoBehaviour
 	{
 	}
 
-	private void SortRooms()
+    /*private void SortRooms()
 	{
 		foreach (GameObject room in _normalRooms)
 		{
@@ -113,9 +113,95 @@ public class LevelManagerScript : MonoBehaviour
 			}
 		}
 		return;
-	}
+	}*/
 
-	private void GenerateLayout(int roomsToMake)
+    /*private void SortRooms()
+    {
+        if (_normalRooms == null)
+        {
+            Debug.LogError("Normal rooms list is not initialized.");
+            return;
+        }
+
+        foreach (GameObject room in _normalRooms)
+        {
+            if (room == null)
+            {
+                Debug.LogWarning("A room in the normal rooms list is null.");
+                continue;
+            }
+
+            RoomScript roomScript = room.GetComponent<RoomScript>();
+            if (roomScript == null)
+            {
+                Debug.LogWarning($"Room {room.name} does not have a RoomScript component.");
+                continue;
+            }
+
+            if (roomScript.HasLeftDoor)
+            {
+                _hasLeftDoor.Add(room);
+            }
+            if (roomScript.HasRightDoor)
+            {
+                _hasRightDoor.Add(room);
+            }
+            if (roomScript.HasTopDoor)
+            {
+                _hasTopDoor.Add(room);
+            }
+            if (roomScript.HasBottomDoor)
+            {
+                _hasBottomDoor.Add(room);
+            }
+        }
+    }*/
+
+    private void SortRooms()
+    {
+        if (_normalRooms == null)
+        {
+            Debug.LogError("Normal rooms list is not initialized.");
+            return;
+        }
+
+        foreach (GameObject room in _normalRooms)
+        {
+            if (room == null)
+            {
+                Debug.LogWarning("A room in the normal rooms list is null.");
+                continue;
+            }
+
+            RoomScript roomScript = room.GetComponent<RoomScript>();
+            if (roomScript == null)
+            {
+                Debug.LogWarning($"Room {room.name} does not have a RoomScript component. Adding it now.");
+                roomScript = room.AddComponent<RoomScript>();
+            }
+
+            if (roomScript.HasLeftDoor)
+            {
+                _hasLeftDoor.Add(room);
+            }
+            if (roomScript.HasRightDoor)
+            {
+                _hasRightDoor.Add(room);
+            }
+            if (roomScript.HasTopDoor)
+            {
+                _hasTopDoor.Add(room);
+            }
+            if (roomScript.HasBottomDoor)
+            {
+                _hasBottomDoor.Add(room);
+            }
+        }
+    }
+
+
+
+    private void GenerateLayout(int roomsToMake)
 	{
 		GenerateFirstRoom();
 		GenerateMiddleRooms(roomsToMake - 2);
@@ -273,3 +359,4 @@ public class LevelManagerScript : MonoBehaviour
 		}
 	}
 }
+
