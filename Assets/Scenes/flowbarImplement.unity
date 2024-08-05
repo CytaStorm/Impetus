@@ -1474,9 +1474,9 @@ MonoBehaviour:
   - {fileID: 1584543716470538495, guid: bd79fd7be00241a468ef94ae525fbf83, type: 3}
   - {fileID: 2480332301730071200, guid: 1531379ee8830a949a6f17204cad3ced, type: 3}
   _bossRooms:
-  - {fileID: 6956265128088141517, guid: 30113e698479fca4aa2c0091c9418d50, type: 3}
-  - {fileID: 4098339546443991505, guid: 2984ab43d34bb294aab95b1103824c97, type: 3}
-  - {fileID: 3930390152670468904, guid: 94dcdc460cd5260438f245e42d0c5237, type: 3}
+  - {fileID: 4098339546443991505, guid: 8548231b3e4debd4ba584b87f9c6261e, type: 3}
+  - {fileID: 3930390152670468904, guid: 4e672cb5532d9b4428fcef7a28fdbc06, type: 3}
+  - {fileID: 1137878678698275791, guid: 7e8fd82c2383b5d44b7d99f54c8b2134, type: 3}
   _roomsToMake: 5
   RoomNumber: 1
   ChangeRoom:
