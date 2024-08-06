@@ -95,6 +95,7 @@ public class RoomScript : MonoBehaviour
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -114,8 +115,22 @@ public class RoomScript : MonoBehaviour
     public DoorScript EntranceDoorScript { get; private set; }
     public DoorScript ExitDoorScript { get; private set; }
 
+    private void Awake()
+    {
+        if (_doors == null || _doors.Count == 0)
+        {
+            UnityEngine.Debug.LogError("Doors not assigned in " + gameObject.name);
+        }
+    }
+
     public void SetupFirstRoomDoor()
     {
+        if (_doors == null || _doors.Count < 2)
+        {
+            UnityEngine.Debug.LogError("Not enough doors assigned in " + gameObject.name);
+            return;
+        }
+
         //Set entrance door
         int entranceDoorIndex = Random.Range(0, 2);
         foreach (GameObject door in _doors)
