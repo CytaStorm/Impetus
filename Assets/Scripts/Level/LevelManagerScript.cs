@@ -67,95 +67,95 @@ public class LevelManagerScript : MonoBehaviour
 	{
 	}
 
-    /*private void SortRooms()
-	{
-		foreach (GameObject room in _normalRooms)
-		{
-			RoomScript roomScript = room.GetComponent<RoomScript>();
-			//Boss rooms are separated into their own category.
-			if (roomScript.HasLeftDoor)
-			{
-				_hasLeftDoor.Add(room);
-			}
-			if (roomScript.HasRightDoor)
-			{
-				_hasRightDoor.Add(room);
-			}
-			if (roomScript.HasTopDoor)
-			{
-				_hasTopDoor.Add(room);
-			}
-			if (roomScript.HasBottomDoor)
-			{
-				_hasBottomDoor.Add(room);
-			}
-		}
+ //   private void SortRooms()
+	//{
+	//	foreach (GameObject room in _normalRooms)
+	//	{
+	//		RoomScript roomScript = room.GetComponent<RoomScript>();
+	//		//Boss rooms are separated into their own category.
+	//		if (roomScript.HasLeftDoor)
+	//		{
+	//			_hasLeftDoor.Add(room);
+	//		}
+	//		if (roomScript.HasRightDoor)
+	//		{
+	//			_hasRightDoor.Add(room);
+	//		}
+	//		if (roomScript.HasTopDoor)
+	//		{
+	//			_hasTopDoor.Add(room);
+	//		}
+	//		if (roomScript.HasBottomDoor)
+	//		{
+	//			_hasBottomDoor.Add(room);
+	//		}
+	//	}
 
-		//Sort boss rooms
-		foreach (GameObject room in _bossRooms)
-		{
-			RoomScript roomScript = room.GetComponent<RoomScript>();
-			if (roomScript.HasLeftDoor)
-			{
-				_bossRoomHasLeftDoor.Add(room);
-			}
-			if (roomScript.HasRightDoor)
-			{
-				_bossRoomHasRightDoor.Add(room);
-			}
-			if (roomScript.HasTopDoor)
-			{
-				_bossRoomHasTopDoor.Add(room);
-			}
-			if (roomScript.HasBottomDoor)
-			{
-				_bossRoomHasBottomDoor.Add(room);
-			}
-		}
-		return;
-	}*/
+	//	//Sort boss rooms
+	//	foreach (GameObject room in _bossRooms)
+	//	{
+	//		RoomScript roomScript = room.GetComponent<RoomScript>();
+	//		if (roomScript.HasLeftDoor)
+	//		{
+	//			_bossRoomHasLeftDoor.Add(room);
+	//		}
+	//		if (roomScript.HasRightDoor)
+	//		{
+	//			_bossRoomHasRightDoor.Add(room);
+	//		}
+	//		if (roomScript.HasTopDoor)
+	//		{
+	//			_bossRoomHasTopDoor.Add(room);
+	//		}
+	//		if (roomScript.HasBottomDoor)
+	//		{
+	//			_bossRoomHasBottomDoor.Add(room);
+	//		}
+	//	}
+	//	return;
+	//}
 
-    /*private void SortRooms()
-    {
-        if (_normalRooms == null)
-        {
-            Debug.LogError("Normal rooms list is not initialized.");
-            return;
-        }
+    //private void SortRooms()
+    //{
+    //    if (_normalRooms == null)
+    //    {
+    //        Debug.LogError("Normal rooms list is not initialized.");
+    //        return;
+    //    }
 
-        foreach (GameObject room in _normalRooms)
-        {
-            if (room == null)
-            {
-                Debug.LogWarning("A room in the normal rooms list is null.");
-                continue;
-            }
+    //    foreach (GameObject room in _normalRooms)
+    //    {
+    //        if (room == null)
+    //        {
+    //            Debug.LogWarning("A room in the normal rooms list is null.");
+    //            continue;
+    //        }
 
-            RoomScript roomScript = room.GetComponent<RoomScript>();
-            if (roomScript == null)
-            {
-                Debug.LogWarning($"Room {room.name} does not have a RoomScript component.");
-                continue;
-            }
+    //        RoomScript roomScript = room.GetComponent<RoomScript>();
+    //        if (roomScript == null)
+    //        {
+    //            Debug.LogWarning($"Room {room.name} does not have a RoomScript component.");
+    //            continue;
+    //        }
 
-            if (roomScript.HasLeftDoor)
-            {
-                _hasLeftDoor.Add(room);
-            }
-            if (roomScript.HasRightDoor)
-            {
-                _hasRightDoor.Add(room);
-            }
-            if (roomScript.HasTopDoor)
-            {
-                _hasTopDoor.Add(room);
-            }
-            if (roomScript.HasBottomDoor)
-            {
-                _hasBottomDoor.Add(room);
-            }
-        }
-    }*/
+    //        if (roomScript.HasLeftDoor)
+    //        {
+    //            _hasLeftDoor.Add(room);
+    //        }
+    //        if (roomScript.HasRightDoor)
+    //        {
+    //            _hasRightDoor.Add(room);
+    //        }
+    //        if (roomScript.HasTopDoor)
+    //        {
+    //            _hasTopDoor.Add(room);
+    //        }
+    //        if (roomScript.HasBottomDoor)
+    //        {
+    //            _hasBottomDoor.Add(room);
+    //        }
+    //    }
+    //}
 
     private void SortRooms()
     {
