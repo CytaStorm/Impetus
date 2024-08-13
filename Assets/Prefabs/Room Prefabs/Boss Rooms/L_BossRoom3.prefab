@@ -3719,7 +3719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doors:
-  - {fileID: 0}
+  - {fileID: 7074732458949316661}
   HasTopDoor: 0
   HasBottomDoor: 0
   HasLeftDoor: 1
@@ -24063,5 +24063,10 @@ PrefabInstance:
 --- !u!4 &2736955279720980511 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4455143813191018972, guid: b5640787ce6e6cb468d4509552268711, type: 3}
+  m_PrefabInstance: {fileID: 1740720296083687875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7074732458949316661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8792777251318405622, guid: b5640787ce6e6cb468d4509552268711, type: 3}
   m_PrefabInstance: {fileID: 1740720296083687875}
   m_PrefabAsset: {fileID: 0}
