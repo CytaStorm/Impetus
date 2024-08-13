@@ -19,7 +19,8 @@ public class RangedEnemyScript : MonoBehaviour
 
     // Constants
     private const float NextWaypointDistance = .5f;
-    private const float Speed = 1f;
+
+    //Ranged stats
     [SerializeField] private float _detectionRange = 10f;
     [SerializeField] private float _evadeRange = 3f;
     [SerializeField] private float _approachRange = 5f;
@@ -27,6 +28,9 @@ public class RangedEnemyScript : MonoBehaviour
     [SerializeField] private float _releaseSpeed = 1f; // Pause between each attack
     private float _nextFireTime;
     private Vector3 _lastKnownPlayerPosition;
+    private float Speed;
+    [SerializeField] private float minSpeed;
+    [SerializeField] private float maxSpeed;
     #endregion
 
     #region Scripts
@@ -46,6 +50,9 @@ public class RangedEnemyScript : MonoBehaviour
 
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating(nameof(CalculatePath), 0f, .25f);
+
+        //Set speed
+        Speed = Random.Range(minSpeed, maxSpeed);
     }
     #endregion
 

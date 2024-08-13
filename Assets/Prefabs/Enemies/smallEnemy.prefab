@@ -159,6 +159,8 @@ MonoBehaviour:
   _seeker: {fileID: 0}
   _rb: {fileID: 0}
   _target: {fileID: 0}
+  _minSpeed: 1
+  _maxSpeed: 6
 --- !u!58 &1251854128965715328
 CircleCollider2D:
   m_ObjectHideFlags: 0

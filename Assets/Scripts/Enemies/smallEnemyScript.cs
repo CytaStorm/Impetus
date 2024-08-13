@@ -28,6 +28,8 @@ public class SmallEnemyScript : MonoBehaviour
 
     #region Variable Speed
     // Variable speed for each small enemy instance
+    [SerializeField] private float _minSpeed;
+    [SerializeField] private float _maxSpeed;
     private float _speed;
     #endregion
 
@@ -41,8 +43,8 @@ public class SmallEnemyScript : MonoBehaviour
         _rb = this.GetComponent<Rigidbody2D>();
         _enemyScript = this.GetComponent<EnemyScript>();
 
-        // Set random speed between 2.0f and 10.0f
-        _speed = Random.Range(2.0f, 10.0f);
+        // Set random speed between x and y
+        _speed = Random.Range(_minSpeed, _maxSpeed);
 
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
