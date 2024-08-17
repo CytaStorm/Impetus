@@ -59,7 +59,7 @@ public class BigEnemyScript : MonoBehaviour
 
         // Initialize AoE attack timer
         _aoeTimer = _aoeCooldown;
-        Speed = Random.Range(1.5f, 10f);
+        Speed = Random.Range(minSpeed, maxSpeed);
     }
 
     // Update is called once per frame
