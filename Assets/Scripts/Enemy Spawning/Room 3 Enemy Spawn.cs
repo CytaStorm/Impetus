@@ -6,11 +6,11 @@ public class Room3EnemySpawn : MonoBehaviour
 {
     #region Variables
     [SerializeField] private GameObject smallEnemy; // Prefab for small enemy
-    [SerializeField] private int smallEnemyCount;   // Number of small enemies to spawn
+    private int smallEnemyCount;   // Number of small enemies to spawn
     [SerializeField] private GameObject rangedEnemy; // Prefab for ranged enemy
-    [SerializeField] private int rangedEnemyCount;   // Number of ranged enemies to spawn
+    private int rangedEnemyCount;   // Number of ranged enemies to spawn
     [SerializeField] private GameObject bigEnemy;    // Prefab for big enemy
-    [SerializeField] private int bigEnemyCount;      // Number of big enemies to spawn
+    private int bigEnemyCount;      // Number of big enemies to spawn
 
     [SerializeField] private Vector2 spawnAreaCenter1; // Center point of the first spawn area
     [SerializeField] private Vector2 spawnAreaSize1;   // Size (width and height) of the first spawn area
@@ -23,13 +23,13 @@ public class Room3EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Spawn the small enemies within all defined spawn areas
-        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter1, spawnAreaSize1);
-        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter1, spawnAreaSize1);
-        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+        //Do from 1-2 of each type of enemy in each room
+        smallEnemyCount = Random.Range(1, 2);
+        rangedEnemyCount = Random.Range(1, 2);
+        bigEnemyCount = Random.Range(1, 2);
 
         //For each small enemy we wanna spawn
-        for(int i = 0; i < smallEnemyCount; i++)
+        for (int i = 0; i < smallEnemyCount; i++)
         {
             int spawnLocaion = Random.Range(0, 2);
             switch(spawnLocaion)
@@ -46,16 +46,41 @@ public class Room3EnemySpawn : MonoBehaviour
             }
         }
 
-        // Spawn the ranged enemies within all defined spawn areas
+        //For each ranged enemy we wanna spawn
+        for (int i = 0; i < rangedEnemyCount; i++)
+        {
+            int spawnLocaion = Random.Range(0, 2);
+            switch (spawnLocaion)
+            {
+                case 0:
+                    SpawnEnemies(rangedEnemy, smallEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+                    break;
+                case 1:
+                    SpawnEnemies(rangedEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+                    break;
+                case 2:
+                    SpawnEnemies(rangedEnemy, smallEnemyCount, spawnAreaCenter3, spawnAreaSize3);
+                    break;
+            }
+        }
 
-        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
-        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter2, spawnAreaSize2);
-        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter2, spawnAreaSize2);
-
-        // Spawn the big enemies within all defined spawn areas
-        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter3, spawnAreaSize3);
-        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter3, spawnAreaSize3);
-        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter3, spawnAreaSize3);
+        //For each big enemy we wanna spawn
+        for (int i = 0; i < bigEnemyCount; i++)
+        {
+            int spawnLocaion = Random.Range(0, 2);
+            switch (spawnLocaion)
+            {
+                case 0:
+                    SpawnEnemies(bigEnemy, smallEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+                    break;
+                case 1:
+                    SpawnEnemies(bigEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+                    break;
+                case 2:
+                    SpawnEnemies(bigEnemy, smallEnemyCount, spawnAreaCenter3, spawnAreaSize3);
+                    break;
+            }
+        }
     }
 
     // Update is called once per frame
