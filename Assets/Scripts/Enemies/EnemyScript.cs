@@ -10,6 +10,7 @@ public class EnemyScript : MonoBehaviour
     #region GameObjects
     public GameObject player;
     public GameObject weapon;
+    [SerializeField] private GameObject levelManager;
     #endregion
 
     //SpriteRenderer
@@ -20,11 +21,13 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private float _aetherIncrease;
     [SerializeField] private float _enemyDamage;
     [SerializeField] private float _flowWorth;
+    [SerializeField] private int myRoomNumber;
     #endregion
 
     #region Scripts
-    //Script
+    //Scripts
     private PlayerScript _player;
+    private LevelManagerScript levelManagerScript;
 
     //Event
     private UnityEvent _enemyDied;
@@ -59,6 +62,10 @@ public class EnemyScript : MonoBehaviour
     {
         set { _flowWorth = value; }
     }
+    public int MyRoomNumber
+    {
+        get { return myRoomNumber; }
+    }
     #endregion
 
     
@@ -70,6 +77,13 @@ public class EnemyScript : MonoBehaviour
         //Get the player via tag instead of relying on dragging him into the public box in unity UI
         player = GameObject.FindWithTag("Player");
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+
+        //Get the levelManager object's script
+        levelManager = GameObject.FindWithTag("Level Manager");
+        levelManagerScript = levelManager.GetComponent<LevelManagerScript>();
+
+        //Set the myRoomNumber to the room number when the enemy spawns (in the start method)
+        myRoomNumber = levelManagerScript.RoomNumber;
 
         // this._enemyHealth = 100;
 
@@ -137,6 +151,17 @@ public class EnemyScript : MonoBehaviour
     void Update()
     
     {
+        //Set the enemy to inactive or active depending on what level it's on
+        if(this.isActiveAndEnabled)
+        {
+            if(levelManagerScript.RoomNumber != myRoomNumber)
+            {
+                levelManagerScript.inactiveEnemyScripts.Add(this);
+                this.gameObject.SetActive(false);
+            }
+        }
+
+        //Activate enemy death if health is 0 or lower
         if (this._enemyHealth <= 0)
         {
             _enemyDied.Invoke();

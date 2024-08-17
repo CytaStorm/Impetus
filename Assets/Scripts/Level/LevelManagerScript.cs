@@ -47,7 +47,11 @@ public class LevelManagerScript : MonoBehaviour
 
 	[HideInInspector] public UnityEvent<int> ChangeRoom;
 
-	private void Awake()
+    #region Inactive Enemy List
+	public List<EnemyScript> inactiveEnemyScripts = new List<EnemyScript>();
+    #endregion
+
+    private void Awake()
 	{
 		if (LevelManager != null &&
 			LevelManager != this)
@@ -274,5 +278,22 @@ public class LevelManagerScript : MonoBehaviour
 			}
 			_currentRoom.SetActive(true);
 		}
-	}
+
+        //Respawn enemies if we go back to a previous room
+		List<EnemyScript> scriptsToRemove = new List<EnemyScript>();
+        foreach (EnemyScript enemyScript in inactiveEnemyScripts)
+        {
+            if (enemyScript.MyRoomNumber == RoomNumber)
+            {
+                enemyScript.gameObject.SetActive(true);
+				scriptsToRemove.Add(enemyScript);
+            }
+        }
+
+		//Remove the reactivated enemies from the inactive enemies list
+		foreach(EnemyScript script in scriptsToRemove)
+		{
+			inactiveEnemyScripts.Remove(script);
+		}
+    }
 }
