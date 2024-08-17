@@ -12,6 +12,7 @@ TagManager:
   - Left Door
   - Right Door
   - Level Manager
+  - Grid
   layers:
   - Default
   - TransparentFX

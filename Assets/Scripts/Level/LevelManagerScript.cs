@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using Pathfinding;
 
 public class LevelManagerScript : MonoBehaviour
 {
@@ -49,6 +50,11 @@ public class LevelManagerScript : MonoBehaviour
 
     #region Inactive Enemy List
 	public List<EnemyScript> inactiveEnemyScripts = new List<EnemyScript>();
+	#endregion
+
+	#region A* Pathfinding
+	[SerializeField] private GameObject gridObject;
+	[SerializeField] private Grid grid;
     #endregion
 
     private void Awake()
@@ -66,6 +72,8 @@ public class LevelManagerScript : MonoBehaviour
 		SortRooms();
         GenerateLayout(RoomsToMake);
         ChangeRoom.AddListener(LoadNewRoom);
+		gridObject = GameObject.FindWithTag("Grid");
+		grid = gridObject.GetComponent<Pathfinder>();
 	}
 
 	void Update()
@@ -257,6 +265,9 @@ public class LevelManagerScript : MonoBehaviour
 	/// changed through.</param>
 	private void LoadNewRoom(int roomNumber)
 	{
+		//Rescan the graph with A* Pathfinding
+		//AstarPath.active.UpdateGraphs(new GraphUpdateObject(bounds);
+
 		Debug.Log("Load new room");
 		if (roomNumber > 0)
 		{
