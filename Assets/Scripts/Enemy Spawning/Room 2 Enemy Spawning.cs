@@ -23,14 +23,14 @@ public class Room2Enemy : MonoBehaviour
     {
 
         // Make 1-2 of each type of enemy
-        smallEnemyCount = Random.Range(1, 2);
-        rangedEnemyCount = Random.Range(1, 2);
-        bigEnemyCount = Random.Range(1, 2);
+        smallEnemyCount = UnityEngine.Random.Range(1, 2);
+        rangedEnemyCount = UnityEngine.Random.Range(1, 2);
+        bigEnemyCount = UnityEngine.Random.Range(1, 2);
 
         // For each small enemy
         for (int i = 0; i < smallEnemyCount; i++)
         {
-            int spawnLocaion = Random.Range(0, 2);
+            int spawnLocaion = UnityEngine.Random.Range(0, 2);
             switch (spawnLocaion)
             {
                 case 0:
@@ -45,7 +45,7 @@ public class Room2Enemy : MonoBehaviour
         // For each ranged enemy
         for (int i = 0; i < smallEnemyCount; i++)
         {
-            int spawnLocaion = Random.Range(0, 2);
+            int spawnLocaion = UnityEngine.Random.Range(0, 2);
             switch (spawnLocaion)
             {
                 case 0:
@@ -60,7 +60,7 @@ public class Room2Enemy : MonoBehaviour
         // For each big enemy
         for (int i = 0; i < smallEnemyCount; i++)
         {
-            int spawnLocaion = Random.Range(0, 2);
+            int spawnLocaion = UnityEngine.Random.Range(0, 2);
             switch (spawnLocaion)
             {
                 case 0:
@@ -92,8 +92,8 @@ public class Room2Enemy : MonoBehaviour
         for (int i = 0; i < enemyCount; i++)
         {
             // Generate a random position within the spawn area bounds
-            float randomX = Random.Range(areaCenter.x - areaSize.x / 2, areaCenter.x + areaSize.x / 2);
-            float randomY = Random.Range(areaCenter.y - areaSize.y / 2, areaCenter.y + areaSize.y / 2);
+            float randomX = UnityEngine.Random.Range(areaCenter.x - areaSize.x / 2, areaCenter.x + areaSize.x / 2);
+            float randomY = UnityEngine.Random.Range(areaCenter.y - areaSize.y / 2, areaCenter.y + areaSize.y / 2);
             Vector2 randomPosition = new Vector2(randomX, randomY);
 
             // Instantiate the enemy at the random position with no rotation (Quaternion.identity)
