@@ -7,11 +7,11 @@ public class Room1EnemySpawn : MonoBehaviour
     #region Variables
     // Serialized fields allow these variables to be set in the Unity Editor
     [SerializeField] private GameObject smallEnemy; // Prefab for small enemy
-    [SerializeField] private int smallEnemyCount;   // Number of small enemies to spawn
+    private int smallEnemyCount;   // Number of small enemies to spawn
     [SerializeField] private GameObject rangedEnemy; // Prefab for ranged enemy
-    [SerializeField] private int rangedEnemyCount;   // Number of ranged enemies to spawn
+    private int rangedEnemyCount;   // Number of ranged enemies to spawn
     [SerializeField] private GameObject bigEnemy;    // Prefab for big enemy
-    [SerializeField] private int bigEnemyCount;      // Number of big enemies to spawn
+    private int bigEnemyCount;      // Number of big enemies to spawn
 
     [SerializeField] private Vector2 spawnAreaCenter; // Center point of the spawn area rectangle
     [SerializeField] private Vector2 spawnAreaSize;   // Size (width and height) of the spawn area rectangle
@@ -21,12 +21,11 @@ public class Room1EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Spawn the small enemies within the defined spawn area
+        smallEnemyCount = UnityEngine.Random.Range(1, 2);
+        rangedEnemyCount = UnityEngine.Random.Range(0, 2);
+
         SpawnEnemies(smallEnemy, smallEnemyCount);
-        // Spawn the ranged enemies within the defined spawn area
         SpawnEnemies(rangedEnemy, rangedEnemyCount);
-        // Spawn the big enemies within the defined spawn area
-        SpawnEnemies(bigEnemy, bigEnemyCount);
     }
 
     // Update is called once per frame

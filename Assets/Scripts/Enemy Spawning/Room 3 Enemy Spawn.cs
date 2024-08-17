@@ -24,14 +24,14 @@ public class Room3EnemySpawn : MonoBehaviour
     void Start()
     {
         //Do from 1-2 of each type of enemy in each room
-        smallEnemyCount = Random.Range(1, 2);
-        rangedEnemyCount = Random.Range(1, 2);
-        bigEnemyCount = Random.Range(1, 2);
+        smallEnemyCount = UnityEngine.Random.Range(1, 2);
+        rangedEnemyCount = UnityEngine.Random.Range(1, 2);
+        bigEnemyCount = UnityEngine.Random.Range(1, 2);
 
         //For each small enemy we wanna spawn
         for (int i = 0; i < smallEnemyCount; i++)
         {
-            int spawnLocaion = Random.Range(0, 2);
+            int spawnLocaion = UnityEngine.Random.Range(0, 2);
             switch(spawnLocaion)
             {
                 case 0:
@@ -49,7 +49,7 @@ public class Room3EnemySpawn : MonoBehaviour
         //For each ranged enemy we wanna spawn
         for (int i = 0; i < rangedEnemyCount; i++)
         {
-            int spawnLocaion = Random.Range(0, 2);
+            int spawnLocaion = UnityEngine.Random.Range(0, 2);
             switch (spawnLocaion)
             {
                 case 0:
@@ -67,7 +67,7 @@ public class Room3EnemySpawn : MonoBehaviour
         //For each big enemy we wanna spawn
         for (int i = 0; i < bigEnemyCount; i++)
         {
-            int spawnLocaion = Random.Range(0, 2);
+            int spawnLocaion = UnityEngine.Random.Range(0, 2);
             switch (spawnLocaion)
             {
                 case 0:
