@@ -11,6 +11,7 @@ TagManager:
   - Bottom Door
   - Left Door
   - Right Door
+  - Level Manager
   layers:
   - Default
   - TransparentFX
