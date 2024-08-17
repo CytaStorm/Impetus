@@ -28,6 +28,24 @@ public class Room3EnemySpawn : MonoBehaviour
         SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter1, spawnAreaSize1);
         SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter1, spawnAreaSize1);
 
+        //For each small enemy we wanna spawn
+        for(int i = 0; i < smallEnemyCount; i++)
+        {
+            int spawnLocaion = Random.Range(0, 2);
+            switch(spawnLocaion)
+            {
+                case 0:
+                    SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+                    break;
+                case 1:
+                    SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+                    break;
+                case 2:
+                    SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter3, spawnAreaSize3);
+                    break;
+            }
+        }
+
         // Spawn the ranged enemies within all defined spawn areas
 
         SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
