@@ -16,6 +16,7 @@ public class RangedEnemyScript : MonoBehaviour
     [SerializeField] private LayerMask _obstructionMask; // LayerMask for detecting obstructions
     [SerializeField] private GameObject _projectilePrefab; // Prefab for the projectile
     [SerializeField] private Transform _firePoint; // Point from where the projectile is fired
+    [SerializeField] private Animator _animator; // Animator
 
     // Constants
     private const float NextWaypointDistance = .5f;
@@ -67,6 +68,7 @@ public class RangedEnemyScript : MonoBehaviour
                 // Evade player
                 Vector2 direction = (transform.position - _target.transform.position).normalized;
                 _rb.velocity = direction * Speed;
+		        FindWalkAnimationDirection(direction);
             }
             else if (distanceToPlayer <= _approachRange)
             {
@@ -92,28 +94,57 @@ public class RangedEnemyScript : MonoBehaviour
     /// Move towards the player.
     /// </summary>
     void MoveTowardsPlayer()
-    {
-        // Move towards the next waypoint
-        Vector2 direction = (_path.vectorPath[_currentWaypoint] - transform.position);
-        _rb.velocity = direction.normalized * Speed;
+	{
+		// Move towards the next waypoint
+		Vector2 direction = (_path.vectorPath[_currentWaypoint] - transform.position);
+		_rb.velocity = direction.normalized * Speed;
 
-        // If the distance is small enough, switch to the next waypoint
-        if (direction.magnitude <= NextWaypointDistance)
-        {
-            _currentWaypoint++;
-        }
+		//Find direction enemy is moving in to play correct animation
+		FindWalkAnimationDirection(direction);
 
-        // Are we at the end of the path?
-        if (_currentWaypoint >= _path.vectorPath.Count)
-        {
-            _reachedEndOfPath = true;
-        }
-    }
+		// If the distance is small enough, switch to the next waypoint
+		if (direction.magnitude <= NextWaypointDistance)
+		{
+			_currentWaypoint++;
+		}
 
-    /// <summary>
-    /// Calculate a new path (this is done every half second or second or so).
-    /// </summary>
-    void CalculatePath()
+		// Are we at the end of the path?
+		if (_currentWaypoint >= _path.vectorPath.Count)
+		{
+			_reachedEndOfPath = true;
+		}
+	}
+
+	private void FindWalkAnimationDirection(Vector2 direction)
+	{
+		if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+		{
+			if (direction.x < 0)
+			{
+				_animator.SetTrigger("WalkLeft");
+			}
+			else
+			{
+				_animator.SetTrigger("WalkRight");
+			}
+		}
+		else
+		{
+			if (direction.y > 0)
+			{
+				_animator.SetTrigger("WalkUp");
+			}
+			else
+			{
+				_animator.SetTrigger("WalkDown");
+			}
+		}
+	}
+
+	/// <summary>
+	/// Calculate a new path (this is done every half second or second or so).
+	/// </summary>
+	void CalculatePath()
     {
         // First make sure the seeker is done calculating the last path
         if (_seeker.IsDone())
@@ -139,10 +170,41 @@ public class RangedEnemyScript : MonoBehaviour
             Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
             Vector2 direction = (_lastKnownPlayerPosition - _firePoint.position).normalized; // Calculate direction
             rbProjectile.velocity = direction * _projectilePrefab.GetComponent<ProjectileScript>().Speed;
-            Debug.Log("Projectile Direction: " + direction);
+            //Debug.Log("Projectile Direction: " + direction);
             // Update next fire time
             _nextFireTime = Time.time + 1f / _fireRate;
         }
+    }
+
+    private void FindAttackAnimationDirection(Vector2 direction)
+    {
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+		{
+			if (direction.x < 0)
+			{
+				print("Attacking left");
+				_animator.SetTrigger("AttackLeft");
+			}
+			else
+			{
+				print("Attacking right");
+				_animator.SetTrigger("AttackRight");
+			}
+		}
+		else
+		{
+			if (direction.y > 0)
+			{
+				print("Attacking up");
+				_animator.SetTrigger("AttackUp");
+			}
+			else
+			{
+				print("Attacking down");
+				_animator.SetTrigger("AttackDown");
+			}
+		}
+
     }
     #endregion
 

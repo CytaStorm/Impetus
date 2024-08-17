@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5491414150102322931}
   - component: {fileID: 7156780480421364919}
   - component: {fileID: 6432743966836146115}
+  - component: {fileID: 6115475586991552732}
   m_Layer: 8
   m_Name: rangedEnemy
   m_TagString: Untagged
@@ -76,6 +77,7 @@ MonoBehaviour:
     m_Bits: 512
   _projectilePrefab: {fileID: 7156175955842977294, guid: 2d12650bd42f4044991882fb00d7db44, type: 3}
   _firePoint: {fileID: 1709862754229236118}
+  _animator: {fileID: 6115475586991552732}
   _detectionRange: 10
   _evadeRange: 3
   _approachRange: 5
@@ -223,6 +225,27 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!95 &6115475586991552732
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889082817444708342}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8f35ad31047d4642889cd39e5bfca3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3322562453631952698
 GameObject:
   m_ObjectHideFlags: 0
