@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,17 +21,56 @@ public class Room2Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Spawn the small enemies within both defined spawn areas
-        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter1, spawnAreaSize1);
-        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
 
-        // Spawn the ranged enemies within both defined spawn areas
-        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter1, spawnAreaSize1);
-        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+        // Make 1-2 of each type of enemy
+        smallEnemyCount = Random.Range(1, 2);
+        rangedEnemyCount = Random.Range(1, 2);
+        bigEnemyCount = Random.Range(1, 2);
 
-        // Spawn the big enemies within both defined spawn areas
-        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter1, spawnAreaSize1);
-        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+        // For each small enemy
+        for (int i = 0; i < smallEnemyCount; i++)
+        {
+            int spawnLocaion = Random.Range(0, 2);
+            switch (spawnLocaion)
+            {
+                case 0:
+                    SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+                    break;
+                case 1:
+                    SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+                    break;
+            }
+        }
+
+        // For each ranged enemy
+        for (int i = 0; i < smallEnemyCount; i++)
+        {
+            int spawnLocaion = Random.Range(0, 2);
+            switch (spawnLocaion)
+            {
+                case 0:
+                    SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+                    break;
+                case 1:
+                    SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+                    break;
+            }
+        }
+
+        // For each big enemy
+        for (int i = 0; i < smallEnemyCount; i++)
+        {
+            int spawnLocaion = Random.Range(0, 2);
+            switch (spawnLocaion)
+            {
+                case 0:
+                    SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+                    break;
+                case 1:
+                    SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+                    break;
+            }
+        }
     }
 
     // Update is called once per frame
