@@ -60,7 +60,7 @@ public class Room2Enemy : MonoBehaviour
         // For each big enemy
         for (int i = 0; i < smallEnemyCount; i++)
         {
-            int spawnLocaion = UnityEngine.Random.Range(0, 2);
+            int spawnLocaion = UnityEngine.Random.Range(0, 1);
             switch (spawnLocaion)
             {
                 case 0:
