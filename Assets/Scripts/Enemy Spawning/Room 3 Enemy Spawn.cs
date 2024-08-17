@@ -25,17 +25,18 @@ public class Room3EnemySpawn : MonoBehaviour
     {
         // Spawn the small enemies within all defined spawn areas
         SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter1, spawnAreaSize1);
-        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
-        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter3, spawnAreaSize3);
+        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter1, spawnAreaSize1);
 
         // Spawn the ranged enemies within all defined spawn areas
-        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter1, spawnAreaSize1);
+
+        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter2, spawnAreaSize2);
         SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter2, spawnAreaSize2);
-        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter3, spawnAreaSize3);
+        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter2, spawnAreaSize2);
 
         // Spawn the big enemies within all defined spawn areas
-        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter1, spawnAreaSize1);
-        SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter2, spawnAreaSize2);
+        SpawnEnemies(smallEnemy, smallEnemyCount, spawnAreaCenter3, spawnAreaSize3);
+        SpawnEnemies(rangedEnemy, rangedEnemyCount, spawnAreaCenter3, spawnAreaSize3);
         SpawnEnemies(bigEnemy, bigEnemyCount, spawnAreaCenter3, spawnAreaSize3);
     }
 
