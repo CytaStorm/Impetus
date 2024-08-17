@@ -15,6 +15,12 @@ public class SmallEnemyScript : MonoBehaviour
     [SerializeField] private GameObject _target; // Target the enemy is moving towards
     #endregion
 
+    #region Enemy Movement Properties
+    [SerializeField] private float minSpeed = 0.05f;
+    [SerializeField] private float maxSpeed = 10.0f;
+    private float Speed;
+    #endregion
+
     #region Scripts
     // Get the universal enemy script from our enemy
     private EnemyScript _enemyScript;
@@ -24,11 +30,6 @@ public class SmallEnemyScript : MonoBehaviour
     // NextWaypointDistance represents the distance you CAN be from the target waypoint before
     // switching to the next waypoint. This helps curve the path and make it more natural.
     private const float NextWaypointDistance = .5f;
-    #endregion
-
-    #region Variable Speed
-    // Variable speed for each small enemy instance
-    private float _speed;
     #endregion
 
     #region Start Method
@@ -42,7 +43,7 @@ public class SmallEnemyScript : MonoBehaviour
         _enemyScript = this.GetComponent<EnemyScript>();
 
         // Set random speed between 2.0f and 10.0f
-        _speed = Random.Range(2.0f, 10.0f);
+        Speed = Random.Range(minSpeed, maxSpeed);
 
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating("CalculatePath", 0f, .25f);
@@ -64,7 +65,7 @@ public class SmallEnemyScript : MonoBehaviour
         Vector2 direction = (_path.vectorPath[_currentWaypoint] - this.transform.position);
 
         // Multiply direction by speed and move
-        _rb.velocity = direction.normalized * _speed;
+        _rb.velocity = direction.normalized * Speed;
 
         // If the distance is small enough, switch to next waypoint
         if (direction.magnitude <= NextWaypointDistance)

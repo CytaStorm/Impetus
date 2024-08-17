@@ -81,6 +81,8 @@ MonoBehaviour:
   _approachRange: 5
   _fireRate: 3
   _releaseSpeed: 0.75
+  minSpeed: 0.05
+  maxSpeed: 3
 --- !u!58 &628562157391216318
 CircleCollider2D:
   m_ObjectHideFlags: 0
