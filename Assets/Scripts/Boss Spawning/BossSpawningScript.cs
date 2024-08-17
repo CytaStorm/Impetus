@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class BossSpawningScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public GameObject bossPrefab;
+    [SerializeField] public Transform spawnPoint; 
+    private bool bossSpawned = false;
+
+    // This function is called when another collider enters the trigger collider
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player") && !bossSpawned)
+        {
+            SpawnBoss();
+            bossSpawned = true; // Ensure the boss only spawns once
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void SpawnBoss()
     {
-        
+        Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 }
