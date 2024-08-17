@@ -22,21 +22,25 @@ public class RoomScript : MonoBehaviour
 	public void SetupFirstRoomDoor()
 	{
 		//Set entrance door
-		int entranceDoorIndex = Random.Range(0, 2);
-		foreach (GameObject door in _doors)
-		{
-			if (door.tag == _doors[entranceDoorIndex].tag)
-			{
-				EntranceDoor = door;
-				continue;
-			}
-			//Only other door is exit.
-			ExitDoor = door;
-			ExitDoorScript = door.GetComponent<DoorScript>();
-			ExitDoorScript.IsExit = true;
-			continue;
-		}
-	}
+		//int entranceDoorIndex = Random.Range(0, 2);
+		//foreach (GameObject door in _doors)
+		//{
+		//	if (door.tag == _doors[entranceDoorIndex].tag)
+		//	{
+		//		EntranceDoor = door;
+		//		continue;
+		//	}
+		//	//Only other door is exit.
+		//	ExitDoor = door;
+		//	ExitDoorScript = door.GetComponent<DoorScript>();
+		//	ExitDoorScript.IsExit = true;
+		//	continue;
+		//}
+
+        ExitDoor = _doors[0];
+        ExitDoorScript = _doors[0].GetComponent<DoorScript>();
+        ExitDoorScript.IsExit = true;
+    }
 
 	public void SetupMiddleRoomDoors(string entranceDirection,
 		RoomScript prevRoomScript)

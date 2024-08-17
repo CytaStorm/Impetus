@@ -14,6 +14,7 @@ public class LevelManagerScript : MonoBehaviour
 	}
 
 	#region Room Tagging/Sorting
+	[SerializeField] private List<GameObject> _spawnRooms;
 	[SerializeField] private List<GameObject> _normalRooms;
 	[SerializeField] private List<GameObject> _bossRooms;
 
@@ -41,7 +42,7 @@ public class LevelManagerScript : MonoBehaviour
 	private LinkedListNode<RoomScript> _currentRoomNode;
 	private GameObject _currentRoom { get => _currentRoomNode.Value.gameObject; }
 	//Number of room player is in.
-	[HideInInspector] public int RoomNumber = 1;
+	public int RoomNumber = 1;
 	#endregion
 
 	[HideInInspector] public UnityEvent<int> ChangeRoom;
@@ -59,8 +60,8 @@ public class LevelManagerScript : MonoBehaviour
 	void Start()
 	{
 		SortRooms();
-		GenerateLayout(RoomsToMake);
-		ChangeRoom.AddListener(LoadNewRoom);
+        GenerateLayout(RoomsToMake);
+        ChangeRoom.AddListener(LoadNewRoom);
 	}
 
 	void Update()
@@ -118,14 +119,14 @@ public class LevelManagerScript : MonoBehaviour
 	private void GenerateLayout(int roomsToMake)
 	{
 		GenerateFirstRoom();
-		GenerateMiddleRooms(roomsToMake - 2);
-		GenerateBossRoom();
-		SetPlayerSpawn();
-	}
+        GenerateMiddleRooms(roomsToMake - 2);
+        GenerateBossRoom();
+        SetPlayerSpawn();
+    }
 	private void GenerateFirstRoom()
 	{
-		_layout.AddFirst(Instantiate(_normalRooms[Random.Range(
-			0, _normalRooms.Count)], transform).GetComponent<RoomScript>());
+		_layout.AddFirst(Instantiate(_spawnRooms[Random.Range(
+			0, _spawnRooms.Count)], transform).GetComponent<RoomScript>());
 		_layout.First.Value.SetupFirstRoomDoor();
 		_currentRoomNode = _layout.First;
 	}
@@ -202,28 +203,29 @@ public class LevelManagerScript : MonoBehaviour
 	}
 	private void SetPlayerSpawn()
 	{
-		Vector3 DirectionToSendPlayer;
-		float nextDoorOffset = 1.25f;
-		switch (_layout.First.Value.EntranceDoor.tag)
-		{
-		    case "Top Door":
-		        DirectionToSendPlayer = Vector3.down;
-		        break;
-		    case "Bottom Door":
-		        DirectionToSendPlayer = Vector3.up;
-		        break;
-		    case "Left Door":
-		        DirectionToSendPlayer = Vector3.right;
-		        break;
-		    case "Right Door":
-		        DirectionToSendPlayer = Vector3.left;
-		        break;
-		    default:
-		        throw new UnityException("Untagged Door!");
-		}
-		PlayerScript.Player.transform.position = 
-			_layout.First.Value.EntranceDoor.transform.position + 
-			DirectionToSendPlayer * nextDoorOffset;
+		//Vector3 DirectionToSendPlayer;
+		//float nextDoorOffset = 1.25f;
+		//switch (_layout.First.Value.EntranceDoor.tag)
+		//{
+		//    case "Top Door":
+		//        DirectionToSendPlayer = Vector3.down;
+		//        break;
+		//    case "Bottom Door":
+		//        DirectionToSendPlayer = Vector3.up;
+		//        break;
+		//    case "Left Door":
+		//        DirectionToSendPlayer = Vector3.right;
+		//        break;
+		//    case "Right Door":
+		//        DirectionToSendPlayer = Vector3.left;
+		//        break;
+		//    default:
+		//        throw new UnityException("Untagged Door!");
+		//}
+
+		PlayerScript.Player.transform.position = Vector3.zero;
+			//_layout.First.Value.EntranceDoor.transform.position + 
+			//DirectionToSendPlayer * nextDoorOffset;
 	}
 
 	private string GetOppositeDoorDirection(string doorDirection)
@@ -251,6 +253,7 @@ public class LevelManagerScript : MonoBehaviour
 	/// changed through.</param>
 	private void LoadNewRoom(int roomNumber)
 	{
+		Debug.Log("Load new room");
 		if (roomNumber > 0)
 		{
 			_currentRoom.SetActive(false);
