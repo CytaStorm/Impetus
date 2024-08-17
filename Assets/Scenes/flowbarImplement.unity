@@ -1458,6 +1458,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871fac96c7808fd43a73f4b392868b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnRooms:
+  - {fileID: 8347965522173622318, guid: 18caa5704e93a0149987d8c167859007, type: 3}
+  - {fileID: 4066002279075294632, guid: 4f8d82c2d9a6d4a498778506e46440e3, type: 3}
+  - {fileID: 4066002279075294632, guid: 8f50638a1f2c5d04eb0edcb951e34326, type: 3}
+  - {fileID: 8347965522173622318, guid: d885ed085598179439f3aef42e808a87, type: 3}
   _normalRooms:
   - {fileID: 5210866907368249425, guid: 489c0bec7b471ff42a75b1d9ae3fe92e, type: 3}
   - {fileID: 8972345335849547278, guid: 5261f46aca69c8f4e9441d58effba8b4, type: 3}
@@ -1473,10 +1478,6 @@ MonoBehaviour:
   - {fileID: 7192705353767064889, guid: 406e02ed38288ec43b3b5f167432d214, type: 3}
   - {fileID: 1584543716470538495, guid: bd79fd7be00241a468ef94ae525fbf83, type: 3}
   - {fileID: 2480332301730071200, guid: 1531379ee8830a949a6f17204cad3ced, type: 3}
-  - {fileID: 8347965522173622318, guid: 18caa5704e93a0149987d8c167859007, type: 3}
-  - {fileID: 4066002279075294632, guid: 4f8d82c2d9a6d4a498778506e46440e3, type: 3}
-  - {fileID: 4066002279075294632, guid: 8f50638a1f2c5d04eb0edcb951e34326, type: 3}
-  - {fileID: 8347965522173622318, guid: d885ed085598179439f3aef42e808a87, type: 3}
   _bossRooms:
   - {fileID: 3930390152670468904, guid: 4e672cb5532d9b4428fcef7a28fdbc06, type: 3}
   - {fileID: 1137878678698275791, guid: 7e8fd82c2383b5d44b7d99f54c8b2134, type: 3}
