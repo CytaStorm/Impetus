@@ -3195,6 +3195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991c8360627e3594eb2edeeb0a90a02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
 --- !u!1 &3930390152670468904
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,7 +3263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991c8360627e3594eb2edeeb0a90a02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 0}
+  bossPrefab: {fileID: 8818562368770000821, guid: 5b794d482a8e56448bf9dbeae7fd2300, type: 3}
   spawnPoint: {fileID: 0}
 --- !u!1 &3961840306028461989
 GameObject:
