@@ -3374,6 +3374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2054640312513089351}
+  - component: {fileID: 3040307664358796448}
   m_Layer: 0
   m_Name: Boss Spawning
   m_TagString: Untagged
@@ -3396,6 +3397,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 75875059322404294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3040307664358796448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828734774532115060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991c8360627e3594eb2edeeb0a90a02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3930390152670468904
 GameObject:
   m_ObjectHideFlags: 0

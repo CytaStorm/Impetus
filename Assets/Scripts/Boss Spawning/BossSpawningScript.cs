@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class BossSpawningScript : MonoBehaviour
 {
-    [SerializeField] public GameObject bossPrefab;
-    [SerializeField] public Transform spawnPoint; 
+    [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private Transform spawnPoint;
     private bool bossSpawned = false;
 
-    // This function is called when another collider enters the trigger collider
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !bossSpawned)
         {
             SpawnBoss();
-            bossSpawned = true; // Ensure the boss only spawns once
+            bossSpawned = true;
         }
     }
 
-    void SpawnBoss()
+    private void SpawnBoss()
     {
         Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
     }
