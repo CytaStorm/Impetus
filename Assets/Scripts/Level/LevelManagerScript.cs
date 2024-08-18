@@ -67,7 +67,11 @@ public class LevelManagerScript : MonoBehaviour
 		SortRooms();
         GenerateLayout(RoomsToMake);
         ChangeRoom.AddListener(LoadNewRoom);
-	}
+
+		//Scan room
+        var graphToScan = AstarPath.active.data.gridGraph;
+        AstarPath.active.Scan(graphToScan);
+    }
 
 	void Update()
 	{
@@ -282,7 +286,7 @@ public class LevelManagerScript : MonoBehaviour
 
         //Rescan the graph with A* PATHFINDING
         var graphToScan = AstarPath.active.data.gridGraph;
-        AstarPath.active.ScanAsync(graphToScan);
+        AstarPath.active.Scan(graphToScan);
         Debug.Log("Shoulda scanned by now");
 
         //Respawn enemies if we go back to a previous room
