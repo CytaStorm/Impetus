@@ -52,11 +52,6 @@ public class LevelManagerScript : MonoBehaviour
 	public List<EnemyScript> inactiveEnemyScripts = new List<EnemyScript>();
 	#endregion
 
-	#region A* Pathfinding
-	[SerializeField] private GameObject gridObject;
-	[SerializeField] private Grid grid;
-    #endregion
-
     private void Awake()
 	{
 		if (LevelManager != null &&
@@ -72,9 +67,11 @@ public class LevelManagerScript : MonoBehaviour
 		SortRooms();
         GenerateLayout(RoomsToMake);
         ChangeRoom.AddListener(LoadNewRoom);
-		gridObject = GameObject.FindWithTag("Grid");
-		grid = gridObject.GetComponent<Pathfinder>();
-	}
+
+		//Scan room
+        var graphToScan = AstarPath.active.data.gridGraph;
+        AstarPath.active.Scan(graphToScan);
+    }
 
 	void Update()
 	{
@@ -265,10 +262,7 @@ public class LevelManagerScript : MonoBehaviour
 	/// changed through.</param>
 	private void LoadNewRoom(int roomNumber)
 	{
-		//Rescan the graph with A* Pathfinding
-		//AstarPath.active.UpdateGraphs(new GraphUpdateObject(bounds);
-
-		Debug.Log("Load new room");
+        Debug.Log("Load new room");
 		if (roomNumber > 0)
 		{
 			_currentRoom.SetActive(false);
@@ -290,8 +284,13 @@ public class LevelManagerScript : MonoBehaviour
 			_currentRoom.SetActive(true);
 		}
 
+        //Rescan the graph with A* PATHFINDING
+        var graphToScan = AstarPath.active.data.gridGraph;
+        AstarPath.active.Scan(graphToScan);
+        Debug.Log("Shoulda scanned by now");
+
         //Respawn enemies if we go back to a previous room
-		List<EnemyScript> scriptsToRemove = new List<EnemyScript>();
+        List<EnemyScript> scriptsToRemove = new List<EnemyScript>();
         foreach (EnemyScript enemyScript in inactiveEnemyScripts)
         {
             if (enemyScript.MyRoomNumber == RoomNumber)
