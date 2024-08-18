@@ -9946,7 +9946,7 @@ GameObject:
   - component: {fileID: 7598829581259739281}
   - component: {fileID: 3719016593671709145}
   - component: {fileID: 5728429860461842856}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13758,11 +13758,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smallEnemy: {fileID: 2346838787717900255, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
-  smallEnemyCount: 1
   rangedEnemy: {fileID: 1889082817444708342, guid: fe14e84530aaf7547bac3edaf27daddf, type: 3}
-  rangedEnemyCount: 1
   bigEnemy: {fileID: 2644824056525507382, guid: 9849a40bb51dd7c45b49bada3962ff0b, type: 3}
-  bigEnemyCount: 1
   spawnAreaCenter1: {x: -2, y: 6.5}
   spawnAreaSize1: {x: 4, y: 4}
   spawnAreaCenter2: {x: 0.7, y: -1.7}
