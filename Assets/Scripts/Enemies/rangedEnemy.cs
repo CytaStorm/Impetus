@@ -173,6 +173,7 @@ public class RangedEnemyScript : MonoBehaviour
             //Debug.Log("Projectile Direction: " + direction);
             // Update next fire time
             _nextFireTime = Time.time + 1f / _fireRate;
+            FindAttackAnimationDirection(direction);
         }
     }
 
