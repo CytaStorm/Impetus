@@ -57,6 +57,9 @@ MonoBehaviour:
   _aetherIncrease: 5
   _enemyDamage: 1
   _flowWorth: 5
+  _enemyDied:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2317187916378199600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,8 +72,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7a1561a83d6ef4bb7145ded9323b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _seeker: {fileID: 0}
-  _rb: {fileID: 0}
+  _seeker: {fileID: 6432743966836146115}
+  _enemyScript: {fileID: 27085955205205821}
+  _rb: {fileID: 7156780480421364919}
   _target: {fileID: 0}
   _obstructionMask:
     serializedVersion: 2
@@ -185,7 +189,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

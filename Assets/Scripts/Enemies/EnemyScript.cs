@@ -27,7 +27,7 @@ public class EnemyScript : MonoBehaviour
     private PlayerScript _player;
 
     //Event
-    private UnityEvent _enemyDied;
+    public UnityEvent _enemyDied;
     #endregion
 
     #region Camera Variables
@@ -114,7 +114,7 @@ public class EnemyScript : MonoBehaviour
         {
             _enemyDied = new UnityEvent();
         }
-        _enemyDied.AddListener(killEnemy);
+        //_enemyDied.AddListener(killEnemy);
     }
     
 
@@ -135,14 +135,7 @@ public class EnemyScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    
     {
-        if (this._enemyHealth <= 0)
-        {
-            _enemyDied.Invoke();
-        }
-
-
         // Keeps enemy on the screen
         //Vector3 enemyPos = transform.position;
         //enemyPos.x = Mathf.Clamp(enemyPos.x, screenLeft, screenRight);
@@ -181,6 +174,7 @@ public class EnemyScript : MonoBehaviour
             }
             else
             {
+                _enemyDied.Invoke();
                 print("Enemy has died");
             }
 

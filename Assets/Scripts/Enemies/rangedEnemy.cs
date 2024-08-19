@@ -11,6 +11,7 @@ public class RangedEnemyScript : MonoBehaviour
     private int _currentWaypoint;           // Index of the current waypoint in the path
     private bool _reachedEndOfPath;         // Indicates if the enemy has reached the end of the path
     [SerializeField] private Seeker _seeker; // Component responsible for pathfinding
+    [SerializeField] private EnemyScript _enemyScript;
     [SerializeField] private Rigidbody2D _rb; // Rigidbody component for handling physics
     [SerializeField] private GameObject _target; // Target the enemy is moving towards
     [SerializeField] private LayerMask _obstructionMask; // LayerMask for detecting obstructions
@@ -32,7 +33,6 @@ public class RangedEnemyScript : MonoBehaviour
 
     #region Scripts
     // Get the universal enemy script from our enemy
-    private EnemyScript _enemyScript;
     #endregion
 
     #region Start Method
@@ -41,9 +41,7 @@ public class RangedEnemyScript : MonoBehaviour
     {
         // Define objects
         _target = GameObject.FindWithTag("Player");
-        _seeker = GetComponent<Seeker>();
-        _rb = GetComponent<Rigidbody2D>();
-        _enemyScript = GetComponent<EnemyScript>();
+        _enemyScript._enemyDied.AddListener(FindDieAnimationDirection);
 
         // Setup CalculatePath() to run every quarter second
         InvokeRepeating(nameof(CalculatePath), 0f, .25f);
@@ -53,6 +51,11 @@ public class RangedEnemyScript : MonoBehaviour
     #region Update Method
     void Update()
     {
+        if (_enemyScript.EnemyHealth < 1)
+        {
+            _rb.velocity = Vector2.zero;
+            return;
+        }
         // First make sure the path is created
         if (_path == null || _reachedEndOfPath) return;
 
@@ -183,12 +186,10 @@ public class RangedEnemyScript : MonoBehaviour
 		{
 			if (direction.x < 0)
 			{
-				print("Attacking left");
 				_animator.SetTrigger("AttackLeft");
 			}
 			else
 			{
-				print("Attacking right");
 				_animator.SetTrigger("AttackRight");
 			}
 		}
@@ -196,16 +197,35 @@ public class RangedEnemyScript : MonoBehaviour
 		{
 			if (direction.y > 0)
 			{
-				print("Attacking up");
 				_animator.SetTrigger("AttackUp");
 			}
 			else
 			{
-				print("Attacking down");
 				_animator.SetTrigger("AttackDown");
 			}
 		}
 
+
+    }
+    private void FindDieAnimationDirection()
+    {
+        StartCoroutine(WaitDeathAnimation());
+    }
+
+    private IEnumerator WaitDeathAnimation()
+    {   
+        if (_rb.velocity.x < 0)
+		{
+            print("dieleft");
+			_animator.SetTrigger("DieLeft");
+		}
+		else
+		{
+            print("dieright");
+			_animator.SetTrigger("DieRight");
+		}
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
     #endregion
 
