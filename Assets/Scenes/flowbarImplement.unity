@@ -458,8 +458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovementScript: {fileID: 371202963}
-  _health: 6
-  _maxHealth: 10
+  _health: 1000
+  _maxHealth: 1000
   _aether: 50
   _maxAether: 50
   Flow: 50

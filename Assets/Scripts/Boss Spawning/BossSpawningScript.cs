@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossSpawningScript : MonoBehaviour
 {
-    [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private GameObject Boss;
     [SerializeField] private Transform spawnPoint;
     private bool bossSpawned = false;
 
@@ -19,6 +19,7 @@ public class BossSpawningScript : MonoBehaviour
 
     private void SpawnBoss()
     {
-        Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
+        Debug.Log("Starting Boss Room");
+        Instantiate(Boss, spawnPoint.position, spawnPoint.rotation);
     }
 }

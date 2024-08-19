@@ -8235,6 +8235,52 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &4052489786832220104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5572130577031521879}
+  - component: {fileID: 6196012350162556289}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5572130577031521879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052489786832220104}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.42611, y: -2.9455826, z: 6.325668}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2959814948177532404}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6196012350162556289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052489786832220104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991c8360627e3594eb2edeeb0a90a02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Boss: {fileID: 8818562368770000821, guid: 5b794d482a8e56448bf9dbeae7fd2300, type: 3}
+  spawnPoint: {fileID: 4630386556667976095}
 --- !u!1 &4098339546443991505
 GameObject:
   m_ObjectHideFlags: 0
@@ -8245,7 +8291,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2959814948177532404}
   - component: {fileID: 8914099827115453255}
-  - component: {fileID: 7607295073436386433}
   m_Layer: 0
   m_Name: L_BossRoom3
   m_TagString: Untagged
@@ -8269,6 +8314,7 @@ Transform:
   - {fileID: 2633290883231254923}
   - {fileID: 2736955279720980511}
   - {fileID: 4630386556667976095}
+  - {fileID: 5572130577031521879}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8914099827115453255
@@ -8289,20 +8335,6 @@ MonoBehaviour:
   HasBottomDoor: 0
   HasLeftDoor: 1
   HasRightDoor: 0
---- !u!114 &7607295073436386433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4098339546443991505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991c8360627e3594eb2edeeb0a90a02f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 8818562368770000821, guid: 5b794d482a8e56448bf9dbeae7fd2300, type: 3}
-  spawnPoint: {fileID: 4630386556667976095}
 --- !u!1 &4702022339255079096
 GameObject:
   m_ObjectHideFlags: 0
