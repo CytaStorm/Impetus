@@ -47,7 +47,7 @@ public class Room1EnemySpawn : MonoBehaviour
             // Generate a random position within the spawn rectangle bounds
             float randomX = Random.Range(spawnAreaCenter.x - spawnAreaSize.x / 2, spawnAreaCenter.x + spawnAreaSize.x / 2);
             float randomY = Random.Range(spawnAreaCenter.y - spawnAreaSize.y / 2, spawnAreaCenter.y + spawnAreaSize.y / 2);
-            Vector2 randomPosition = new Vector2(randomX, randomY);
+            Vector3 randomPosition = new Vector3(randomX, randomY, -0.1f);
 
             // Instantiate the enemy at the random position with no rotation (Quaternion.identity)
             Instantiate(enemyPrefab, randomPosition, Quaternion.identity);

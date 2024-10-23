@@ -94,7 +94,7 @@ public class Room2Enemy : MonoBehaviour
             // Generate a random position within the spawn area bounds
             float randomX = UnityEngine.Random.Range(areaCenter.x - areaSize.x / 2, areaCenter.x + areaSize.x / 2);
             float randomY = UnityEngine.Random.Range(areaCenter.y - areaSize.y / 2, areaCenter.y + areaSize.y / 2);
-            Vector2 randomPosition = new Vector2(randomX, randomY);
+            Vector3 randomPosition = new Vector3(randomX, randomY, -0.1f);
 
             // Instantiate the enemy at the random position with no rotation (Quaternion.identity)
             Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
