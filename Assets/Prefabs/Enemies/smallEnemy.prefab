@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2346838787717900255}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: -1.48, z: 0.1}
+  m_LocalPosition: {x: -1.5, y: -1.48, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -210,7 +210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   weapon: {fileID: 0}
+  levelManager: {fileID: 0}
   _enemyHealth: 5
   _aetherIncrease: 3
   _enemyDamage: 1
   _flowWorth: 5
+  myRoomNumber: 0
