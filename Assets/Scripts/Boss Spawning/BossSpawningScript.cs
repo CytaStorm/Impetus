@@ -22,4 +22,10 @@ public class BossSpawningScript : MonoBehaviour
         Debug.Log("Starting Boss Room");
         Instantiate(Boss, spawnPoint.position, spawnPoint.rotation);
     }
+
+    private void Start()
+    {
+        Debug.Log("Starting Boss Room");
+        Instantiate(Boss, spawnPoint.position, spawnPoint.rotation);
+    }
 }
