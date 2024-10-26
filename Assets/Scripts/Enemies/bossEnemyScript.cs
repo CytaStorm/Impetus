@@ -98,7 +98,7 @@ public class bossEnemyScript : MonoBehaviour
             float distanceToPlayer = Vector2.Distance(this.transform.position, _target.transform.position);
             if (distanceToPlayer <= _attackRange && distanceToPlayer >= _minAttackDistance)
             {
-                _bossAttackScript.PerformAnyAttack(_aoeRadius, _aoeDamage);
+                _bossAttackScript.PerformAnyAttack();
                 _aoeTimer = _aoeCooldown;
             }
         }

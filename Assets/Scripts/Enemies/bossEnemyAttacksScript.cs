@@ -26,7 +26,6 @@ public class bossEnemyAttacksScript : MonoBehaviour
     [SerializeField] private GameObject _target;
     [SerializeField] private GameObject pivot;
     [SerializeField] private GameObject hammer;
-    [SerializeField] private GameObject AOE;
     [SerializeField] private Sprite hammerSprite;
     private Rigidbody2D pivotRB;
 
@@ -49,10 +48,9 @@ public class bossEnemyAttacksScript : MonoBehaviour
 
         //Set weapons to inactive
         hammer.SetActive(false);
-        AOE.SetActive(false);
 
         //StartCoroutine("PerformBasicMeleeAttack");
-        StartCoroutine("SpinAttack");
+        //StartCoroutine("SpinAttack");
     }
 
     void Update()
@@ -64,7 +62,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
             float distanceToPlayer = Vector2.Distance(transform.position, _target.transform.position);
             if (distanceToPlayer <= _attackRange && distanceToPlayer >= _minAttackDistance)
             {
-                PerformAnyAttack(2, 20);
+                PerformAnyAttack();
             }
         }
 
@@ -91,25 +89,24 @@ public class bossEnemyAttacksScript : MonoBehaviour
     /// Performs a (AoE) attack by randomly selecting one of the available attack types:
     /// Basic Melee Attack, Spin Attack, Plus Ground Smash Attack, or X Ground Smash Attack.(more will be added)
     /// </summary>
-    /// <param name="_aoeRadius">The radius of the AoE attack.</param>
-    /// <param name="_aoeDamage">The damage dealt by the AoE attack.</param>
-    public void PerformAnyAttack(float _aoeRadius, float _aoeDamage)
+    public void PerformAnyAttack()
     {
-        // Generate a random number between 0 and 3 to select the type of attack
-        int attackType = Random.Range(0, 3);
+        // Generate a random number between 0 and 1 to select the type of attack
+        //We have given up on the ground smash attacks :)
+        int attackType = Random.Range(0, 2);
 
         // Perform the selected attack based on the random number
         switch (attackType)
         {
             case 0:
                 // Perform a basic melee attack
-                //StartCoroutine(PerformBasicMeleeAttack());
-                PerformXGroundSmashAttack();
+                StartCoroutine(PerformBasicMeleeAttack());
+                //PerformXGroundSmashAttack();
                 break;
             case 1:
                 // Perform a spin attack
-                // StartCoroutine(SpinAttack());
-                PerformPlusGroundSmashAttack();
+                StartCoroutine(SpinAttack());
+                //PerformPlusGroundSmashAttack();
                 break;
             case 2:
                 // Perform a plus ground smash attack
@@ -127,6 +124,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
     IEnumerator PerformBasicMeleeAttack()
     {
         hammer.SetActive(true);
+        print("Meleeing now");
         bossPos = this.transform.position;
 
         //Get direction, rotation, and magnitude of the range of motion
@@ -158,6 +156,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
     IEnumerator SpinAttack()
     {
         hammer.SetActive(true);
+        print("Spinning now");
         bossPos = this.transform.position;
 
         //Get direction and get the direction 90 degrees from it
@@ -176,6 +175,7 @@ public class bossEnemyAttacksScript : MonoBehaviour
         rotating = true;
         yield return new WaitForSeconds(_spinAttackDuration);
         rotating = false;
+        hammer.transform.localPosition = new Vector3(4.84540796f, 0, 0);
         hammer.SetActive(false);
         _smashTimer = _smashCooldown;
     }
@@ -195,9 +195,16 @@ public class bossEnemyAttacksScript : MonoBehaviour
 
         foreach (Vector2 direction in attackDirections)
         {
-            Vector2 boxSize = (direction == Vector2.left || direction == Vector2.right) ?
-                new Vector2(_attackRange, boxWidth) :
-                new Vector2(boxWidth, _attackRange);
+            Vector2 boxSize;
+
+            if (direction == Vector2.left || direction == Vector2.right)
+            {
+                boxSize = new Vector2(_attackRange, boxWidth);
+            }
+            else
+            {
+                boxSize = new Vector2(boxWidth, _attackRange);
+            }
 
             RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0, direction, _attackRange);
             if (hit.collider != null && hit.collider.CompareTag("Player"))
