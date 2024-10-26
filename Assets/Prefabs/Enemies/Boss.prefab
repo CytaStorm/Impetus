@@ -205,7 +205,6 @@ MonoBehaviour:
   _target: {fileID: 0}
   pivot: {fileID: 0}
   hammer: {fileID: 0}
-  AOE: {fileID: 0}
   hammerSprite: {fileID: 21300000, guid: 0818895a773b6b64f91240610bf6213f, type: 3}
 --- !u!114 &7846610889819671349
 MonoBehaviour:
@@ -222,10 +221,10 @@ MonoBehaviour:
   player: {fileID: 0}
   weapon: {fileID: 0}
   levelManager: {fileID: 0}
-  _enemyHealth: 0
-  _aetherIncrease: 0
-  _enemyDamage: 0
-  _flowWorth: 0
+  _enemyHealth: 100
+  _aetherIncrease: 100
+  _enemyDamage: 10
+  _flowWorth: 100
   myRoomNumber: 0
 --- !u!114 &5507626750240119304
 MonoBehaviour:
