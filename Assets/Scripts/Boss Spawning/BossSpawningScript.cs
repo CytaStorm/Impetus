@@ -6,26 +6,26 @@ public class BossSpawningScript : MonoBehaviour
 {
     [SerializeField] private GameObject Boss;
     [SerializeField] private Transform spawnPoint;
-    private bool bossSpawned = false;
+    //private bool bossSpawned = false;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !bossSpawned)
-        {
-            SpawnBoss();
-            bossSpawned = true;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player") && !bossSpawned)
+    //    {
+    //        SpawnBoss();
+    //        bossSpawned = true;
+    //    }
+    //}
 
-    private void SpawnBoss()
-    {
-        Debug.Log("Starting Boss Room");
-        Instantiate(Boss, spawnPoint.position, spawnPoint.rotation);
-    }
+    //private void SpawnBoss()
+    //{
+    //    Debug.Log("Starting Boss Room");
+    //    Instantiate(Boss, spawnPoint.position, spawnPoint.rotation);
+    //}
 
     private void Start()
     {
-        Debug.Log("Starting Boss Room");
+        Debug.Log("Starting Boss Room from start");
         Instantiate(Boss, spawnPoint.position, spawnPoint.rotation);
     }
 }
