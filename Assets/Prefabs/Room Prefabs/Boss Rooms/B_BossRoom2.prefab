@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4979879576089187516}
-  - component: {fileID: 6978907753239687033}
+  - component: {fileID: 4941637255803784081}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5638940731109386863}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6978907753239687033
+--- !u!114 &4941637255803784081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991c8360627e3594eb2edeeb0a90a02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boss: {fileID: 8818562368770000821, guid: 5b794d482a8e56448bf9dbeae7fd2300, type: 3}
-  spawnPoint: {fileID: 87427505804428326}
+  bossPrefab: {fileID: 8818562368770000821, guid: 5b794d482a8e56448bf9dbeae7fd2300, type: 3}
+  pivotPrefab: {fileID: 1673807068294505556, guid: 1946d9949d48f85469a62d350693c5d7, type: 3}
+  spawnPoint: {fileID: 8215506539594602123}
 --- !u!1 &1137878678698275791
 GameObject:
   m_ObjectHideFlags: 0
