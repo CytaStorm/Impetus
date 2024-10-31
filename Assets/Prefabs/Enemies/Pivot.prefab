@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4709691623440866027}
   - component: {fileID: 6620239356698101365}
   - component: {fileID: 3462629774781557639}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,9 +126,10 @@ GameObject:
   - component: {fileID: 7040052232873347704}
   - component: {fileID: 2509999728777996174}
   - component: {fileID: 1673829246422562049}
-  m_Layer: 7
+  - component: {fileID: 6524403093150241682}
+  m_Layer: 10
   m_Name: Hammer
-  m_TagString: Weapon
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,3 +318,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6524403093150241682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690492979186455645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde42522ba22ab643a33ec11e8297938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

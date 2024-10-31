@@ -46,6 +46,8 @@ public class bossEnemyAttacksScript : MonoBehaviour
         pivotRB = pivot.GetComponent<Rigidbody2D>();
         rotating = false;
 
+        _target = GameObject.FindWithTag("Player");
+
         //Set weapons to inactive
         hammer.SetActive(false);
 

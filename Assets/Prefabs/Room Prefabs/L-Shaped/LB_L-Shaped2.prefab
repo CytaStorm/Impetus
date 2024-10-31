@@ -2524,7 +2524,7 @@ Transform:
   m_GameObject: {fileID: 1061908058684229790}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3970261, y: 4.827241, z: 28.392181}
+  m_LocalPosition: {x: -1.3970261, y: 4.827241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2545,11 +2545,11 @@ MonoBehaviour:
   smallEnemy: {fileID: 2346838787717900255, guid: eaaa9af720f5fd641843c157f349b3be, type: 3}
   rangedEnemy: {fileID: 1889082817444708342, guid: fe14e84530aaf7547bac3edaf27daddf, type: 3}
   bigEnemy: {fileID: 2644824056525507382, guid: 9849a40bb51dd7c45b49bada3962ff0b, type: 3}
-  spawnAreaCenter1: {x: -49, y: 20}
+  spawnAreaCenter1: {x: -0.64, y: 2.85}
   spawnAreaSize1: {x: 4, y: 4}
-  spawnAreaCenter2: {x: -49, y: 14}
+  spawnAreaCenter2: {x: 7.93, y: -3}
   spawnAreaSize2: {x: 4, y: 4}
-  spawnAreaCenter3: {x: -35, y: -1}
+  spawnAreaCenter3: {x: 7.93, y: -11}
   spawnAreaSize3: {x: 4, y: 4}
 --- !u!1 &2011430867492234095
 GameObject:
@@ -6124,7 +6124,7 @@ Transform:
   m_GameObject: {fileID: 7842222736742120861}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 31.499975, y: -8.579459, z: 21.120571}
+  m_LocalPosition: {x: 31.499975, y: -8.579459, z: 0}
   m_LocalScale: {x: 0.67, y: 0.67, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

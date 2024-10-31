@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class BossSpawningScript : MonoBehaviour
@@ -26,12 +27,11 @@ public class BossSpawningScript : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Starting Boss Room from start");
+        UnityEngine.Debug.Log("Starting Boss Room from start");
         GameObject boss = Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
         GameObject pivot = Instantiate(pivotPrefab, spawnPoint.position, spawnPoint.rotation);
 
         boss.GetComponent<bossEnemyAttacksScript>().pivot = pivot;
         boss.GetComponent<bossEnemyAttacksScript>().hammer = pivot.transform.GetChild(0).gameObject;
-
     }
 }

@@ -1226,7 +1226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330278273434510954, guid: 5b794d482a8e56448bf9dbeae7fd2300, type: 3}
       propertyPath: _spinRadiusOffset
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7330278273434510954, guid: 5b794d482a8e56448bf9dbeae7fd2300, type: 3}
       propertyPath: _spinAttackDuration
