@@ -2575,7 +2575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29d3e962ce41dd4d9a5d4e3127b0ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBarSlider: {fileID: 0}
+  _healthBarSlider: {fileID: 1517726707}
 --- !u!114 &1517726707
 MonoBehaviour:
   m_ObjectHideFlags: 0
