@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static System.Net.Mime.MediaTypeNames;
 
 public class MenuScript : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class MenuScript : MonoBehaviour
 
 	public void StartGame()
 	{
-		SceneManager.LoadScene(2);
+		SceneManager.LoadScene("flowbarImplement");
 	}
 
 	public void GameOver()
@@ -51,6 +52,6 @@ public class MenuScript : MonoBehaviour
 
 	public void Quit()
 	{
-		Application.Quit();
-	}
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
 }
