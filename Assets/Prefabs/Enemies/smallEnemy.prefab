@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 61122715929265036}
   - component: {fileID: 1251854128965715328}
   - component: {fileID: 5925918337566382396}
+  - component: {fileID: 480056984015991229}
+  - component: {fileID: 1412802977266561572}
   m_Layer: 8
   m_Name: smallEnemy
   m_TagString: Untagged
@@ -195,7 +197,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49019608
+  m_Radius: 0.39
 --- !u!114 &5925918337566382396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,3 +218,38 @@ MonoBehaviour:
   _enemyDamage: 1
   _flowWorth: 5
   myRoomNumber: 0
+--- !u!114 &480056984015991229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346838787717900255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9630ef8e91c4474db597914e0c90724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1412802977266561572}
+  rb: {fileID: 8043235494727832851}
+--- !u!95 &1412802977266561572
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346838787717900255}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ed9b930b3f8b03c48b5144c400f2ce67, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
