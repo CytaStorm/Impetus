@@ -26,7 +26,7 @@ public class MenuScript : MonoBehaviour
 
 	public void MainMenu()
 	{
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene("Main Menu");
 	}
 
 	public void StartGame()
@@ -46,11 +46,11 @@ public class MenuScript : MonoBehaviour
 
 	public void Retry()
 	{
-		print("Retry");
-	}
+        SceneManager.LoadScene("flowbarImplement");
+    }
 
 
-	public void Quit()
+    public void Quit()
 	{
         UnityEditor.EditorApplication.isPlaying = false;
     }
