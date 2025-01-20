@@ -52,6 +52,6 @@ public class MenuScript : MonoBehaviour
 
     public void Quit()
 	{
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
 }
