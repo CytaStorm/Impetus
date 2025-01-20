@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ebd3a9ee1f68f4eb0829201d74f530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _smashDamage: 50
+  _smashDamage: 8
   _smashCooldown: 10
   _meleeRange: 2
   _attackRange: 5
@@ -178,9 +178,9 @@ MonoBehaviour:
   player: {fileID: 0}
   weapon: {fileID: 0}
   levelManager: {fileID: 0}
-  _enemyHealth: 100
+  _enemyHealth: 40
   _aetherIncrease: 100
-  _enemyDamage: 10
+  _enemyDamage: 4
   _flowWorth: 100
   myRoomNumber: 0
 --- !u!114 &5507626750240119304

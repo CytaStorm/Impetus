@@ -189,7 +189,7 @@ MonoBehaviour:
   _rb: {fileID: 4595081855412313987}
   _target: {fileID: 0}
   _aoeRadius: 2
-  _aoeDamage: 20
+  _aoeDamage: 2
   _aoeCooldown: 5
   _attackRange: 3
   _minAttackDistance: 0
